@@ -239,11 +239,13 @@ function PitchSection() {
                 under Imperial Brands PLC.
               </p>
               <p className="cv-pitch-copy">
-                The organisation was lacking in tools and processes to make design efficient, consistent and robust.
-                Negotiating the contracts, working with leadership and stakeholders across departments, and putting in place
-                the requests and governance models. I brought UserTesting.com, Figma, and Hotjar to Imperial to evolve their
-                old legacy design workflows and systems, drastically improving file structure and visibility and injecting
-                human-centric consumer culture to the core of the business&apos; digital pathways and channels.
+                The organisation was lacking in tools and processes to{" "}
+                <strong>make design process efficient, consistent and robust</strong>. Negotiating the contracts, working
+                with leadership and stakeholders across departments, and putting in place the requests and governance models.
+                I brought UserTesting.com, Figma, and Hotjar to Imperial to{" "}
+                <strong>evolve their old legacy design workflows and systems</strong>, drastically{" "}
+                <strong>improving file structure and visibility</strong> and injecting human-centric consumer culture to the
+                core of the business&apos; digital pathways and channels.
               </p>
             </div>
           </div>
