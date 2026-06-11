@@ -1,0 +1,73 @@
+
+<style>
+  #wrap {
+    width: 100%;
+    aspect-ratio: 16 / 7;
+    position: relative;
+    background: #001721;
+    overflow: hidden;
+    border-radius: 8px;
+  }
+  #bgCanvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+</style>
+<div id="wrap">
+  <canvas id="bgCanvas"></canvas>
+</div>
+<script>
+(function(){
+  const canvas = document.getElementById('bgCanvas');
+  const ctx = canvas.getContext('2d');
+  const wrap = document.getElementById('wrap');
+
+  function resize(){
+    canvas.width = wrap.clientWidth;
+    canvas.height = wrap.clientHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  const palette = [
+    [0,23,33],[0,38,50],[0,63,82],[0,87,113],
+    [14,89,90],[0,122,177],[14,89,90],[93,171,223],[229,243,251]
+  ];
+
+  function lerp(a,b,t){ return a+(b-a)*t; }
+  function colorAt(v){
+    const s=v*(palette.length-1), lo=Math.floor(s), hi=Math.min(lo+1,palette.length-1), f=s-lo;
+    return `rgb(${Math.round(lerp(palette[lo][0],palette[hi][0],f))},${Math.round(lerp(palette[lo][1],palette[hi][1],f))},${Math.round(lerp(palette[lo][2],palette[hi][2],f))})`;
+  }
+
+  const CELL=13, GAP=3, STEP=CELL+GAP;
+  let t=0;
+
+  function draw(){
+    const W=canvas.width, H=canvas.height;
+    ctx.clearRect(0,0,W,H);
+    ctx.fillStyle='#001721';
+    ctx.fillRect(0,0,W,H);
+    const scale=H/260, cellS=CELL*scale, stepS=STEP*scale;
+    const COLS=Math.ceil(W/stepS)+2, ROWS=Math.ceil(H/stepS)+2;
+    const ox=-stepS, oy=-stepS;
+    for(let row=0;row<ROWS;row++){
+      const rowOffset=(row%2===0)?0:stepS*0.5;
+      for(let col=0;col<COLS;col++){
+        const x=ox+col*stepS+rowOffset, y=oy+row*stepS;
+        const cx=x/W-0.5, cy=y/H-0.5;
+        const dist=Math.sqrt(cx*cx+cy*cy)*2;
+        const rowPhase=(row%2===0)?0:Math.PI*0.5;
+        const wave1=Math.sin(dist*6-t*2.2)*0.5+0.5;
+        const wave2=Math.sin((cx+cy)*8+t*1.6)*0.3+0.3;
+        const spec=Math.sin(col/COLS*Math.PI*2.5-t*2.5+rowPhase)*0.5+0.5;
+        const intensity=Math.max(0,Math.min(1,wave1*0.45+wave2*0.25+spec*0.35));
+        ctx.globalAlpha=0.18+intensity*0.82;
+        ctx.fillStyle=colorAt(intensity);
+        ctx.fillRect(x,y,cellS,cellS);
+        ctx.globalAlpha=1;
+      }
+    }
+    t+=0.022;
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+</script>

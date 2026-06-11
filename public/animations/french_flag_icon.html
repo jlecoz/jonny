@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title></title>
+  <style>
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      background: transparent;
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="c" style="display: block; width: 32px; height: 22px"></canvas>
+  <script>
+(function(){
+  const canvas = document.getElementById('c');
+  const ctx = canvas.getContext('2d');
+  canvas.width = 32;
+  canvas.height = 22;
+
+  const W = 32, H = 22;
+  const COLS = 32, ROWS = 22;
+  let t = 0;
+
+  function waveOffset(col, row, time){
+    const x = col / COLS;
+    const amp1 = 1.8 * x;
+    const amp2 = 0.8 * x;
+    const dy =
+      amp1 * Math.sin(x * 3.5 - time * 2.8) +
+      amp2 * Math.sin(x * 6.0 - time * 4.2 + (row/ROWS) * 1.5);
+    const dx = amp1 * 0.15 * Math.sin(x * 4.0 - time * 2.8 + 1.2);
+    return {dx, dy};
+  }
+
+  function buildMesh(time){
+    const mesh = [];
+    for(let r=0;r<=ROWS;r++){
+      mesh[r]=[];
+      for(let c=0;c<=COLS;c++){
+        const fx=(c/COLS)*W, fy=(r/ROWS)*H;
+        const {dx,dy}=waveOffset(c,r,time);
+        mesh[r][c]={x:fx+dx, y:fy+dy};
+      }
+    }
+    return mesh;
+  }
+
+  function fillQuad(p00,p10,p11,p01,color){
+    ctx.beginPath();
+    ctx.moveTo(p00.x,p00.y);
+    ctx.lineTo(p10.x,p10.y);
+    ctx.lineTo(p11.x,p11.y);
+    ctx.lineTo(p01.x,p01.y);
+    ctx.closePath();
+    ctx.fillStyle=color;
+    ctx.fill();
+  }
+
+  function fillFlagRect(mesh,u0,v0,u1,v1,color){
+    const c0=Math.round(u0*COLS),c1=Math.round(u1*COLS);
+    const r0=Math.round(v0*ROWS),r1=Math.round(v1*ROWS);
+    for(let r=r0;r<r1;r++)
+      for(let c=c0;c<c1;c++)
+        fillQuad(mesh[r][c],mesh[r][c+1],mesh[r+1][c+1],mesh[r+1][c],color);
+  }
+
+  function drawFlag(mesh){
+    fillFlagRect(mesh, 0,     0, 0.333, 1, '#002395');
+    fillFlagRect(mesh, 0.333, 0, 0.667, 1, '#FFFFFF');
+    fillFlagRect(mesh, 0.667, 0, 1,     1, '#ED2939');
+  }
+
+  function animate(){
+    ctx.clearRect(0,0,W,H);
+    drawFlag(buildMesh(t));
+    t+=0.018;
+    requestAnimationFrame(animate);
+  }
+  animate();
+})();
+  </script>
+</body>
+</html>

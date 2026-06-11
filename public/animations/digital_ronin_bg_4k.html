@@ -1,0 +1,152 @@
+
+<style>
+  html,
+  body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    background: #001721;
+  }
+
+  #wrap {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: #001721;
+    overflow: hidden;
+  }
+  #bgCanvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    image-rendering: crisp-edges;
+    image-rendering: -webkit-optimize-contrast;
+  }
+</style>
+<div id="wrap">
+  <canvas id="bgCanvas"></canvas>
+</div>
+<script>
+(function(){
+  const canvas = document.getElementById('bgCanvas');
+  const ctx = canvas.getContext('2d');
+  const wrap = document.getElementById('wrap');
+
+  // Device pixel ratio — captures Retina/4K screens (up to 4x)
+  const DPR = Math.min(window.devicePixelRatio || 1, 4);
+
+  function resize(){
+    const displayW = wrap.clientWidth;
+    const displayH = wrap.clientHeight;
+    // Physical pixel dimensions
+    canvas.width  = Math.round(displayW * DPR);
+    canvas.height = Math.round(displayH * DPR);
+    // CSS size stays display size
+    canvas.style.width  = displayW + 'px';
+    canvas.style.height = displayH + 'px';
+    // Scale all drawing by DPR so coordinates stay in CSS pixels
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  // CSS pixel dimensions for drawing logic
+  const W = () => wrap.clientWidth;
+  const H = () => wrap.clientHeight;
+
+  const palette = [
+    [0,23,33],[0,38,50],[0,63,82],[0,87,113],
+    [14,89,90],[0,122,177],[14,89,90],[93,171,223],[229,243,251]
+  ];
+
+  function lerp(a,b,t){ return a+(b-a)*t; }
+
+  function colorAt(v){
+    const s=v*(palette.length-1);
+    const lo=Math.floor(s), hi=Math.min(lo+1,palette.length-1), f=s-lo;
+    return `rgb(${Math.round(lerp(palette[lo][0],palette[hi][0],f))},${Math.round(lerp(palette[lo][1],palette[hi][1],f))},${Math.round(lerp(palette[lo][2],palette[hi][2],f))})`;
+  }
+
+  // Smaller cells = denser, crisper grid at high DPI
+  const CELL = 11;
+  const GAP  = 2.5;
+  const STEP = CELL + GAP;
+
+  let t = 0;
+
+  function draw(){
+    const w = W(), h = H();
+
+    ctx.clearRect(0, 0, w, h);
+
+    // Background
+    ctx.fillStyle = '#001721';
+    ctx.fillRect(0, 0, w, h);
+
+    const scale  = h / 260;
+    const cellS  = CELL * scale;
+    const gapS   = GAP  * scale;
+    const stepS  = STEP * scale;
+
+    const COLS = Math.ceil(w / stepS) + 2;
+    const ROWS = Math.ceil(h / stepS) + 2;
+    const ox = -stepS;
+    const oy = -stepS;
+
+    for(let row = 0; row < ROWS; row++){
+      const rowOffset = (row % 2 === 0) ? 0 : stepS * 0.5;
+
+      for(let col = 0; col < COLS; col++){
+        const x = ox + col * stepS + rowOffset;
+        const y = oy + row * stepS;
+
+        if(x + cellS < 0 || x > w || y + cellS < 0 || y > h) continue;
+
+        const cx = x / w - 0.5;
+        const cy = y / h - 0.5;
+        const dist = Math.sqrt(cx*cx + cy*cy) * 2;
+        const rowPhase = (row % 2 === 0) ? 0 : Math.PI * 0.5;
+
+        const wave1 = Math.sin(dist * 6   - t * 2.2) * 0.5 + 0.5;
+        const wave2 = Math.sin((cx+cy) * 8 + t * 1.6) * 0.3 + 0.3;
+        const spec  = Math.sin(col/COLS * Math.PI * 2.5 - t * 2.5 + rowPhase) * 0.5 + 0.5;
+
+        const intensity = Math.max(0, Math.min(1, wave1*0.45 + wave2*0.25 + spec*0.35));
+        const alpha     = 0.18 + intensity * 0.82;
+
+        // Subtle inner highlight — top/left edge slightly brighter
+        const highlightAlpha = alpha * 0.18;
+        const shadowAlpha    = alpha * 0.12;
+
+        // Main cell fill
+        ctx.globalAlpha = alpha;
+        ctx.fillStyle   = colorAt(intensity);
+        ctx.fillRect(x, y, cellS, cellS);
+
+        // Top edge highlight (1px physical = 1/DPR CSS px)
+        ctx.globalAlpha = highlightAlpha;
+        ctx.fillStyle   = '#ffffff';
+        ctx.fillRect(x, y, cellS, 1 / DPR * 1.5);
+
+        // Left edge highlight
+        ctx.fillRect(x, y, 1 / DPR * 1.5, cellS);
+
+        // Bottom/right shadow
+        ctx.globalAlpha = shadowAlpha;
+        ctx.fillStyle   = '#000000';
+        ctx.fillRect(x, y + cellS - 1/DPR*1.5, cellS, 1/DPR*1.5);
+        ctx.fillRect(x + cellS - 1/DPR*1.5, y, 1/DPR*1.5, cellS);
+
+        ctx.globalAlpha = 1;
+      }
+    }
+
+    t += 0.022;
+    requestAnimationFrame(draw);
+  }
+
+  draw();
+})();
+</script>

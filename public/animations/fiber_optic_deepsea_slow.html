@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title></title>
+  <style>
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #00050a;
+    }
+    #fiber-root {
+      width: 100%;
+      height: 100%;
+      min-height: 120px;
+      display: block;
+      position: relative;
+    }
+    #c {
+      display: block;
+      width: 100%;
+      border-radius: 0 !important;
+    }
+  </style>
+</head>
+<body>
+  <div id="fiber-root">
+    <canvas id="c"></canvas>
+    <canvas id="blur" style="display: none"></canvas>
+  </div>
+  <script>
+(function(){
+  const root = document.getElementById('fiber-root');
+  const canvas = document.getElementById('c');
+  const blurCanvas = document.getElementById('blur');
+  const ctx = canvas.getContext('2d');
+  const bctx = blurCanvas.getContext('2d');
+
+  function resize(){
+    const w = root.clientWidth || 680;
+    const hParent = root.clientHeight;
+    const hAspect = Math.round(w * 9 / 16);
+    const h = hParent > 0 ? Math.max(hParent, hAspect) : hAspect;
+    canvas.width = w;
+    canvas.height = h;
+    canvas.style.height = h + 'px';
+    blurCanvas.width = w;
+    blurCanvas.height = h;
+  }
+  resize();
+  window.addEventListener('resize', () => { resize(); initCables(); });
+
+  const W = () => canvas.width;
+  const H = () => canvas.height;
+
+  const NUM_CAUSTICS = 7;
+  const caustics = [];
+  function initCaustics(){
+    caustics.length = 0;
+    for(let i=0;i<NUM_CAUSTICS;i++){
+      caustics.push({
+        cx: 0.1 + Math.random()*0.8,
+        cy: 0.15 + Math.random()*0.55,
+        r:  0.04 + Math.random()*0.09,
+        phase: Math.random()*Math.PI*2,
+        speed: 0.0003 + Math.random()*0.0005,
+        driftX: (Math.random()-0.5)*0.00015,
+        driftY: (Math.random()-0.5)*0.00008,
+        baseAlpha: 0.025 + Math.random()*0.03
+      });
+    }
+  }
+  initCaustics();
+
+  const LAYERS = [
+    { count: 24, spread: 1.65, midSpread: 0.38, topSpread: 0.28, alpha: 0.16, width: [0.3, 0.6], pulseSize: [1.0, 1.8], glowMult: 0.35, yOffset: 0.05 },
+    { count: 20, spread: 1.38, midSpread: 0.26, topSpread: 0.20, alpha: 0.35, width: [0.5, 1.0], pulseSize: [1.8, 3.2], glowMult: 0.65, yOffset: 0.02 },
+    { count: 26, spread: 1.10, midSpread: 0.18, topSpread: 0.14, alpha: 0.88, width: [0.8, 2.0], pulseSize: [2.5, 5.0], glowMult: 1.0,  yOffset: 0.0  },
+  ];
+
+  const allCables = [];
+
+  function makeCable(i, total, layer, layerIdx){
+    const t = total === 1 ? 0.5 : i / (total - 1);
+    const baseX = W() * (0.5 + (t - 0.5) * layer.spread);
+    const midX  = W() * (0.5 + (t - 0.5) * layer.midSpread);
+    const topX  = W() * (0.5 + (t - 0.5) * layer.topSpread);
+    const baseY = H() * (1.0 + layer.yOffset);
+    const topY  = H() * (-0.04);
+    const hue = 185 + (t - 0.5) * 55 + (layerIdx * 7);
+    const isPink  = Math.random() < 0.07;
+    const isWhite = Math.random() < 0.05;
+    let color;
+    if(isPink)       color = `hsla(308,85%,70%,1)`;
+    else if(isWhite) color = `hsla(195,20%,90%,1)`;
+    else             color = `hsla(${hue},88%,${52+Math.random()*22}%,1)`;
+    return {
+      baseX, midX, topX, baseY, topY, color, layer, layerIdx,
+      width: layer.width[0] + Math.random()*(layer.width[1]-layer.width[0]),
+      alpha: layer.alpha*(0.6+Math.random()*0.4),
+      pulses: [], spawnTimer: Math.random()*60
+    };
+  }
+
+  function initCables(){
+    allCables.length = 0;
+    LAYERS.forEach((layer, li) => {
+      for(let i=0;i<layer.count;i++) allCables.push(makeCable(i, layer.count, layer, li));
+    });
+  }
+  initCables();
+
+  function cablePoint(cable, progress){
+    const p = Math.max(0, Math.min(1.05, progress));
+    const y = cable.baseY + (cable.topY - cable.baseY) * p;
+    let x;
+    if(p < 0.5){
+      const t2=p/0.5, ease=t2*t2*(3-2*t2);
+      x = cable.baseX + (cable.midX - cable.baseX) * ease;
+    } else {
+      const t2=(p-0.5)/0.5, ease=t2*t2*(3-2*t2);
+      x = cable.midX + (cable.topX - cable.midX) * ease;
+    }
+    return {x, y};
+  }
+
+  function spawnPulse(cable){
+    const layer = cable.layer;
+    const pick = Math.random();
+    let c;
+    if(pick < 0.65)      c = cable.color;
+    else if(pick < 0.80) c = 'hsla(195,15%,96%,1)';
+    else if(pick < 0.90) c = 'hsla(200,95%,78%,1)';
+    else                 c = 'hsla(310,88%,72%,1)';
+    const sz = layer.pulseSize;
+    cable.pulses.push({
+      progress: 0,
+      speed: 0.003 + Math.random()*0.009,
+      color: c,
+      radius: sz[0] + Math.random()*(sz[1]-sz[0]),
+      trail: 0.10 + Math.random()*0.16,
+      glow: (10+Math.random()*22)*layer.glowMult,
+      dead: false
+    });
+  }
+
+  function drawGrid(){
+    ctx.save();
+    ctx.strokeStyle = 'rgba(0,80,120,0.07)';
+    ctx.lineWidth = 0.5;
+    const gs = 44;
+    for(let x=0;x<W();x+=gs){ ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H());ctx.stroke(); }
+    for(let y=0;y<H();y+=gs){ ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W(),y);ctx.stroke(); }
+    ctx.restore();
+  }
+
+  let frame = 0;
+
+  function drawBackground(){
+    const seaGrad = ctx.createLinearGradient(0, H(), 0, 0);
+    seaGrad.addColorStop(0.0,  '#00050a');
+    seaGrad.addColorStop(0.15, '#000d14');
+    seaGrad.addColorStop(0.35, '#001c2e');
+    seaGrad.addColorStop(0.55, '#002d45');
+    seaGrad.addColorStop(0.72, '#003d52');
+    seaGrad.addColorStop(0.88, '#004f60');
+    seaGrad.addColorStop(1.0,  '#005a68');
+    ctx.fillStyle = seaGrad;
+    ctx.fillRect(0, 0, W(), H());
+
+    const vigL = ctx.createLinearGradient(0,0,W()*0.4,0);
+    vigL.addColorStop(0,'rgba(0,0,0,0.55)'); vigL.addColorStop(1,'rgba(0,0,0,0)');
+    ctx.fillStyle=vigL; ctx.fillRect(0,0,W(),H());
+    const vigR = ctx.createLinearGradient(W(),0,W()*0.6,0);
+    vigR.addColorStop(0,'rgba(0,0,0,0.55)'); vigR.addColorStop(1,'rgba(0,0,0,0)');
+    ctx.fillStyle=vigR; ctx.fillRect(0,0,W(),H());
+
+    const srcGlow = ctx.createRadialGradient(W()*.5,H()*.85,0,W()*.5,H()*.85,W()*.45);
+    srcGlow.addColorStop(0,'rgba(0,120,160,0.38)');
+    srcGlow.addColorStop(0.4,'rgba(0,70,110,0.18)');
+    srcGlow.addColorStop(1,'rgba(0,0,0,0)');
+    ctx.fillStyle=srcGlow; ctx.fillRect(0,0,W(),H());
+
+    const surfGlow = ctx.createRadialGradient(W()*.5,H()*.05,0,W()*.5,H()*.05,W()*.38);
+    surfGlow.addColorStop(0,'rgba(0,160,210,0.20)');
+    surfGlow.addColorStop(0.5,'rgba(0,100,160,0.08)');
+    surfGlow.addColorStop(1,'rgba(0,0,0,0)');
+    ctx.fillStyle=surfGlow; ctx.fillRect(0,0,W(),H());
+
+    caustics.forEach(c => {
+      c.cx += c.driftX;
+      c.cy += c.driftY;
+      if(c.cx < 0.05) c.driftX = Math.abs(c.driftX);
+      if(c.cx > 0.95) c.driftX = -Math.abs(c.driftX);
+      if(c.cy < 0.1)  c.driftY = Math.abs(c.driftY);
+      if(c.cy > 0.72) c.driftY = -Math.abs(c.driftY);
+
+      c.phase += c.speed;
+      const alpha = c.baseAlpha * (0.4 + 0.6 * (Math.sin(c.phase)*0.5+0.5));
+
+      const cx = W()*c.cx, cy = H()*c.cy, r = W()*c.r;
+      const cg = ctx.createRadialGradient(cx,cy,0,cx,cy,r);
+      cg.addColorStop(0,   `rgba(0,180,200,${alpha})`);
+      cg.addColorStop(0.5, `rgba(0,140,180,${alpha*0.4})`);
+      cg.addColorStop(1,   'rgba(0,0,0,0)');
+      ctx.fillStyle = cg;
+      ctx.fillRect(0,0,W(),H());
+    });
+  }
+
+  function drawCable(cable){
+    const steps = 100;
+    ctx.beginPath();
+    for(let s=0;s<=steps;s++){
+      const pt = cablePoint(cable,s/steps);
+      s===0 ? ctx.moveTo(pt.x,pt.y) : ctx.lineTo(pt.x,pt.y);
+    }
+    const parts = cable.color.replace('hsla(','').replace(',1)','').split(',');
+    ctx.strokeStyle = `hsla(${parts[0]},${parts[1]},${parts[2]},${cable.alpha})`;
+    ctx.lineWidth = cable.width;
+    ctx.shadowColor = cable.color;
+    ctx.shadowBlur = cable.layerIdx===2 ? 5 : 2;
+    ctx.stroke();
+    ctx.shadowBlur = 0;
+  }
+
+  function drawPulsesBlurred(cablesInLayer){
+    bctx.clearRect(0,0,W(),H());
+    cablesInLayer.forEach(cable => {
+      cable.pulses.forEach(pulse => {
+        if(pulse.dead) return;
+        const pt = cablePoint(cable, pulse.progress);
+        bctx.shadowColor = pulse.color;
+        bctx.shadowBlur = pulse.glow*1.8;
+        bctx.beginPath();
+        bctx.arc(pt.x,pt.y,pulse.radius,0,Math.PI*2);
+        bctx.fillStyle = pulse.color;
+        bctx.fill();
+        const halo = bctx.createRadialGradient(pt.x,pt.y,0,pt.x,pt.y,pulse.radius*5);
+        halo.addColorStop(0, pulse.color);
+        halo.addColorStop(0.3, pulse.color.replace(',1)',',0.5)'));
+        halo.addColorStop(1,'rgba(0,60,180,0)');
+        bctx.beginPath();
+        bctx.arc(pt.x,pt.y,pulse.radius*5,0,Math.PI*2);
+        bctx.fillStyle=halo; bctx.fill();
+        bctx.shadowBlur=0;
+        const trailSteps=12;
+        for(let i=1;i<=trailSteps;i++){
+          const tp = cablePoint(cable,pulse.progress-(pulse.trail/trailSteps)*i);
+          const alpha=(1-i/trailSteps)*0.45*cable.layer.alpha;
+          const r=Math.max(0.4,pulse.radius*(1-i/(trailSteps+2)));
+          bctx.beginPath();
+          bctx.arc(tp.x,tp.y,r,0,Math.PI*2);
+          bctx.fillStyle=pulse.color.replace(',1)',`,${alpha})`);
+          bctx.fill();
+        }
+      });
+    });
+    const blurPx = cablesInLayer[0] ? (cablesInLayer[0].layer.glowMult*3.5).toFixed(1) : '2';
+    ctx.save();
+    ctx.filter=`blur(${blurPx}px)`;
+    ctx.drawImage(blurCanvas,0,0);
+    ctx.filter='none';
+    bctx.clearRect(0,0,W(),H());
+    cablesInLayer.forEach(cable => {
+      cable.pulses.forEach(pulse => {
+        if(pulse.dead) return;
+        const pt=cablePoint(cable,pulse.progress);
+        bctx.beginPath();
+        bctx.arc(pt.x,pt.y,pulse.radius*0.55,0,Math.PI*2);
+        bctx.fillStyle='rgba(220,240,255,0.9)';
+        bctx.fill();
+      });
+    });
+    ctx.globalCompositeOperation='lighter';
+    ctx.drawImage(blurCanvas,0,0);
+    ctx.globalCompositeOperation='source-over';
+    ctx.restore();
+  }
+
+  function animate(){
+    ctx.clearRect(0,0,W(),H());
+    drawBackground();
+    drawGrid();
+    [0,1,2].forEach(li => {
+      const layer = allCables.filter(c=>c.layerIdx===li);
+      layer.forEach(cable => {
+        drawCable(cable);
+        cable.spawnTimer--;
+        if(cable.spawnTimer<=0){ spawnPulse(cable); cable.spawnTimer=12+Math.random()*55; }
+        cable.pulses.forEach(p=>{ p.progress+=p.speed; if(p.progress>1.08) p.dead=true; });
+        cable.pulses=cable.pulses.filter(p=>!p.dead);
+      });
+      drawPulsesBlurred(layer);
+    });
+    frame++;
+    requestAnimationFrame(animate);
+  }
+
+  animate();
+})();
+  </script>
+</body>
+</html>
