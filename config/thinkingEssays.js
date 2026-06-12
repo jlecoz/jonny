@@ -9,7 +9,25 @@ export const thinkingEssays = [
     lede:
       "There is a version of this story that gets told at conferences. A design leader walks into a conservative organisation, wins over the sceptics, ships the design system, and exits to applause. It is a satisfying arc. It is also incomplete.",
     paragraphs: [
-      "I spent four years building a design capability inside Imperial Brands — a 130-year-old FMCG business operating in one of the most regulated industries on earth. We went from two ad-hoc designers to a full in-house agency: product designers, UX researchers, a systems lead, front-end engineers, embedded alongside major external partners in London and Amsterdam. We brought in Figma, UserTesting, Hotjar. We wrote the governance models, negotiated the contracts, changed how design was procured and measured. By any conventional metric, it worked.",
+      {
+        parts: [
+          { strong: "I spent four years building a design capability inside Imperial Brands" },
+          " — a 130-year-old FMCG business operating in one of the most regulated industries on earth. My team and I went from two ad-hoc designers to a ",
+          { strong: "full in-house agency:" },
+          " product designers, UX researchers, a systems lead, front-end engineers, embedded alongside major external partners in London and Amsterdam. My team and I ",
+          { strong: "brought in" },
+          " ",
+          { strong: "Figma, UserTesting, Hotjar" },
+          ", along with all the human-centric design models and processes to ",
+          { strong: "improve efficiency, visibility and collaboration" },
+          " across the organisation and its various product categories.",
+          " My team and I ",
+          { strong: "wrote the" },
+          " ",
+          { strong: "governance models, negotiated the contracts, changed how design was procured and measured." },
+          " By any conventional metric, it worked.",
+        ],
+      },
       "What the metrics don't capture is what it actually costs to transplant human-centred thinking into an institution that has spent a century optimising for something else.",
       "The first cost is translation. Regulated industries do not speak the language of users. They speak the language of compliance, legal exposure, and category management. Every insight from a research session has to be re-encoded before it reaches a decision-maker — not because the people are incapable of understanding it, but because the organisation's immune system will reject anything that arrives in an unfamiliar form. You spend an enormous amount of energy becoming bilingual. That energy is invisible in the output.",
       "The second cost is pace. User-centred design depends on iteration — on the freedom to be wrong quickly and correct. Traditional corporates are structured to prevent mistakes, which means they are also structured to prevent learning. Getting a test-and-learn culture established inside a business built on brand governance and regulatory caution is not a design challenge. It is a political one. You are not designing products. You are redesigning how decisions get made.",

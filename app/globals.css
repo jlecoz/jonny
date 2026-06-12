@@ -1757,6 +1757,10 @@ body:has(.parallax-container) {
   align-items: center;
 }
 
+#works #cards.cards-scroll-driver .works-horizontal-viewport .section-services-inner {
+  padding: 32px;
+}
+
 #works #cards.cards-scroll-driver .cv-work-grid {
   --works-track-pad: clamp(1.5rem, 6vw, 4rem);
   margin-top: 0.75rem;
@@ -4170,6 +4174,45 @@ body:has(.parallax-container) {
   color: var(--thinking-text-primary);
 }
 
+.thinking-essay-scroll-top {
+  position: fixed;
+  bottom: 2rem;
+  right: clamp(1.5rem, 4vw, 4vw);
+  z-index: 101;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  font-family: var(--font-body), -apple-system, "Helvetica Neue", sans-serif;
+  font-size: 1.1rem;
+  line-height: 1;
+  color: var(--thinking-text-secondary);
+  background: var(--thinking-bg);
+  border: 1px solid var(--thinking-border);
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(0.5rem);
+  transition:
+    opacity 0.2s,
+    transform 0.2s,
+    border-color 0.2s,
+    color 0.2s;
+}
+
+.thinking-essay-scroll-top.visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.thinking-essay-scroll-top:hover {
+  border-color: var(--thinking-border-hover);
+  color: var(--thinking-text-primary);
+}
+
 .thinking-essay-body {
   max-width: 680px;
   margin: 0 auto;
@@ -4207,6 +4250,11 @@ body:has(.parallax-container) {
   font-size: 1.18rem;
   line-height: 1.75;
   color: rgba(240, 237, 232, 0.9);
+}
+
+.thinking-essay-body-prose p strong {
+  color: var(--thinking-text-primary);
+  font-weight: 600;
 }
 
 .thinking-essay-body-byline {

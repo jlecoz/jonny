@@ -1,10 +1,12 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { thinkingEssays } from "@/config/thinkingEssays";
 
 export default function ThinkingEssays() {
+  const overlayRef = useRef(null);
   const [openEssayId, setOpenEssayId] = useState(null);
+  const [showScrollTop, setShowScrollTop] = useState(false);
 
   const openEssay = useCallback((id) => {
     setOpenEssayId(id);
@@ -30,6 +32,28 @@ export default function ThinkingEssays() {
     return () => {
       document.body.style.overflow = "";
     };
+  }, []);
+
+  useEffect(() => {
+    const overlay = overlayRef.current;
+    if (!overlay || !openEssayId) {
+      setShowScrollTop(false);
+      return;
+    }
+
+    const onScroll = () => {
+      setShowScrollTop(overlay.scrollTop > 400);
+    };
+
+    overlay.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+
+    return () => overlay.removeEventListener("scroll", onScroll);
+  }, [openEssayId]);
+
+  const scrollToTop = useCallback(() => {
+    const behavior = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
+    overlayRef.current?.scrollTo({ top: 0, behavior });
   }, []);
 
   const activeEssay = thinkingEssays.find((essay) => essay.id === openEssayId);
@@ -70,9 +94,23 @@ export default function ThinkingEssays() {
       </section>
 
       {activeEssay ? (
-        <div className="thinking-essay-overlay open" role="dialog" aria-modal="true" aria-labelledby={`${activeEssay.id}-title`}>
+        <div
+          ref={overlayRef}
+          className="thinking-essay-overlay open"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby={`${activeEssay.id}-title`}
+        >
           <button type="button" className="thinking-essay-close" onClick={closeEssay}>
             ← Close
+          </button>
+          <button
+            type="button"
+            className={`thinking-essay-scroll-top${showScrollTop ? " visible" : ""}`}
+            onClick={scrollToTop}
+            aria-label="Scroll to top"
+          >
+            ↑
           </button>
           <div className="thinking-essay-body">
             <p className="thinking-essay-body-eyebrow">
@@ -83,8 +121,18 @@ export default function ThinkingEssays() {
             </h1>
             <div className="thinking-essay-body-prose">
               <p className="lede">{activeEssay.lede}</p>
-              {activeEssay.paragraphs.map((paragraph) => (
-                <p key={paragraph.slice(0, 48)}>{paragraph}</p>
+              {activeEssay.paragraphs.map((paragraph, index) => (
+                <p key={typeof paragraph === "string" ? paragraph.slice(0, 48) : `rich-${index}`}>
+                  {typeof paragraph === "string"
+                    ? paragraph
+                    : paragraph.parts.map((part, partIndex) =>
+                        typeof part === "string" ? (
+                          part
+                        ) : (
+                          <strong key={partIndex}>{part.strong}</strong>
+                        ),
+                      )}
+                </p>
               ))}
             </div>
             <div className="thinking-essay-body-byline">
