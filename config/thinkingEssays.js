@@ -10,14 +10,6 @@ export const thinkingEssays = [
       "There is a version of this story that gets told at conferences. A design leader walks into a conservative organisation, wins over the sceptics, ships the design system, and exits to applause. It is a satisfying arc, one that not many designers get to experience nor live to tell the tale (hahaha.) It is also incomplete and way too simple.",
     paragraphs: [
       {
-        images: [
-          {
-            src: "/img/thinking/imperial-team.png",
-            alt: "Imperial Brands digital design team group photo in the office.",
-          },
-        ],
-      },
-      {
         parts: [
           { strong: "I spent four years building a digital research and design capability inside Imperial Brands" },
           ", which had already a strong physical R&D presence. My team and I went ",
@@ -79,18 +71,6 @@ export const thinkingEssays = [
         ],
       },
       {
-        images: [
-          {
-            src: "/img/thinking/imperial-accessibility-slide.png",
-            alt: "Presentation slide on removing barriers and empowering all users to be independent, productive, and connected.",
-          },
-          {
-            src: "/img/thinking/imperial-coloradd-presentation.png",
-            alt: "ColorADD accessibility presentation with speaker and audience in a workshop setting.",
-          },
-        ],
-      },
-      {
         parts: [
           "None of this is an argument against doing it. The work matters. ",
           { strong: "Human-centred design in regulated industries is not a luxury — it is a correction, and often a moral one." },
@@ -122,13 +102,93 @@ export const thinkingEssays = [
     lede:
       "Most design principles present themselves as universal. User-centred. Accessible. Intuitive. The assumption baked into those words is that the user is roughly like you — that what feels intuitive in one context feels intuitive in another, that trust signals work the same way across cultures, that the mental models people bring to a digital product are broadly shared.",
     paragraphs: [
+      {
+        images: [
+          {
+            src: "/img/thinking/essay2-accessibility-slide.png",
+            alt: "Presentation slide on removing barriers and empowering all users to be independent, productive, and connected.",
+          },
+        ],
+      },
       "Twenty years working across France, the UK, the Netherlands, and beyond taught me that this is mostly fiction.",
-      "At Booking.com in Amsterdam, I watched user research sessions where the same interface produced completely different anxiety responses depending on whether the participant was Dutch, British, or from Southeast Asia. Price transparency that felt reassuring to one group felt aggressive to another. The same copy, faithfully translated, landed with entirely different emotional weight. What the Dutch team read as clarity, French users read as pressure.",
-      "At Intuit, working across the UK and France simultaneously on Making Tax Digital, the divergence was even more pointed — not just cultural but regulatory, behavioural, and deeply tied to each country's relationship with institutions and authority. Designing a product that had to work for both meant holding two distinct user realities in your head at once, without defaulting to whichever one you happened to be sitting closest to that week.",
-      "Part of what makes this hard to talk about is that it requires admitting something designers rarely say out loud: I don't actually know what this feels like to this person. That uncertainty is not a gap in your research process. It is the beginning of your research process. But most design culture is structured around confidence — the well-framed insight, the crisp persona, the principle stated with authority. Sitting with genuine not-knowing is treated as a failure of preparation rather than an honest epistemological position.",
-      "There is also something more personal in it. I grew up across multiple countries — France, California, the UK — never fully belonging to any of them, always translating between contexts, always aware of the gap between how I read a situation and how the people around me read it. At the time, that felt like a liability. It took a long time to understand it as a professional capability. The designer who has repeatedly experienced being the outsider, who knows what it is to misread a room and recalibrate, has a different relationship with assumption than the designer who has always designed for people essentially like themselves.",
-      "The practical lesson is not exotic. It is this: slow down before you name the problem. The framing you reach for first is the framing your culture handed you. It is worth asking where it came from before you build on it.",
-      "Design assumptions travel badly across borders. The ones that travel worst are the ones you don't know you're making.",
+      {
+        parts: [
+          { strong: "At Booking.com in Amsterdam, I watched user research sessions where the same interface produced completely different anxiety responses" },
+          " depending on whether the participant was Dutch, British, or from Southeast Asia. Price transparency that felt reassuring to one group felt aggressive to another. The same copy, faithfully translated, landed with entirely different emotional weight. What the Dutch team read as clarity, French users read as pressure.",
+        ],
+      },
+      {
+        images: [
+          {
+            src: "/img/thinking/essay2-coloradd-presentation.png",
+            alt: "ColorADD accessibility presentation with speaker and audience in a workshop setting.",
+          },
+          {
+            src: "/img/thinking/essay2-accessibility-journey-map.png",
+            alt: "User journey map on a wall with a But is it accessible? banner and sticky-note touchpoints.",
+          },
+        ],
+      },
+      {
+        parts: [
+          { strong: "At Intuit, working across the UK and France simultaneously on Making Tax Digital, the divergence was even more pointed" },
+          " — not just cultural but regulatory, behavioural, and deeply tied to each country's relationship with institutions and authority. Designing a product that had to work for both meant holding two distinct user realities in your head at once, without defaulting to whichever one you happened to be sitting closest to that week.",
+        ],
+      },
+      {
+        images: [
+          {
+            src: "/img/thinking/essay2-intuit-presentation.png",
+            alt: "Intuit QuickBooks team workshop with presenter speaking beside research materials on a whiteboard.",
+          },
+          {
+            src: "/img/thinking/essay2-intuit-tech-refresh.png",
+            alt: "Intuit team reviewing UI documents on a wall during a Tech Refresh working session.",
+          },
+        ],
+      },
+      {
+        parts: [
+          "Part of what makes this hard to talk about is that it requires admitting something designers rarely say out loud: I don't actually know what this feels like to this person. ",
+          { strong: "That uncertainty is not a gap in your research process. It is the beginning of your research process." },
+          " But most design culture is structured around confidence — the well-framed insight, the crisp persona, the principle stated with authority. Sitting with genuine not-knowing is treated as a failure of preparation rather than an honest epistemological position.",
+        ],
+      },
+      {
+        parts: [
+          "There is also something more personal in it. I grew up across multiple countries — France, California, the UK — never fully belonging to any of them, always translating between contexts, always aware of the gap between how I read a situation and how the people around me read it. At the time, that felt like a liability. It took a long time to understand it as a professional capability. ",
+          {
+            strong:
+              "The designer who has repeatedly experienced being the outsider, who knows what it is to misread a room and recalibrate, has a different relationship with assumption than the designer who has always designed for people essentially like themselves.",
+          },
+        ],
+      },
+      {
+        images: [
+          {
+            src: "/img/thinking/essay2-team-london.png",
+            alt: "Design team group photo in the London office.",
+            crop: true,
+          },
+        ],
+      },
+      {
+        parts: [
+          "The practical lesson is not complex. It is this: ",
+          { strong: "slow down before you name the problem." },
+          " The framing you reach for first is the framing your culture handed you. It is worth asking where it came from before you build on it. ",
+          { strong: "Work on your liminal thinking to be outside your internal feedback loops;" },
+          " take the time to observe what's around you and how others respond to your way of being.",
+        ],
+      },
+      {
+        parts: [
+          {
+            strong:
+              "Design assumptions travel badly across borders. The ones that travel worst are the ones you don't even know you're making.",
+          },
+        ],
+      },
     ],
   },
 ];

@@ -15,7 +15,10 @@ function renderParagraph(paragraph, index) {
     return (
       <figure key={`images-${index}`} className="thinking-essay-figures">
         {paragraph.images.map((image) => (
-          <div key={image.src} className="thinking-essay-figure">
+          <div
+            key={image.src}
+            className={`thinking-essay-figure${image.crop ? " thinking-essay-figure--crop" : ""}`}
+          >
             <Image
               src={image.src}
               alt={image.alt}
