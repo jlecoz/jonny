@@ -2768,6 +2768,40 @@ body:has(.parallax-container) {
   gap: 0.9rem;
 }
 
+/* Education page — continuous learning philosophy */
+.section-edu-philosophy {
+  padding-top: 32px;
+  padding-bottom: 48px;
+}
+
+.edu-philosophy-prose {
+  margin-top: 2rem;
+  max-width: 62ch;
+  padding-left: 1.25rem;
+  border-left: 2px solid color-mix(in srgb, var(--color-core-teal, #1a7a73), transparent 45%);
+}
+
+.edu-philosophy-prose p {
+  margin: 0;
+  font-size: var(--size-200);
+  line-height: 1.75;
+  color: var(--color-grey);
+}
+
+.edu-philosophy-prose p + p {
+  margin-top: 1.25rem;
+}
+
+.edu-philosophy-prose p:first-child {
+  color: var(--color-fg);
+  line-height: 1.65;
+}
+
+.edu-philosophy-closer {
+  font-weight: 500;
+  color: var(--color-fg);
+}
+
 .cv-edu-subheading {
   grid-column: 1 / -1;
   font-family: var(--font-label);
@@ -2785,8 +2819,8 @@ body:has(.parallax-container) {
 
 .cv-edu-row {
   display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 1rem;
+  grid-template-columns: 1fr;
+  gap: 0;
   align-items: start;
   background: var(--color-surface);
   border: 1px solid var(--color-border);
@@ -2795,8 +2829,11 @@ body:has(.parallax-container) {
 }
 
 .cv-edu-row--with-logo {
-  grid-template-columns: minmax(0, 1fr) minmax(8rem, 14rem) auto;
-  align-items: center;
+  --cv-edu-logo-col-width: clamp(8rem, 18vw, 12rem);
+  grid-template-columns: minmax(0, 1fr) var(--cv-edu-logo-col-width);
+  align-items: stretch;
+  padding: 0;
+  overflow: hidden;
 }
 
 #education .cv-edu-row {
@@ -2807,12 +2844,60 @@ body:has(.parallax-container) {
   min-width: 0;
 }
 
+.cv-edu-row--with-logo .cv-edu-main {
+  padding: 1.2rem 1.25rem 1.2rem 1.4rem;
+}
+
+.cv-edu-logo-wrap {
+  position: relative;
+  margin: 0;
+  width: var(--cv-edu-logo-col-width, clamp(8rem, 18vw, 12rem));
+  min-width: var(--cv-edu-logo-col-width, clamp(8rem, 18vw, 12rem));
+  min-height: 100%;
+  align-self: stretch;
+  overflow: hidden;
+}
+
 .cv-edu-logo {
-  justify-self: end;
-  width: clamp(8rem, 18vw, 14rem);
-  aspect-ratio: 1;
   object-fit: cover;
   object-position: center;
+}
+
+.cv-edu-logo-wrap--contain {
+  background: #ffffff;
+  padding: 0.65rem 0.75rem;
+}
+
+.cv-edu-logo-wrap--contain .cv-edu-logo {
+  object-fit: contain;
+  object-position: center;
+}
+
+.cv-edu-logo-wrap--contain.cv-edu-logo-wrap--padded {
+  padding: var(--cv-edu-logo-pad-top, var(--cv-edu-logo-pad, 16px))
+    var(--cv-edu-logo-pad-right, var(--cv-edu-logo-pad, 16px))
+    var(--cv-edu-logo-pad-bottom, var(--cv-edu-logo-pad, 16px))
+    var(--cv-edu-logo-pad-left, var(--cv-edu-logo-pad, 16px));
+  box-sizing: border-box;
+}
+
+.cv-edu-logo-wrap--padded {
+  padding: var(--cv-edu-logo-pad-top, var(--cv-edu-logo-pad, 16px))
+    var(--cv-edu-logo-pad-right, var(--cv-edu-logo-pad, 16px))
+    var(--cv-edu-logo-pad-bottom, var(--cv-edu-logo-pad, 16px))
+    var(--cv-edu-logo-pad-left, var(--cv-edu-logo-pad, 16px));
+  box-sizing: border-box;
+}
+
+.cv-edu-logo-inset {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+}
+
+.cv-edu-logo-wrap--transparent {
+  background: transparent;
 }
 
 .cv-edu-row h3 {
@@ -2844,6 +2929,10 @@ body:has(.parallax-container) {
 
 .cv-edu-row--rec .cv-edu-org {
   white-space: pre-line;
+}
+
+.cv-edu-main .cv-edu-period {
+  margin: 0.65rem 0 0;
 }
 
 .cv-edu-period {
@@ -3743,18 +3832,12 @@ body:has(.parallax-container) {
   }
 
   .cv-edu-row--with-logo {
-    grid-template-columns: minmax(0, 1fr) minmax(4.75rem, 6rem);
-    align-items: center;
+    --cv-edu-logo-col-width: clamp(5.5rem, 24vw, 7rem);
+    grid-template-columns: minmax(0, 1fr) var(--cv-edu-logo-col-width);
   }
 
-  .cv-edu-logo {
-    justify-self: end;
-    width: clamp(4.75rem, 24vw, 6rem);
-  }
-
-  .cv-edu-row--with-logo .cv-edu-period {
-    grid-column: 1 / -1;
-    justify-self: start;
+  .cv-edu-row--with-logo .cv-edu-main {
+    padding: 1rem 1rem 1rem 1.15rem;
   }
 
   .cv-split {
@@ -3886,14 +3969,42 @@ body:has(.parallax-container) {
   margin-top: 0;
   padding-top: 32px;
   padding-bottom: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.ixdf-certs-category {
+  display: grid;
+  grid-template-columns: minmax(148px, 22%) minmax(0, 1fr);
+  gap: 20px 28px;
+  align-items: center;
+  padding-left: 18px;
+  border-left: 2px solid #1a4a56;
+}
+
+.ixdf-certs-category-title {
+  margin: 0;
+  padding-left: 10px;
+  font-family: "Space Grotesk", system-ui, sans-serif;
+  font-size: clamp(12px, 1.1vw, 14px);
+  font-weight: 500;
+  line-height: 1.45;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  color: #8fc7c0;
+  text-align: left;
+  align-self: center;
 }
 
 .ixdf-certs-grid {
   width: 100%;
   max-width: 100%;
+  min-width: 0;
   margin: 0;
-  display: grid;
-  grid-template-columns: repeat(5, minmax(160px, 1fr));
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
   gap: 14px;
 }
 
@@ -3901,15 +4012,43 @@ body:has(.parallax-container) {
   padding-top: 14px;
 }
 
-@media (max-width: 980px) {
+.ixdf-certs-grid .ixdf-badge {
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: none;
+}
+
+@media (max-width: 900px) {
+  .ixdf-certs-category {
+    grid-template-columns: minmax(120px, 28%) minmax(0, 1fr);
+    gap: 16px 20px;
+  }
+
   .ixdf-certs-grid {
-    grid-template-columns: repeat(3, minmax(160px, 1fr));
+    flex-wrap: wrap;
+  }
+
+  .ixdf-certs-grid .ixdf-badge {
+    flex: 1 1 120px;
+    max-width: 160px;
   }
 }
 
-@media (max-width: 560px) {
-  .ixdf-certs-grid {
-    grid-template-columns: repeat(2, minmax(160px, 1fr));
+@media (max-width: 640px) {
+  .ixdf-certs-category {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding-left: 14px;
+  }
+
+  .ixdf-certs-category-title {
+    padding-left: 8px;
+    align-self: flex-start;
+  }
+
+  .ixdf-certs-grid .ixdf-badge {
+    flex: 1 1 calc(50% - 7px);
+    max-width: none;
   }
 }
 
@@ -4038,7 +4177,12 @@ body:has(.parallax-container) {
   padding: 2.5rem 0;
   border-bottom: 1px solid var(--color-border);
   cursor: pointer;
-  transition: border-color var(--duration-fast) var(--ease);
+}
+
+.thinking-essay-card.reveal {
+  transition: opacity var(--duration-slow) var(--ease),
+    transform var(--duration-slow) var(--ease),
+    border-color var(--duration-fast) var(--ease);
 }
 
 .thinking-essay-card:hover {

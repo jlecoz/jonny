@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
+import ScrollReveal from "@/components/ScrollReveal";
 import { thinkingEssays } from "@/config/thinkingEssays";
 
 function renderParagraph(paragraph, index) {
@@ -105,34 +106,36 @@ export default function ThinkingEssays() {
       <section className="thinking-essays" aria-label="Essays">
         <div className="thinking-essays-divider" aria-hidden="true" />
 
-        {thinkingEssays.map((essay) => (
-          <article
-            key={essay.id}
-            className="thinking-essay-card"
-            role="button"
-            tabIndex={0}
-            onClick={() => openEssay(essay.id)}
-            onKeyDown={(event) => {
-              if (event.key === "Enter" || event.key === " ") {
-                event.preventDefault();
-                openEssay(essay.id);
-              }
-            }}
-          >
-            <div>
-              <div className="thinking-essay-meta">
-                <span>{essay.category}</span>
-                <span className="thinking-essay-meta-dot" aria-hidden="true" />
-                <span>{essay.year}</span>
+        <ScrollReveal stagger>
+          {thinkingEssays.map((essay) => (
+            <article
+              key={essay.id}
+              className="thinking-essay-card reveal reveal-left"
+              role="button"
+              tabIndex={0}
+              onClick={() => openEssay(essay.id)}
+              onKeyDown={(event) => {
+                if (event.key === "Enter" || event.key === " ") {
+                  event.preventDefault();
+                  openEssay(essay.id);
+                }
+              }}
+            >
+              <div>
+                <div className="thinking-essay-meta">
+                  <span>{essay.category}</span>
+                  <span className="thinking-essay-meta-dot" aria-hidden="true" />
+                  <span>{essay.year}</span>
+                </div>
+                <h2 className="thinking-essay-title">{essay.title}</h2>
+                <p className="thinking-essay-excerpt">{essay.excerpt}</p>
               </div>
-              <h2 className="thinking-essay-title">{essay.title}</h2>
-              <p className="thinking-essay-excerpt">{essay.excerpt}</p>
-            </div>
-            <span className="thinking-essay-arrow" aria-hidden="true">
-              ↗
-            </span>
-          </article>
-        ))}
+              <span className="thinking-essay-arrow" aria-hidden="true">
+                ↗
+              </span>
+            </article>
+          ))}
+        </ScrollReveal>
       </section>
 
       {activeEssay ? (

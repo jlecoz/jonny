@@ -1,5 +1,4 @@
 import Link from "next/link";
-import ContactCTA from "@/components/ContactCTA";
 import ScrollReveal from "@/components/ScrollReveal";
 import HeroOverviewSection from "@/components/HeroOverviewSection";
 import ExperienceHeadlineDecrypt from "@/components/ExperienceHeadlineDecrypt";
@@ -267,7 +266,6 @@ export default function HomePage() {
       <PitchSection />
       <WorksSection />
       <RecommendationsSection />
-      <ContactCTA />
     </>
   );
 }

@@ -1,5 +1,4 @@
 import Image from "next/image";
-import ContactCTA from "@/components/ContactCTA";
 import ExperienceHeadlineDecrypt from "@/components/ExperienceHeadlineDecrypt";
 import ExperienceSection from "@/components/ExperienceSection";
 import ScrollReveal from "@/components/ScrollReveal";
@@ -145,7 +144,6 @@ export default function SkillsPage() {
       <ExperienceSection />
       <SkillsSection />
       <LanguagesSection />
-      <ContactCTA />
     </>
   );
 }

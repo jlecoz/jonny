@@ -114,10 +114,12 @@ export const cv = {
   ],
   certifications: [
     {
-      school: "IxDF - The Interaction Design Foundation",
-      degree: "Professional Education, User Experience and Interaction Design",
-      period: "2016 – 2017",
-      details: ["Online course Certifications"],
+      school: "Interaction Design Foundation",
+      degree: "Online certification",
+      description: "Human Computer Interaction",
+      period: "2018 – 2020",
+      logo: "/img/ixdf-foundation-mark-dark.svg",
+      logoContain: true,
     },
   ],
   education: [
@@ -127,7 +129,11 @@ export const cv = {
       period: "2004 – 2006",
       activities: "Activities and societies: Option in Applied Computer Graphics",
       description: "Minor in Communication Design",
-      logo: "/img/csu-chico-seal.webp",
+      logo: "/img/csu-chico-seal.png",
+      logoContain: true,
+      logoTransparentBg: true,
+      logoPadding: 16,
+      logoPaddingTop: 15,
     },
     {
       school: "International Academy of Design",
@@ -136,6 +142,10 @@ export const cv = {
       activities:
         "Activities and societies: Creating the school factsheet and website.",
       description: "Design Multimédia",
+      logo: "/img/iad-logo.png",
+      logoContain: true,
+      logoTransparentBg: true,
+      logoPadding: 16,
     },
   ],
   recommendations: [

@@ -1,4 +1,3 @@
-import ContactCTA from "@/components/ContactCTA";
 import ExperienceHeadlineDecrypt from "@/components/ExperienceHeadlineDecrypt";
 import ScrollReveal from "@/components/ScrollReveal";
 import ThinkingEssays from "@/components/ThinkingEssays";
@@ -43,8 +42,6 @@ export default function ThinkingPage() {
           <ThinkingEssays />
         </div>
       </section>
-
-      <ContactCTA />
     </>
   );
 }

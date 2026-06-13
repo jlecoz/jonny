@@ -45,7 +45,7 @@ export const siteConfig = {
   contactEmail: "jonathan.lecoz@gmail.com",
   nav: [
     { label: "Works", href: "/#works" },
-    { label: "Thinking", href: "/thinking" },
+    { label: "Writing", href: "/thinking" },
     { label: "Experience & Skills", href: "/skills" },
     { label: "Education", href: "/education" },
   ],
