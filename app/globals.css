@@ -4257,6 +4257,38 @@ body:has(.parallax-container) {
   font-weight: 600;
 }
 
+.thinking-essay-figures {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 0 0 1.75rem;
+}
+
+.thinking-essay-figures:has(.thinking-essay-figure:only-child) {
+  grid-template-columns: 1fr;
+}
+
+.thinking-essay-figure {
+  overflow: hidden;
+  border: 1px solid var(--thinking-border);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.thinking-essay-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  object-position: center;
+  margin-block: -48px;
+}
+
+@media (max-width: 600px) {
+  .thinking-essay-figures {
+    grid-template-columns: 1fr;
+  }
+}
+
 .thinking-essay-body-byline {
   display: flex;
   gap: 1.5rem;

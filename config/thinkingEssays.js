@@ -5,14 +5,24 @@ export const thinkingEssays = [
     year: "2026",
     title: "The Price of Bringing Human-Centred Design into a Business That Wasn't Built for It",
     excerpt:
-      "There is a version of this story that gets told at conferences. A design leader walks into a conservative organisation, wins over the sceptics, ships the design system, and exits to applause. It is a satisfying arc. It is also incomplete.",
+      "There is a version of this story that gets told at conferences. A design leader walks into a conservative organisation, wins over the sceptics, ships the design system, and exits to applause. It is a satisfying arc, one that not many designers get to experience nor live to tell the tale (hahaha.) It is also incomplete and way too simple.",
     lede:
-      "There is a version of this story that gets told at conferences. A design leader walks into a conservative organisation, wins over the sceptics, ships the design system, and exits to applause. It is a satisfying arc. It is also incomplete.",
+      "There is a version of this story that gets told at conferences. A design leader walks into a conservative organisation, wins over the sceptics, ships the design system, and exits to applause. It is a satisfying arc, one that not many designers get to experience nor live to tell the tale (hahaha.) It is also incomplete and way too simple.",
     paragraphs: [
       {
+        images: [
+          {
+            src: "/img/thinking/imperial-team.png",
+            alt: "Imperial Brands digital design team group photo in the office.",
+          },
+        ],
+      },
+      {
         parts: [
-          { strong: "I spent four years building a design capability inside Imperial Brands" },
-          " — a 130-year-old FMCG business operating in one of the most regulated industries on earth. My team and I went from two ad-hoc designers to a ",
+          { strong: "I spent four years building a digital research and design capability inside Imperial Brands" },
+          ", which had already a strong physical R&D presence. My team and I went ",
+          { strong: "from two ad-hoc designers" },
+          " to a ",
           { strong: "full in-house agency:" },
           " product designers, UX researchers, a systems lead, front-end engineers, embedded alongside major external partners in London and Amsterdam. My team and I ",
           { strong: "brought in" },
@@ -24,16 +34,82 @@ export const thinkingEssays = [
           " My team and I ",
           { strong: "wrote the" },
           " ",
-          { strong: "governance models, negotiated the contracts, changed how design was procured and measured." },
+          { strong: "governance models, negotiated the contracts with external agencies and third-party vendors, changed how design was procured and measured." },
           " By any conventional metric, it worked.",
         ],
       },
-      "What the metrics don't capture is what it actually costs to transplant human-centred thinking into an institution that has spent a century optimising for something else.",
-      "The first cost is translation. Regulated industries do not speak the language of users. They speak the language of compliance, legal exposure, and category management. Every insight from a research session has to be re-encoded before it reaches a decision-maker — not because the people are incapable of understanding it, but because the organisation's immune system will reject anything that arrives in an unfamiliar form. You spend an enormous amount of energy becoming bilingual. That energy is invisible in the output.",
-      "The second cost is pace. User-centred design depends on iteration — on the freedom to be wrong quickly and correct. Traditional corporates are structured to prevent mistakes, which means they are also structured to prevent learning. Getting a test-and-learn culture established inside a business built on brand governance and regulatory caution is not a design challenge. It is a political one. You are not designing products. You are redesigning how decisions get made.",
-      "The third cost is the most personal. When you build something that genuinely works — when the design system ships, when the research starts influencing strategy, when the team you built starts producing work that changes how consumers experience the product — there is a moment of real satisfaction. But you also know, with uncomfortable clarity, exactly how fragile it is. The capability lives inside an organisation that did not grow it organically. It was installed. And installed things can be uninstalled.",
-      "None of this is an argument against doing it. The work matters. Human-centred design in regulated industries is not a luxury — it is a correction, and often a moral one. But it deserves to be talked about with the complexity it actually has, rather than flattened into a transformation narrative where the designer always wins.",
-      "The real measure of this kind of work is not the design system. It is whether the organisation changed how it thinks. That is slower, harder to show in a portfolio, and far more important.",
+      {
+        parts: [
+          "What the metrics don't capture is ",
+          { strong: "what it actually costs to transplant human-centred thinking into an institution" },
+          " that has spent a century optimising for something else.",
+        ],
+      },
+      {
+        images: [
+          {
+            src: "/img/thinking/imperial-design-workshop.png",
+            alt: "Design team reviewing wireframes and journey maps on whiteboards during a collaborative workshop.",
+          },
+          {
+            src: "/img/thinking/imperial-design-collaboration.png",
+            alt: "Two designers collaborating on documents and wireframes at a table during a workshop.",
+          },
+        ],
+      },
+      {
+        parts: [
+          { strong: "The first cost is translation" },
+          ". Regulated industries do not speak the language of users. They speak the language of compliance, legal exposure, and category management. Every insight from a research session has to be re-encoded before it reaches a decision-maker — not because the people are incapable of understanding it, but because the organisation's immune system will reject anything that arrives in an unfamiliar form. ",
+          { strong: "You spend an enormous amount of energy becoming bilingual. That energy is invisible in the output." },
+        ],
+      },
+      {
+        parts: [
+          { strong: "The second cost is pace" },
+          ". User-centred design depends on iteration — on the freedom to be wrong quickly and correct. Traditional corporates are structured to prevent mistakes, which means they are also structured to prevent learning. Getting a test-and-learn culture established inside a business built on brand governance and regulatory caution is not a design challenge. It is a political one. ",
+          { strong: "You are not designing products. You are redesigning how decisions get made." },
+        ],
+      },
+      {
+        parts: [
+          { strong: "The third cost is the most personal" },
+          ". When you build something that genuinely works — when the design system ships, when the research starts influencing strategy, when the team you built starts producing work that changes how consumers experience the product — there is a moment of real satisfaction. But you also know, with uncomfortable clarity, exactly how fragile it is. ",
+          { strong: "The capability lives inside an organisation that did not grow it organically. It was installed. And installed things can be uninstalled almost overnight." },
+        ],
+      },
+      {
+        images: [
+          {
+            src: "/img/thinking/imperial-accessibility-slide.png",
+            alt: "Presentation slide on removing barriers and empowering all users to be independent, productive, and connected.",
+          },
+          {
+            src: "/img/thinking/imperial-coloradd-presentation.png",
+            alt: "ColorADD accessibility presentation with speaker and audience in a workshop setting.",
+          },
+        ],
+      },
+      {
+        parts: [
+          "None of this is an argument against doing it. The work matters. ",
+          { strong: "Human-centred design in regulated industries is not a luxury — it is a correction, and often a moral one." },
+          " But it deserves to be talked about with the complexity it actually has, rather than flattened into a transformation narrative where the designer always wins.",
+        ],
+      },
+      {
+        parts: [
+          {
+            strong:
+              "The real measure of this kind of work is not the design system. It is whether the organisation changed how it thinks.",
+          },
+          " That is slower, harder to show in a portfolio, and far more important. ",
+          {
+            strong:
+              "Yet, however slow the wheels are turning, they are set in motion and gaining momentum.",
+          },
+        ],
+      },
     ],
   },
   {

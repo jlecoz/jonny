@@ -1,7 +1,46 @@
 "use client";
 
+import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { thinkingEssays } from "@/config/thinkingEssays";
+
+function renderParagraph(paragraph, index) {
+  if (typeof paragraph === "string") {
+    return (
+      <p key={paragraph.slice(0, 48)}>{paragraph}</p>
+    );
+  }
+
+  if (paragraph.images) {
+    return (
+      <figure key={`images-${index}`} className="thinking-essay-figures">
+        {paragraph.images.map((image) => (
+          <div key={image.src} className="thinking-essay-figure">
+            <Image
+              src={image.src}
+              alt={image.alt}
+              width={1200}
+              height={900}
+              sizes="(max-width: 680px) 100vw, 680px"
+            />
+          </div>
+        ))}
+      </figure>
+    );
+  }
+
+  return (
+    <p key={`rich-${index}`}>
+      {paragraph.parts.map((part, partIndex) =>
+        typeof part === "string" ? (
+          part
+        ) : (
+          <strong key={partIndex}>{part.strong}</strong>
+        ),
+      )}
+    </p>
+  );
+}
 
 export default function ThinkingEssays() {
   const overlayRef = useRef(null);
@@ -121,19 +160,7 @@ export default function ThinkingEssays() {
             </h1>
             <div className="thinking-essay-body-prose">
               <p className="lede">{activeEssay.lede}</p>
-              {activeEssay.paragraphs.map((paragraph, index) => (
-                <p key={typeof paragraph === "string" ? paragraph.slice(0, 48) : `rich-${index}`}>
-                  {typeof paragraph === "string"
-                    ? paragraph
-                    : paragraph.parts.map((part, partIndex) =>
-                        typeof part === "string" ? (
-                          part
-                        ) : (
-                          <strong key={partIndex}>{part.strong}</strong>
-                        ),
-                      )}
-                </p>
-              ))}
+              {activeEssay.paragraphs.map((paragraph, index) => renderParagraph(paragraph, index))}
             </div>
             <div className="thinking-essay-body-byline">
               <span>Jonathan Le Coz</span>
