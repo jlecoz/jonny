@@ -142,6 +142,7 @@ export const cv = {
       logoContain: true,
       logoTransparentBg: true,
       logoPadding: 16,
+      logoPaddingTop: 15,
     },
   ],
   recommendations: [

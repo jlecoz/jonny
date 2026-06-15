@@ -60,7 +60,23 @@ export default function ThinkingEssays() {
   const closeEssay = useCallback(() => {
     setOpenEssayId(null);
     document.body.style.overflow = "";
+    if (window.location.hash) {
+      window.history.replaceState(null, "", window.location.pathname + window.location.search);
+    }
   }, []);
+
+  useEffect(() => {
+    const openFromHash = () => {
+      const id = window.location.hash.replace(/^#/, "");
+      if (id && thinkingEssays.some((essay) => essay.id === id)) {
+        openEssay(id);
+      }
+    };
+
+    openFromHash();
+    window.addEventListener("hashchange", openFromHash);
+    return () => window.removeEventListener("hashchange", openFromHash);
+  }, [openEssay]);
 
   useEffect(() => {
     const onKeyDown = (event) => {

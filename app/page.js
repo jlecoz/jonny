@@ -3,6 +3,8 @@ import ScrollReveal from "@/components/ScrollReveal";
 import HeroOverviewSection from "@/components/HeroOverviewSection";
 import ExperienceHeadlineDecrypt from "@/components/ExperienceHeadlineDecrypt";
 import FlippableWorkCover from "@/components/FlippableWorkCover";
+import HowIThinkMoment from "@/components/HowIThinkMoment";
+import ContactCTA from "@/components/ContactCTA";
 import MainSectionParallax from "@/components/MainSectionParallax";
 import PitchPresenceImage from "@/components/PitchPresenceImage";
 import WorksCardsTimeline from "@/components/WorksCardsTimeline";
@@ -265,6 +267,8 @@ export default function HomePage() {
       <PitchSection />
       <WorksSection />
       <RecommendationsSection />
+      <HowIThinkMoment />
+      <ContactCTA />
     </>
   );
 }

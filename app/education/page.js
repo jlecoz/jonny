@@ -40,6 +40,7 @@ const education = [
     logoContain: true,
     logoTransparentBg: true,
     logoPadding: 16,
+    logoPaddingTop: 15,
   },
   {
     school: "Santa Monica College",
