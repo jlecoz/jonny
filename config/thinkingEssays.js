@@ -10,6 +10,15 @@ export const thinkingEssays = [
       "There is a version of this story that gets told at conferences. A design leader walks into a conservative organisation, wins over the sceptics, ships the design system, and exits to applause. It is a satisfying arc, one that not many designers get to experience nor live to tell the tale (hahaha.) It is also incomplete and way too simple.",
     paragraphs: [
       {
+        images: [
+          {
+            src: "/img/thinking/essay1-team-london.png",
+            alt: "Design team group photo in the London office.",
+            crop: true,
+          },
+        ],
+      },
+      {
         parts: [
           { strong: "I spent four years building a digital research and design capability inside Imperial Brands" },
           ", which had already a strong physical R&D presence. My team and I went ",
@@ -105,8 +114,8 @@ export const thinkingEssays = [
       {
         images: [
           {
-            src: "/img/thinking/essay2-accessibility-slide.png",
-            alt: "Presentation slide on removing barriers and empowering all users to be independent, productive, and connected.",
+            src: "/img/thinking/essay2-coloradd-presentation.png",
+            alt: "ColorADD accessibility presentation with speaker and audience in a workshop setting.",
           },
         ],
       },
@@ -119,10 +128,6 @@ export const thinkingEssays = [
       },
       {
         images: [
-          {
-            src: "/img/thinking/essay2-coloradd-presentation.png",
-            alt: "ColorADD accessibility presentation with speaker and audience in a workshop setting.",
-          },
           {
             src: "/img/thinking/essay2-accessibility-journey-map.png",
             alt: "User journey map on a wall with a But is it accessible? banner and sticky-note touchpoints.",
@@ -160,15 +165,6 @@ export const thinkingEssays = [
           {
             strong:
               "The designer who has repeatedly experienced being the outsider, who knows what it is to misread a room and recalibrate, has a different relationship with assumption than the designer who has always designed for people essentially like themselves.",
-          },
-        ],
-      },
-      {
-        images: [
-          {
-            src: "/img/thinking/essay2-team-london.png",
-            alt: "Design team group photo in the London office.",
-            crop: true,
           },
         ],
       },
