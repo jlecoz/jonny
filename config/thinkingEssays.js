@@ -129,6 +129,10 @@ export const thinkingEssays = [
       {
         images: [
           {
+            src: "/img/thinking/essay2-booking-workshop.png",
+            alt: "Design team collaborating around laptops during a workshop with a mobile UI prototype on the wall screen.",
+          },
+          {
             src: "/img/thinking/essay2-accessibility-journey-map.png",
             alt: "User journey map on a wall with a But is it accessible? banner and sticky-note touchpoints.",
           },
@@ -143,12 +147,12 @@ export const thinkingEssays = [
       {
         images: [
           {
-            src: "/img/thinking/essay2-intuit-presentation.png",
-            alt: "Intuit QuickBooks team workshop with presenter speaking beside research materials on a whiteboard.",
+            src: "/img/thinking/essay2-intuit-workshop.png",
+            alt: "Intuit QuickBooks team workshop with collaborators gathered around whiteboards and sticky notes in the London office.",
           },
           {
-            src: "/img/thinking/essay2-intuit-tech-refresh.png",
-            alt: "Intuit team reviewing UI documents on a wall during a Tech Refresh working session.",
+            src: "/img/thinking/essay2-intuit-presentation.png",
+            alt: "Intuit QuickBooks team workshop with presenter speaking beside research materials on a whiteboard.",
           },
         ],
       },
