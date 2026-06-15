@@ -4517,6 +4517,16 @@ body:has(.parallax-container) {
   margin-block: -48px;
 }
 
+.thinking-essay-figure--fill {
+  position: relative;
+  min-height: 100%;
+}
+
+.thinking-essay-figure-fill-img {
+  object-fit: cover;
+  object-position: center;
+}
+
 .thinking-essay-body-byline {
   display: flex;
   gap: 1.5rem;

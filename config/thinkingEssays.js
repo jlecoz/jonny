@@ -31,7 +31,12 @@ export const thinkingEssays = [
       },
       {
         parts: [
-          "As a Digital Research team, we brought in Hotjar, gathering better data to inform our design decisions and (de)validate our hypotheses before going into our ideation. We leveraged and optimised our Usertesting.com platform, servicing both internal agents and external partners, to get closer to our consumers and derisk certain of our design leaps.",
+          "As a Digital Research team, ",
+          { strong: "we brought in" },
+          " Hotjar, gathering better data to inform our design decisions and (de)validate our hypotheses before going into our ideation. ",
+          { strong: "we leveraged and optimised" },
+          " our Usertesting.com platform, servicing both internal agents and external partners, ",
+          { strong: "to get closer to our consumers and derisk certain of our design leaps." },
         ],
       },
       {
@@ -215,4 +220,191 @@ export const thinkingEssays = [
       },
     ],
   },
+  {
+    "id": "essay3",
+    "category": "Design Leadership",
+    "year": "2026",
+    "title": "The Critique Sets the Culture",
+    "excerpt": "There is a moment in most design critiques that reveals everything. It happens when someone in the room moves from saying what they see to asking why it exists. The shift is subtle — from \"the price location changes throughout the journey\" to \"I want to see my actions affecting the price\" — but the distance between those two observations is the distance between a team reviewing work and a team genuinely thinking together.",
+    "lede": [
+      "There is a moment in most design critiques that reveals everything. It happens when someone in the room moves from saying what they see to asking why it exists. The shift is subtle — from \"the price location changes throughout the journey\" to \"I want to see my actions affecting the price\" — but the distance between those two observations is the distance between a team reviewing work and a team genuinely thinking together.",
+      "On what design feedback rituals actually build — and what they signal about the organisations that practise them"
+    ],
+    "paragraphs": [
+      {
+        "parts": [
+          "I have run, participated in, and built the conditions for design critique culture across three organisations — ",
+          { "strong": "Booking.com" },
+          " in Amsterdam, ",
+          { "strong": "Auto Trader UK" },
+          " in Manchester, and ",
+          { "strong": "Imperial Brands" },
+          " across its European markets — each at a different stage of design maturity, each with a fundamentally different relationship to the idea that criticism is a gift. What I learned, cumulatively, is this: ",
+          { "strong": "a critique session is not a feedback mechanism." },
+          " It is a diagnostic. What happens in the room tells you almost ",
+          { "strong": "everything about what the organisation believes design is for." }
+        ]
+      },
+      {
+        "parts": [
+          {
+            "strong": "The first version: feedback as performance"
+          }
+        ]
+      },
+      {
+        "parts": [
+          "At ",
+          { "strong": "Booking.com" },
+          ", we ran printed crits — screen flows pinned to walls, post-it notes applied by participants, colour-coded by type. ",
+          { "strong": "The format was structured, the output was concrete, and the questions were often sharp." },
+          " Why are all the prices green? Is the title field actually needed? You can't click on this on mobile. These were genuine, useful observations. But look at the shape of the feedback and you see something revealing: most of it operated at the surface of the design. ",
+          { "strong": "The unit of analysis was the screen, not the system." }
+        ]
+      },
+      {
+        "images": [
+          {
+            "src": "/img/thinking/essay3-critique-01.jpg",
+            "alt": "Taxi Flow crit wall, Amsterdam Q2 2019 — screen flows pinned and annotated with post-its"
+          },
+          {
+            "src": "/img/thinking/essay3-critique-03.jpg",
+            "alt": "Easy Checkout — logged-in vs logged-out comparison with questions spanning mobile and form hierarchy",
+            "fillHeight": true
+          }
+        ]
+      },
+      {
+        "parts": [
+          "This points to a dynamic that shows up in every design team building its critique practice from scratch: ",
+          { "strong": "the format shapes the conversation." },
+          " When you pin up a screen and invite feedback, you get screen-level feedback. When you pin up a flow, you get flow-level questions. ",
+          { "strong": "The physical architecture of the session encodes what kind of thinking it is designed to produce." },
+          " Show the minus-one and plus-one screens — what comes before and after your work — and the conversation shifts from \"what is this?\" to \"does this belong here?\""
+        ]
+      },
+      {
+        "parts": [
+          {
+            "strong": "The second version: feedback as inquiry"
+          }
+        ]
+      },
+      {
+        "parts": [
+          "By the time I reached ",
+          { "strong": "Auto Trader UK, critique culture had matured into something qualitatively different." },
+          " The sessions were still physical — printed screens on walls, handwritten annotations — but the room had changed. At ",
+          { "strong": "Booking.com" },
+          ", the crit happened around a table. At Auto Trader, the team gathered standing, fifteen or twenty people, facing the work together. ",
+          { "strong": "There is no presenter and audience when everyone is on their feet in front of the same wall. There is only the work, and the conversation it generates." }
+        ]
+      },
+      {
+        "images": [
+          {
+            "src": "/img/thinking/essay3-critique-04.jpg",
+            "alt": "Auto Trader, Manchester 2021 — the full team on their feet, no presenter/audience divide"
+          }
+        ]
+      },
+      {
+        "images": [
+          {
+            "src": "/img/thinking/essay3-critique-05.jpg",
+            "alt": "Buy Online crit wall — annotations spanning UI, systems, business model and customer impact"
+          },
+          {
+            "src": "/img/thinking/essay3-critique-06.jpg",
+            "alt": "Whiteboard reservation flow — product strategy questions surfaced inside a design session"
+          }
+        ]
+      },
+      {
+        "parts": [
+          "More significant was the register of the feedback itself. ",
+          { "strong": "The wall annotations moved fluidly between UI observation, information architecture, business model, and technical constraint — often within the same comment." },
+          " \"No it isn't! This is BIG tech work on AT estate — what does this mean for retailer back office?\" is not a design note. It is ",
+          { "strong": "a systems question." },
+          " \"Who is 'we'?\" next to a trust messaging block is ",
+          { "strong": "a brand integrity question." },
+          " \"Should the reservation come first? We have a very short holding period to reserve but after that we can't guarantee it\" is ",
+          { "strong": "a product strategy question surfaced inside a design crit." }
+        ]
+      },
+      {
+        "parts": [
+          "This is what a mature critique culture produces: ",
+          { "strong": "the conditions for the right questions to be asked in the right room." },
+          " Kim Scott's Radical Candor framework — care personally, challenge directly — maps directly onto the failure modes. Ruinous empathy produces sessions where feedback is decorative, where everyone praises the thinking and nobody names the problem. Obnoxious aggression produces sessions where the loudest person dominates and junior designers stop bringing work because the experience is too costly. ",
+          { "strong": "The goal is to make the honest question the easiest question to ask." },
+          " That does not happen by default."
+        ]
+      },
+      {
+        "parts": [
+          {
+            "strong": "The third version: feedback as shared belief"
+          }
+        ]
+      },
+      {
+        "parts": [
+          "The ",
+          { "strong": "Intuit - Quickbooks" },
+          " culture that I always reference were not design critiques in any conventional sense. ",
+          { "strong": "They were creative sprints, run across two days with a cross-functional team that included designers, marketers, strategists, and commercial leads from multiple markets." },
+          " The \"Confessional Moments\" exercise — participants writing personal consumer truths on post-its, covering an entire wall — was a consumer empathy tool, not a design review. The floor covered in handwritten concept sketches, the \"How Might We\" framing on the projector, synthesis happening simultaneously at wall and table level — ",
+          { "strong": "this was design thinking operating at organisational scale." }
+        ]
+      },
+      {
+        images: [
+          {
+            src: "/img/thinking/essay3-imperial-workshop-01.png",
+            alt: "Empathy Deep Dive for Quickbooks 2018",
+          },
+          {
+            src: "/img/thinking/essay3-imperial-workshop-02.png",
+            alt: "Design sprint ideation for Quickbooks 2018",
+          },
+        ],
+      },
+      {
+        images: [
+          {
+            src: "/img/thinking/essay3-imperial-workshop-03.png",
+            alt: "Prototype Testing for Quickbooks 2018",
+          },
+        ],
+      },
+      {
+        "parts": [
+          "What it represented was the end state of what critique culture is actually building toward. The goal was never better feedback on individual screens. The goal was an organisation that thinks visually, that externalises its assumptions so they can be interrogated, that treats uncertainty as a starting point rather than an embarrassment. ",
+          { "strong": "The exercise worked because the room had established enough psychological safety for genuine honesty. That safety does not arrive pre-installed. It is built, incrementally, through the accumulated experience of sessions where challenge was welcomed and honesty did not cost anything." }
+        ]
+      },
+      {
+        "parts": [
+          "The design critique, understood this way, is not a tool for improving designs. It is a practice for ",
+          { "strong": "building the kind of organisation where better designs become possible" },
+          ". The session is the symptom; the culture is the condition."
+        ]
+      },
+      {
+        "parts": [
+          { "strong": "Design leaders who want to build this typically focus on the wrong things first" },
+          " — guidelines, roles, checklists. These help, but they address the format, not the conditions. The conditions require a leader who models the behaviour: who brings their own work to be criticised, who asks the uncomfortable question when everyone else is silent, who thanks the person who named the problem. They require a consistent ritual — same time, same format, not cancelled when things are busy. And they require an honest reckoning with what the sessions are actually for. If they exist to demonstrate process, they will produce the culture those purposes deserve."
+        ]
+      },
+      {
+        "parts": [
+          {
+            "strong": "The critique is not a meeting. It is the clearest signal an organisation sends about whether design craft is held in common — or hoarded."
+          }
+        ]
+      }
+    ]
+  }
 ];

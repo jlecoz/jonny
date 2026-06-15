@@ -7,7 +7,8 @@
     "dev": "next dev --hostname localhost",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "export-essay": "node scripts/export-essay-docx.mjs"
   },
   "repository": {
     "type": "git",
@@ -24,5 +25,9 @@
     "next": "^16.2.7",
     "react": "^19.2.4",
     "react-dom": "^19.2.4"
+  },
+  "devDependencies": {
+    "docx": "^9.7.1",
+    "image-size": "^2.0.2"
   }
 }

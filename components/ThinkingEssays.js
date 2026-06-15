@@ -18,15 +18,25 @@ function renderParagraph(paragraph, index) {
         {paragraph.images.map((image) => (
           <div
             key={image.src}
-            className={`thinking-essay-figure${image.crop ? " thinking-essay-figure--crop" : ""}`}
+            className={`thinking-essay-figure${image.crop ? " thinking-essay-figure--crop" : ""}${image.fillHeight ? " thinking-essay-figure--fill" : ""}`}
           >
-            <Image
-              src={image.src}
-              alt={image.alt}
-              width={1200}
-              height={900}
-              sizes="(max-width: 680px) 100vw, 680px"
-            />
+            {image.fillHeight ? (
+              <Image
+                src={image.src}
+                alt={image.alt}
+                fill
+                sizes="(max-width: 680px) 100vw, 680px"
+                className="thinking-essay-figure-fill-img"
+              />
+            ) : (
+              <Image
+                src={image.src}
+                alt={image.alt}
+                width={1200}
+                height={900}
+                sizes="(max-width: 680px) 100vw, 680px"
+              />
+            )}
           </div>
         ))}
       </figure>
