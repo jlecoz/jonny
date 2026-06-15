@@ -111,9 +111,9 @@ export const cv = {
   certifications: [
     {
       school: "Interaction Design Foundation",
-      degree: "Online certification",
+      degree: "Online certifications & Career Path Program & Career Pathways Program",
       description: "Human Computer Interaction",
-      period: "2018 – 2020",
+      period: "2018 – 2022",
       logo: "/img/ixdf-foundation-mark-dark.svg",
       logoContain: true,
     },
@@ -129,7 +129,7 @@ export const cv = {
       logoContain: true,
       logoTransparentBg: true,
       logoPadding: 16,
-      logoPaddingTop: 15,
+      logoPaddingTop: 16,
     },
     {
       school: "International Academy of Design",

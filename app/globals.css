@@ -2877,6 +2877,38 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
   object-position: center;
 }
 
+.cv-edu-logo-wrap--cover .cv-edu-logo {
+  object-fit: cover;
+  object-position: center;
+}
+
+.cv-edu-logo-wrap--contain.cv-edu-logo-wrap--cover .cv-edu-logo {
+  object-fit: cover;
+}
+
+.cv-edu-logo-wrap--fit-width {
+  min-height: 0;
+  height: auto;
+  align-self: center;
+  overflow: visible;
+}
+
+.cv-edu-logo-wrap--fit-width .cv-edu-logo-inset {
+  height: auto;
+  min-height: 0;
+}
+
+.cv-edu-logo-wrap--fit-width .cv-edu-logo {
+  position: relative !important;
+  display: block;
+  width: 100% !important;
+  height: auto !important;
+  max-height: none;
+  inset: auto !important;
+  object-fit: contain;
+  object-position: center;
+}
+
 .cv-edu-logo-wrap--contain.cv-edu-logo-wrap--padded {
   padding: var(--cv-edu-logo-pad-top, var(--cv-edu-logo-pad, 16px))
     var(--cv-edu-logo-pad-right, var(--cv-edu-logo-pad, 16px))

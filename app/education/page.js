@@ -7,9 +7,9 @@ import { siteConfig } from "@/config/siteConfig";
 const certifications = [
   {
     school: "Interaction Design Foundation",
-    degree: "Online certification",
+    degree: "Online certifications & Career Pathways Program",
     description: "Human Computer Interaction",
-    period: "2018 - 2020",
+    period: "2018 - 2022",
     logo: "/img/ixdf-foundation-mark-dark.svg",
     logoContain: true,
     logoPadding: 16,
@@ -27,8 +27,9 @@ const education = [
     logo: "/img/csu-chico-seal.png",
     logoContain: true,
     logoTransparentBg: true,
+    logoFitWidth: true,
     logoPadding: 16,
-    logoPaddingTop: 15,
+    logoPaddingTop: 16,
   },
   {
     school: "International Academy of Design",
@@ -131,7 +132,7 @@ function EducationSection() {
       </div>
       {item.logo ? (
         <div
-          className={`cv-edu-logo-wrap${item.logoContain ? " cv-edu-logo-wrap--contain" : ""}${item.logoPadding ? " cv-edu-logo-wrap--padded" : ""}${item.logoTransparentBg ? " cv-edu-logo-wrap--transparent" : ""}`}
+          className={`cv-edu-logo-wrap${item.logoContain ? " cv-edu-logo-wrap--contain" : ""}${item.logoPadding ? " cv-edu-logo-wrap--padded" : ""}${item.logoTransparentBg ? " cv-edu-logo-wrap--transparent" : ""}${item.logoCover ? " cv-edu-logo-wrap--cover" : ""}${item.logoFitWidth ? " cv-edu-logo-wrap--fit-width" : ""}`}
           style={
             item.logoPadding || item.logoPaddingTop
               ? {
