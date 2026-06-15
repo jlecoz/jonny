@@ -2,11 +2,12 @@
 
 import { useRef, useState } from "react";
 import Link from "next/link";
+import { siteConfig } from "@/config/siteConfig";
 import HeroGoldScramble from "@/components/HeroGoldScramble";
 import ScrollReveal from "@/components/ScrollReveal";
 import { useScrollParallax } from "@/lib/useScrollParallax";
 
-export default function HeroOverviewSection({ meta, title, skillTagsLine }) {
+export default function HeroOverviewSection({ meta, title }) {
   const sectionRef = useRef(null);
   const [activeAvatarRole, setActiveAvatarRole] = useState(null);
   const showDesignerAvatar = () => setActiveAvatarRole("designer");
@@ -130,9 +131,6 @@ export default function HeroOverviewSection({ meta, title, skillTagsLine }) {
         <h1 className="hero-headline">
           <HeroGoldScramble text={title} />
         </h1>
-        <ScrollReveal className="reveal-down">
-          <p className="cv-core-tags">{skillTagsLine}</p>
-        </ScrollReveal>
 
         <ScrollReveal className="cta-row" stagger>
           <Link className="button button-gold reveal reveal-right" href="/contact">
@@ -140,7 +138,7 @@ export default function HeroOverviewSection({ meta, title, skillTagsLine }) {
           </Link>
           <a
             className="button button-secondary reveal reveal-left"
-            href="https://www.linkedin.com/in/jonathan-lecoz/?locale=en_US"
+            href={siteConfig.social.linkedin}
             target="_blank"
             rel="noopener noreferrer"
           >

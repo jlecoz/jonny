@@ -51,7 +51,7 @@ export const siteConfig = {
   ],
   social: {
     instagram: "#",
-    linkedin: "#",
+    linkedin: "https://www.linkedin.com/in/jonathan-lecoz/",
     x: "#",
     youtube: "#",
   },

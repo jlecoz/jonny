@@ -261,7 +261,6 @@ export default function HomePage() {
       <HeroOverviewSection
         meta={cv.meta}
         title={cv.title}
-        skillTagsLine={cv.skillTags.join(" • ")}
       />
       <PitchSection />
       <WorksSection />

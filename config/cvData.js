@@ -1,14 +1,15 @@
-/** Profile experience section on LinkedIn (earlier roles such as IMS Health) */
-export const linkedInExperienceUrl =
-  "https://www.linkedin.com/in/jonathan-lecoz/?locale=en-US#experience";
+/** Profile on LinkedIn */
+export const linkedInProfileUrl = "https://www.linkedin.com/in/jonathan-lecoz/";
 
-/** Received recommendations on LinkedIn */
-export const linkedInRecommendationsUrl =
-  "https://www.linkedin.com/in/jonathan-lecoz/details/recommendations/";
+/** Earlier roles (e.g. IMS Health) — same profile */
+export const linkedInExperienceUrl = linkedInProfileUrl;
+
+/** Received recommendations — same profile */
+export const linkedInRecommendationsUrl = linkedInProfileUrl;
 
 export const cv = {
   name: "Jonathan Le Coz",
-  title: "Experiential Designer",
+  title: "Experiential Design",
   meta: "20+ years of creative arts, brand design and web technology",
   location: "Manchester, United Kingdom",
   phone: "+44 793 163 7144",
@@ -17,11 +18,6 @@ export const cv = {
     { label: "English", level: 5 },
     { label: "French", level: 5 },
     { label: "Spanish", level: 1 },
-  ],
-  skillTags: [
-    "Product Leadership",
-    "Human-centered Design",
-    "Customer Innovation",
   ],
   /** LinkedIn-aligned: one card per employer; multiple roles share logo + timeline rail */
   experienceGroups: [

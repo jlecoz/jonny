@@ -12,9 +12,8 @@ export const thinkingEssays = [
       {
         images: [
           {
-            src: "/img/thinking/essay1-team-london.png",
-            alt: "Design team group photo in the London office.",
-            crop: true,
+            src: "/img/thinking/essay1-implant-ready.png",
+            alt: 'Street art stencil on a red wall reading "Are you implant ready."',
           },
         ],
       },
@@ -40,13 +39,6 @@ export const thinkingEssays = [
         ],
       },
       {
-        parts: [
-          "What the metrics don't capture is ",
-          { strong: "what it actually costs to transplant human-centred thinking into an institution" },
-          " that has spent a century optimising for something else.",
-        ],
-      },
-      {
         images: [
           {
             src: "/img/thinking/imperial-design-workshop.png",
@@ -56,6 +48,13 @@ export const thinkingEssays = [
             src: "/img/thinking/imperial-design-collaboration.png",
             alt: "Two designers collaborating on documents and wireframes at a table during a workshop.",
           },
+        ],
+      },
+      {
+        parts: [
+          "What the metrics don't capture is ",
+          { strong: "what it actually costs to transplant human-centred thinking into an institution" },
+          " that has spent a century optimising for something else.",
         ],
       },
       {
@@ -77,6 +76,15 @@ export const thinkingEssays = [
           { strong: "The third cost is the most personal" },
           ". When you build something that genuinely works — when the design system ships, when the research starts influencing strategy, when the team you built starts producing work that changes how consumers experience the product — there is a moment of real satisfaction. But you also know, with uncomfortable clarity, exactly how fragile it is. ",
           { strong: "The capability lives inside an organisation that did not grow it organically. It was installed. And installed things can be uninstalled almost overnight." },
+        ],
+      },
+      {
+        images: [
+          {
+            src: "/img/thinking/essay1-team-london.png",
+            alt: "Design team group photo in the London office.",
+            crop: true,
+          },
         ],
       },
       {
@@ -177,7 +185,7 @@ export const thinkingEssays = [
           "The practical lesson is not complex. It is this: ",
           { strong: "slow down before you name the problem." },
           " The framing you reach for first is the framing your culture handed you. It is worth asking where it came from before you build on it. ",
-          { strong: "Work on your liminal thinking to be outside your internal feedback loops;" },
+          { strong: "Lean on your liminal thinking to work outside your internal feedback loops;" },
           " take the time to observe what's around you and how others respond to your way of being.",
         ],
       },
