@@ -2,8 +2,13 @@
 
 import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import ScrollReveal from "@/components/ScrollReveal";
 import { thinkingEssays } from "@/config/thinkingEssays";
+
+function setEssayScrollLock(locked) {
+  document.body.classList.toggle("thinking-essay-open", locked);
+}
 
 function renderParagraph(paragraph, index) {
   if (typeof paragraph === "string") {
@@ -58,18 +63,23 @@ function renderParagraph(paragraph, index) {
 
 export default function ThinkingEssays() {
   const overlayRef = useRef(null);
+  const [overlayEl, setOverlayEl] = useState(null);
   const [openEssayId, setOpenEssayId] = useState(null);
   const [showScrollTop, setShowScrollTop] = useState(false);
 
+  const setOverlayRef = useCallback((node) => {
+    overlayRef.current = node;
+    setOverlayEl(node);
+  }, []);
+
   const openEssay = useCallback((id) => {
     setOpenEssayId(id);
-    document.body.style.overflow = "hidden";
-    window.scrollTo(0, 0);
+    setEssayScrollLock(true);
   }, []);
 
   const closeEssay = useCallback(() => {
     setOpenEssayId(null);
-    document.body.style.overflow = "";
+    setEssayScrollLock(false);
     if (window.location.hash) {
       window.history.replaceState(null, "", window.location.pathname + window.location.search);
     }
@@ -99,26 +109,32 @@ export default function ThinkingEssays() {
 
   useEffect(() => {
     return () => {
-      document.body.style.overflow = "";
+      setEssayScrollLock(false);
     };
   }, []);
 
   useEffect(() => {
-    const overlay = overlayRef.current;
+    if (!openEssayId) return;
+    overlayRef.current?.scrollTo(0, 0);
+    setShowScrollTop(false);
+  }, [openEssayId, overlayEl]);
+
+  useEffect(() => {
+    const overlay = overlayEl;
     if (!overlay || !openEssayId) {
       setShowScrollTop(false);
       return;
     }
 
     const onScroll = () => {
-      setShowScrollTop(overlay.scrollTop > 400);
+      setShowScrollTop(overlay.scrollTop > 200);
     };
 
     overlay.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
 
     return () => overlay.removeEventListener("scroll", onScroll);
-  }, [openEssayId]);
+  }, [openEssayId, overlayEl]);
 
   const scrollToTop = useCallback(() => {
     const behavior = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
@@ -126,6 +142,60 @@ export default function ThinkingEssays() {
   }, []);
 
   const activeEssay = thinkingEssays.find((essay) => essay.id === openEssayId);
+
+  const essayOverlay =
+    activeEssay ? (
+      <div
+        ref={setOverlayRef}
+        className="thinking-essay-overlay open"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={`${activeEssay.id}-title`}
+      >
+        <button type="button" className="thinking-essay-close" onClick={closeEssay}>
+          ← Close
+        </button>
+        <button
+          type="button"
+          className={`thinking-essay-scroll-top${showScrollTop ? " visible" : ""}`}
+          onClick={scrollToTop}
+          aria-label="Scroll to top"
+          title="Scroll to top"
+        >
+          ↑
+        </button>
+        <div className="thinking-essay-body">
+          <p className="thinking-essay-body-eyebrow">
+            {activeEssay.category} · {activeEssay.year}
+          </p>
+          <h1 className="thinking-essay-body-title" id={`${activeEssay.id}-title`}>
+            {activeEssay.title}
+          </h1>
+          <div className="thinking-essay-body-prose">
+            {(Array.isArray(activeEssay.lede) ? activeEssay.lede : [activeEssay.lede]).map(
+              (paragraph, index) => (
+                <p key={index} className={index === 0 ? "lede" : undefined}>
+                  {paragraph}
+                </p>
+              ),
+            )}
+            {activeEssay.paragraphs.map((paragraph, index) => renderParagraph(paragraph, index))}
+          </div>
+          {activeEssay.linkedInArticleUrl ? (
+            <p className="thinking-essay-body-link">
+              <a href={activeEssay.linkedInArticleUrl} target="_blank" rel="noopener noreferrer">
+                Read on LinkedIn
+              </a>
+            </p>
+          ) : null}
+          <div className="thinking-essay-body-byline">
+            <span>Jonathan Le Coz</span>
+            <span aria-hidden="true">·</span>
+            <span>Experiential Designer</span>
+          </div>
+        </div>
+      </div>
+    ) : null;
 
   return (
     <>
@@ -164,50 +234,9 @@ export default function ThinkingEssays() {
         </ScrollReveal>
       </section>
 
-      {activeEssay ? (
-        <div
-          ref={overlayRef}
-          className="thinking-essay-overlay open"
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby={`${activeEssay.id}-title`}
-        >
-          <button type="button" className="thinking-essay-close" onClick={closeEssay}>
-            ← Close
-          </button>
-          <button
-            type="button"
-            className={`thinking-essay-scroll-top${showScrollTop ? " visible" : ""}`}
-            onClick={scrollToTop}
-            aria-label="Scroll to top"
-          >
-            ↑
-          </button>
-          <div className="thinking-essay-body">
-            <p className="thinking-essay-body-eyebrow">
-              {activeEssay.category} · {activeEssay.year}
-            </p>
-            <h1 className="thinking-essay-body-title" id={`${activeEssay.id}-title`}>
-              {activeEssay.title}
-            </h1>
-            <div className="thinking-essay-body-prose">
-              {(Array.isArray(activeEssay.lede) ? activeEssay.lede : [activeEssay.lede]).map(
-                (paragraph, index) => (
-                  <p key={index} className={index === 0 ? "lede" : undefined}>
-                    {paragraph}
-                  </p>
-                ),
-              )}
-              {activeEssay.paragraphs.map((paragraph, index) => renderParagraph(paragraph, index))}
-            </div>
-            <div className="thinking-essay-body-byline">
-              <span>Jonathan Le Coz</span>
-              <span aria-hidden="true">·</span>
-              <span>Experiential Designer</span>
-            </div>
-          </div>
-        </div>
-      ) : null}
+      {essayOverlay && typeof document !== "undefined"
+        ? createPortal(essayOverlay, document.body)
+        : null}
     </>
   );
 }

@@ -225,6 +225,7 @@ export const thinkingEssays = [
     "category": "Design Leadership",
     "year": "2026",
     "title": "The Critique Sets the Culture",
+    "linkedInArticleUrl": "https://www.linkedin.com/pulse/critique-culture-jonathan-le-coz-2q3be/",
     "excerpt": "There is a moment in most design critiques that reveals everything. It happens when someone in the room moves from saying what they see to asking why it exists. The shift is subtle — from \"the price location changes throughout the journey\" to \"I want to see my actions affecting the price\" — but the distance between those two observations is the distance between a team reviewing work and a team genuinely thinking together.",
     "lede": [
       "There is a moment in most design critiques that reveals everything. It happens when someone in the room moves from saying what they see to asking why it exists. The shift is subtle — from \"the price location changes throughout the journey\" to \"I want to see my actions affecting the price\" — but the distance between those two observations is the distance between a team reviewing work and a team genuinely thinking together.",
