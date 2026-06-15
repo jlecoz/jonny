@@ -135,9 +135,8 @@ export const cv = {
       school: "International Academy of Design",
       degree: "ACE, Design Multimédia",
       period: "2002 – 2003",
-      activities:
-        "Activities and societies: Creating the school factsheet and website.",
-      description: "Design Multimédia",
+      description: "Credits transferred to California State University, Chico.",
+      details: ["Multimedia Design"],
       logo: "/img/iad-logo.png",
       logoContain: true,
       logoTransparentBg: true,
