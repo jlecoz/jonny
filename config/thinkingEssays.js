@@ -5,9 +5,11 @@ export const thinkingEssays = [
     year: "2026",
     title: "The Price of Bringing Human-Centred Design into a Business That Wasn't Built for It",
     excerpt:
-      "There is a version of this story that gets told at conferences. A design leader walks into a conservative organisation, wins over the sceptics, ships the design system, and exits to applause. It is a satisfying arc, one that not many designers get to experience nor live to tell the tale (hahaha.) It is also incomplete and way too simple.",
-    lede:
-      "There is a version of this story that gets told at conferences. A design leader walks into a conservative organisation, wins over the sceptics, ships the design system, and exits to applause. It is a satisfying arc, one that not many designers get to experience nor live to tell the tale (hahaha.) It is also incomplete and way too simple.",
+      "There is a version of this story that gets told at conferences. A design leader walks into a conservative organisation, wins over the sceptics, ships the design system, and exits to applause. It is a more than satisfying arc, one that not many designers get to experience nor live to tell the tale (designer humour... ha) It is also incomplete and way too simple.",
+    lede: [
+      "There is a version of this story that gets told at conferences. A design leader walks into a conservative organisation, wins over the sceptics, ships the design system, and exits to applause. It is a more than satisfying arc, one that not many designers get to experience nor live to tell the tale (designer humour... ha)",
+      "It is also incomplete and way too simple.",
+    ],
     paragraphs: [
       {
         images: [
@@ -20,23 +22,37 @@ export const thinkingEssays = [
       {
         parts: [
           { strong: "I spent four years building a digital research and design capability inside Imperial Brands" },
-          ", which had already a strong physical R&D presence. My team and I went ",
+          ", which had already a strong physical R&D presence; yet bizarrely enough a strong counter culture in their digital marketing product pipeline. We went ",
           { strong: "from two ad-hoc designers" },
           " to a ",
           { strong: "full in-house agency:" },
-          " product designers, UX researchers, a systems lead, front-end engineers, embedded alongside major external partners in London and Amsterdam. My team and I ",
-          { strong: "brought in" },
-          " ",
-          { strong: "Figma, UserTesting, Hotjar" },
-          ", along with all the human-centric design models and processes to ",
-          { strong: "improve efficiency, visibility and collaboration" },
+          " product designers, UX researchers, a systems lead, front-end engineers, embedded alongside major external partners in London and Amsterdam.",
+        ],
+      },
+      {
+        parts: [
+          "As a Digital Research team, we brought in Hotjar, gathering better data to inform our design decisions and (de)validate our hypotheses before going into our ideation. We leveraged and optimised our Usertesting.com platform, servicing both internal agents and external partners, to get closer to our consumers and derisk certain of our design leaps.",
+        ],
+      },
+      {
+        parts: [
+          "As a Digital Design team, ",
+          { strong: "we procured" },
+          " Figma Organisation and revamped our Enterprise Miro, along with injecting all the human-centric design models and processes ",
+          { strong: "to improve efficiency, visibility and collaboration" },
           " across the organisation and its various product categories.",
-          " My team and I ",
+        ],
+      },
+      {
+        parts: [
+          "We ",
           { strong: "wrote the" },
           " ",
           { strong: "governance models, negotiated the contracts with external agencies and third-party vendors, changed how design was procured and measured." },
-          " By any conventional metric, it worked.",
         ],
+      },
+      {
+        parts: ["By any conventional metric, it worked."],
       },
       {
         images: [

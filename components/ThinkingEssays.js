@@ -181,7 +181,13 @@ export default function ThinkingEssays() {
               {activeEssay.title}
             </h1>
             <div className="thinking-essay-body-prose">
-              <p className="lede">{activeEssay.lede}</p>
+              {(Array.isArray(activeEssay.lede) ? activeEssay.lede : [activeEssay.lede]).map(
+                (paragraph, index) => (
+                  <p key={index} className={index === 0 ? "lede" : undefined}>
+                    {paragraph}
+                  </p>
+                ),
+              )}
               {activeEssay.paragraphs.map((paragraph, index) => renderParagraph(paragraph, index))}
             </div>
             <div className="thinking-essay-body-byline">
