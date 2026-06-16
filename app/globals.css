@@ -610,8 +610,9 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
   display: inline-block;
   opacity: 1;
   text-shadow:
-    0 10px 30px rgba(0, 0, 0, 0.28),
-    0 2px 8px rgba(0, 0, 0, 0.18);
+    0 18px 44px rgba(0, 0, 0, 0.4),
+    0 6px 14px rgba(0, 0, 0, 0.24),
+    0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
 .hero.hero-cv {
@@ -1100,6 +1101,10 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
   box-sizing: border-box;
 }
 
+#pitch .section-services-inner {
+  padding-top: 32px;
+}
+
 .cv-pitch-card {
   --pitch-card-pad: clamp(1.5rem, 4vw, 2.5rem);
   --pitch-image-width: clamp(22rem, 40vw, 34rem);
@@ -1118,7 +1123,7 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
   width: 100%;
   max-width: 100%;
   min-height: clamp(28rem, 46vw, 34rem);
-  padding: clamp(8rem, 14vw, 10rem) var(--pitch-card-pad) clamp(2rem, 4vw, 3rem);
+  padding: 0;
   background: var(--pitch-card-background);
   border: 1px solid color-mix(in srgb, var(--color-border), transparent 42%);
   border-radius: 0.8rem;
@@ -1145,6 +1150,7 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
   width: 100%;
   max-width: 100%;
   margin: 0;
+  padding: 32px;
   font-family: var(--font-display);
   font-size: clamp(var(--size-500), 7vw, var(--size-900));
   font-weight: 700;
@@ -1159,7 +1165,8 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
   z-index: 1;
   width: 100%;
   max-width: 100%;
-  margin-top: clamp(1.5rem, 3vw, 2.5rem);
+  padding: 32px;
+  margin-top: 0;
   isolation: isolate;
 }
 
@@ -1167,11 +1174,12 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
   position: relative;
   z-index: 2;
   width: 100%;
-  max-width: min(58ch, 100%);
+  max-width: 100%;
   padding: 32px;
   background: color-mix(in srgb, var(--color-void, #0a0b0c) 82%, transparent);
   backdrop-filter: blur(6px);
   box-sizing: border-box;
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .cv-pitch-copy-content > .cv-pitch-copy:first-child {
@@ -1206,11 +1214,20 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
 }
 
 @media (min-width: 769px) {
+  .cv-pitch-card:not(.is-pitch-copy-revealed) .cv-pitch-copy-content {
+    opacity: 0;
+  }
+
+  .cv-pitch-card.is-pitch-copy-revealed .cv-pitch-copy-content {
+    opacity: 1;
+  }
+
   .cv-pitch-card:not(.is-pitch-copy-revealed) .cv-pitch-headline {
     width: 100%;
     max-width: 100%;
     opacity: 1;
-    transform: translate3d(0, clamp(-3rem, -6vw, -1.5rem), 0);
+    /* Card padding is now 0; keep headline fully visible (no top clip). */
+    transform: translate3d(0, clamp(0.5rem, 1.4vw, 1.25rem), 0);
   }
 
   .cv-pitch-card.is-pitch-copy-revealed .cv-pitch-headline {
@@ -3805,8 +3822,7 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
     --pitch-image-width: 100%;
     --pitch-text-width: 100%;
     min-height: auto;
-    padding: var(--pitch-card-pad);
-    padding-bottom: 0;
+    padding: 0;
   }
 
   .cv-pitch-card.is-pitch-image-visible,
@@ -3816,7 +3832,7 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
   }
 
   .cv-pitch-copy-body {
-    margin-top: 1.25rem;
+    padding: 32px;
   }
 
   .cv-pitch-avatar-target {
@@ -3836,7 +3852,7 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
   }
 
   .cv-pitch-copy-content {
-    max-width: 58ch;
+    max-width: 100%;
     background: color-mix(in srgb, var(--color-void, #0a0b0c) 86%, transparent);
   }
 
