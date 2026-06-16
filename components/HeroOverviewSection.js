@@ -125,12 +125,13 @@ export default function HeroOverviewSection({ meta, title }) {
           </div>
         </div>
 
-        <ScrollReveal>
-          <p className="eyebrow">{meta}</p>
-        </ScrollReveal>
         <h1 className="hero-headline">
           <HeroGoldScramble text={title} />
         </h1>
+
+        <ScrollReveal>
+          <p className="eyebrow">{meta}</p>
+        </ScrollReveal>
 
         <ScrollReveal className="cta-row" stagger>
           <Link className="button button-gold reveal reveal-right" href="/contact">

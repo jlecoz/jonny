@@ -187,10 +187,10 @@ function EducationSection() {
         </ScrollReveal>
 
         <ScrollReveal stagger className="cv-edu">
+          <p className="cv-edu-subheading">Schools</p>
+          {education.map(renderEduRow)}
           <p className="cv-edu-subheading">Certifications</p>
           {certifications.map(renderEduRow)}
-          <p className="cv-edu-subheading">School</p>
-          {education.map(renderEduRow)}
         </ScrollReveal>
       </div>
     </section>
@@ -200,9 +200,9 @@ function EducationSection() {
 export default function EducationPage() {
   return (
     <>
+      <EducationSection />
       <IxdfCertificationsSection />
       <LearningPhilosophySection />
-      <EducationSection />
     </>
   );
 }
