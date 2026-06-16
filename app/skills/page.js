@@ -5,22 +5,42 @@ import ScrollReveal from "@/components/ScrollReveal";
 
 const skillTags = [
   "Product Leadership",
-  "Human-centered Design",
-  "Customer Innovation",
+  "Design Systems",
+  "UX Strategy",
+  "Research & Experimentation",
+  "Cross-market Delivery",
 ];
 
 const knowledge = [
-  "Focusing on customer-driven innovation through an outside-in approach to user-centered design and design thinking methodology, driving ideation to the best possible solutions to customers' wicked problems.",
-  "Using fail-fast principles and lean UX techniques based on field research, usability testing and interaction design to monitor, measure and optimize user workflows and validate assumptions.",
-  "Helping align product roadmaps with business objectives by collaborating with local and central teams to produce seamless end-to-end experiences that bolster global brand strategy and standards.",
-  "Defining OKR/KPI metrics with product leaders to increase visibility to usage and conversion/retention linked to UX/CX contribution.",
-  "Industry UI/UX principles coupled with modern web technologies for efficient and engaging end-to-end experiences that are usable, useful and desirable.",
+  "Turned ambiguous, multi-stakeholder problems into shippable roadmaps — aligning product, engineering, commercial, and legal around one clear customer outcome.",
+  "Built and scaled design capability (process, tools, and people) so teams deliver consistently — not just when a single lead is in the room.",
+  "Shifted critique and research from “opinions” to evidence — so decisions are justified, measurable, and repeatable across squads.",
+  "Designed for trust and compliance in European markets — balancing regulation, brand governance, and real user behaviour in high-stakes flows.",
+  "Reduced rework by front-loading clarity: shared language, design systems, and constraints that engineers can build from without translation debt.",
 ];
 
 const languages = [
-  { label: "English", level: 5, flagClass: "languages-flag--uk", flagSrc: "/animations/uk_flag_icon.html" },
-  { label: "French", level: 5, flagClass: "languages-flag--fr", flagSrc: "/animations/french_flag_icon.html" },
-  { label: "Spanish", level: 1, flagClass: "languages-flag--es", flagSrc: "/animations/spanish_flag_icon.html" },
+  {
+    label: "English",
+    level: 5,
+    proficiencyLabel: "Native / Fluent",
+    flagClass: "languages-flag--uk",
+    flagSrc: "/animations/uk_flag_icon.html",
+  },
+  {
+    label: "French",
+    level: 5,
+    proficiencyLabel: "Native / Fluent",
+    flagClass: "languages-flag--fr",
+    flagSrc: "/animations/french_flag_icon.html",
+  },
+  {
+    label: "Spanish",
+    level: 1,
+    proficiencyLabel: "Basic",
+    flagClass: "languages-flag--es",
+    flagSrc: "/animations/spanish_flag_icon.html",
+  },
 ];
 
 export const metadata = {
@@ -56,7 +76,8 @@ function SkillsSection() {
             </span>
           </h1>
           <p className="section-intro">
-            Focused on <span className="gold">customer-driven innovation</span> and measurable outcomes.
+            I design and lead across <span className="gold">UK + European</span> contexts — turning complexity into outcomes,
+            and outcomes into repeatable systems teams can scale.
           </p>
         </ScrollReveal>
 
@@ -78,7 +99,7 @@ function SkillsSection() {
           </ScrollReveal>
 
           <ScrollReveal className="cv-split-right">
-            <h2 className="cv-subhead">Knowledge</h2>
+            <h2 className="cv-subhead">Outcomes</h2>
             <ul className="cv-knowledge">
               {knowledge.map((item) => (
                 <li key={item}>{item}</li>
@@ -116,11 +137,16 @@ function LanguagesSection() {
                   />
                 </span>
                 {lang.label}
+                {lang.proficiencyLabel ? (
+                  <span className="languages-proficiency" aria-hidden="true">
+                    {lang.proficiencyLabel}
+                  </span>
+                ) : null}
               </div>
               <div
                 className="languages-dots"
                 role="img"
-                aria-label={`${lang.label}: ${lang.level} out of 5`}
+                aria-label={`${lang.label}: ${lang.proficiencyLabel ?? `${lang.level} out of 5`}`}
               >
                 {Array.from({ length: 5 }, (_, i) => (
                   <span

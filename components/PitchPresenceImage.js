@@ -35,8 +35,8 @@ export default function PitchPresenceImage({ src, alt = "", width, height }) {
 
   useEffect(() => {
     const card = rootRef.current?.closest(".cv-pitch-card");
-    const pitch = card?.closest("#pitch");
-    if (!card || !pitch) return undefined;
+    const section = card?.closest(".cv-pitch-section");
+    if (!card || !section) return undefined;
 
     const desktopQuery = window.matchMedia("(min-width: 769px)");
     let raf = 0;
@@ -48,9 +48,9 @@ export default function PitchPresenceImage({ src, alt = "", width, height }) {
         return;
       }
 
-      const pitchRect = pitch.getBoundingClientRect();
-      const pitchMidpoint = pitchRect.top + pitchRect.height / 2;
-      card.classList.toggle("is-pitch-copy-revealed", pitchMidpoint <= window.innerHeight / 2);
+      const sectionRect = section.getBoundingClientRect();
+      const sectionMidpoint = sectionRect.top + sectionRect.height / 2;
+      card.classList.toggle("is-pitch-copy-revealed", sectionMidpoint <= window.innerHeight / 2);
     };
 
     const schedule = () => {
@@ -74,26 +74,52 @@ export default function PitchPresenceImage({ src, alt = "", width, height }) {
     const card = rootRef.current?.closest(".cv-pitch-card");
     if (!card || !isVisible) return undefined;
     const canHover = window.matchMedia("(hover: hover) and (pointer: fine) and (min-width: 769px)");
-    if (!canHover.matches) {
-      card.classList.remove("is-pitch-image-open");
-      return undefined;
+    const section = card.closest(".cv-pitch-section");
+    if (!section) return undefined;
+
+    // Desktop: on devices that can hover, keep the “open” state interactive.
+    // Otherwise (touch / non-hover), drive the “open” state from scroll position
+    // so the background image reveals as you move through the section.
+    if (canHover.matches) {
+      const updateOpenState = (event) => {
+        const rect = card.getBoundingClientRect();
+        const isBottomHalf = event.clientY >= rect.top + rect.height / 2;
+        card.classList.toggle("is-pitch-image-open", isBottomHalf);
+      };
+
+      const close = () => card.classList.remove("is-pitch-image-open");
+
+      card.addEventListener("pointermove", updateOpenState);
+      card.addEventListener("pointerleave", close);
+
+      return () => {
+        card.removeEventListener("pointermove", updateOpenState);
+        card.removeEventListener("pointerleave", close);
+        close();
+      };
     }
 
-    const updateOpenState = (event) => {
-      const rect = card.getBoundingClientRect();
-      const isBottomHalf = event.clientY >= rect.top + rect.height / 2;
-      card.classList.toggle("is-pitch-image-open", isBottomHalf);
+    let raf = 0;
+    const updateOpenFromScroll = () => {
+      raf = 0;
+      const rect = section.getBoundingClientRect();
+      const midpoint = rect.top + rect.height / 2;
+      const shouldOpen = midpoint <= window.innerHeight * 0.62;
+      card.classList.toggle("is-pitch-image-open", shouldOpen);
     };
 
-    const close = () => card.classList.remove("is-pitch-image-open");
+    const schedule = () => {
+      if (raf) return;
+      raf = requestAnimationFrame(updateOpenFromScroll);
+    };
 
-    card.addEventListener("pointermove", updateOpenState);
-    card.addEventListener("pointerleave", close);
+    updateOpenFromScroll();
+    const detach = attachScrollAndResize(schedule);
 
     return () => {
-      card.removeEventListener("pointermove", updateOpenState);
-      card.removeEventListener("pointerleave", close);
-      close();
+      detach();
+      cancelAnimationFrame(raf);
+      card.classList.remove("is-pitch-image-open");
     };
   }, [isVisible]);
 

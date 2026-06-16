@@ -13,7 +13,7 @@ export default function ContactCTA() {
             Available for <span className="gold">product design leadership</span> and advisory work.
           </h2>
           <p className="section-intro reveal reveal-down">
-            Based in {cv.location}. Reach out about product design leadership via email and I&rsquo;ll respond as soon as I can.
+            Reach out about product design leadership via email and I&rsquo;ll respond as soon as I can.
           </p>
           <div className="cta-row reveal reveal-down" style={{ justifyContent: "center" }}>
             <Link className="button button-gold" href="/contact">

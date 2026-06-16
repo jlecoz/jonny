@@ -12,11 +12,7 @@ export const siteConfig = {
     logoText: "JONATHAN LE COZ",
     tagline: "Experiential Designer",
   },
-  contact: {
-    location: "Manchester, United Kingdom",
-    phoneLabel: "+44 793 163 7144",
-    phoneHref: "tel:+447931637144",
-  },
+  contact: {},
   theme: {
     // Brand palette — Jonny CV (light surfaces)
     background: "#F5F5F5", // Off-White — Neutral BG
@@ -45,6 +41,7 @@ export const siteConfig = {
   contactEmail: "jonathan.lecoz@gmail.com",
   nav: [
     { label: "Works", href: "/#works" },
+    { label: "About", href: "/about" },
     { label: "Writing", href: "/thinking" },
     { label: "Experience & Skills", href: "/skills" },
     { label: "Education", href: "/education" },

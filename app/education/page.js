@@ -8,7 +8,8 @@ const certifications = [
   {
     school: "Interaction Design Foundation",
     degree: "Online certifications & Career Pathways Program",
-    description: "Human Computer Interaction",
+    description: "Human Computer Interaction, UX Research, Psychology, VR/AR/XR",
+    details: ["Structured through Auto Trader's Career Pathways Program"],
     period: "2018 - 2022",
     logo: "/img/ixdf-foundation-mark-dark.svg",
     logoContain: true,

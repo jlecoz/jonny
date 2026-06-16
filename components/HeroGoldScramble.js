@@ -43,8 +43,11 @@ export default function HeroGoldScramble({ text, className = "gold" }) {
   }, [progress, shouldDecrypt, text, tick]);
 
   return (
-    <span className={`${className} hero-gold-decrypt`} aria-label={text}>
-      {displayText}
-    </span>
+    <>
+      <span className="sr-only">{text}</span>
+      <span className={`${className} hero-gold-decrypt`} aria-hidden="true">
+        {displayText}
+      </span>
+    </>
   );
 }

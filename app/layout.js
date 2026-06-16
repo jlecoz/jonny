@@ -156,17 +156,8 @@ function Footer() {
 
           <div className="footer-social">
             <span className="footer-col-title">Social</span>
-            <a href={siteConfig.social.instagram} target="_blank" rel="noopener noreferrer">
-              Instagram
-            </a>
             <a href={siteConfig.social.linkedin} target="_blank" rel="noopener noreferrer">
               LinkedIn
-            </a>
-            <a href={siteConfig.social.x} target="_blank" rel="noopener noreferrer">
-              X
-            </a>
-            <a href={siteConfig.social.youtube} target="_blank" rel="noopener noreferrer">
-              YouTube
             </a>
           </div>
         </div>

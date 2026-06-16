@@ -1101,8 +1101,23 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
   box-sizing: border-box;
 }
 
-#pitch .section-services-inner {
+.cv-pitch-section .section-services-inner {
   padding-top: 32px;
+}
+
+.about-hero-intro {
+  margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.about-hero-intro .section-headline,
+.about-hero-intro .cv-pitch-headline {
+  margin-bottom: 0;
+  padding: 0;
+}
+
+.section-headline-outside {
+  margin-top: clamp(1.5rem, 3vw, 2.5rem);
+  margin-bottom: 0;
 }
 
 .cv-pitch-card {
@@ -1160,6 +1175,11 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
     transform 0.85s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
+.cv-pitch-headline-outside {
+  padding: 0;
+  margin-top: clamp(1.5rem, 3vw, 2.5rem);
+}
+
 .cv-pitch-copy-body {
   position: relative;
   z-index: 1;
@@ -1211,6 +1231,31 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
 
 .cv-pitch-card.is-pitch-image-open .cv-pitch-copy-content {
   background: color-mix(in srgb, var(--color-void, #0a0b0c) 72%, transparent);
+}
+
+/* About page: reveal pitch copy from left on scroll */
+#about.cv-pitch-section .cv-pitch-headline,
+#about.cv-pitch-section .section-headline-outside {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+#about.cv-pitch-section .cv-pitch-card .cv-pitch-copy-content,
+#about.cv-pitch-section .cv-pitch-card .cv-pitch-copy {
+  pointer-events: auto;
+}
+
+#about.cv-pitch-section .cv-pitch-card:not(.is-pitch-copy-revealed) .cv-pitch-copy-content,
+#about.cv-pitch-section .cv-pitch-card:not(.is-pitch-copy-revealed) .cv-pitch-copy {
+  opacity: 0;
+  transform: translateX(-22px);
+}
+
+#about.cv-pitch-section .cv-pitch-card.is-pitch-copy-revealed .cv-pitch-copy-content,
+#about.cv-pitch-section .cv-pitch-card.is-pitch-copy-revealed .cv-pitch-copy {
+  opacity: 1;
+  transform: none;
 }
 
 @media (min-width: 769px) {
@@ -3210,6 +3255,16 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
   font-size: 18px;
   line-height: 1.2;
   color: color-mix(in srgb, var(--color-fg), transparent 15%);
+}
+
+.languages-proficiency {
+  font-family: var(--font-label);
+  font-size: var(--size-150);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--color-grey-mid), transparent 12%);
+  margin-left: 0.25rem;
 }
 
 .languages-flag {

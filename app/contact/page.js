@@ -47,9 +47,11 @@ export default function ContactPage() {
           .
         </p>
         <p className="contact-alt" style={{ marginTop: "0.7rem" }}>
-          Phone: <a href="tel:+447931637144">+44 793 163 7144</a>
-          <br />
-          Location: Manchester, United Kingdom
+          Connect on{" "}
+          <a href={siteConfig.social.linkedin} target="_blank" rel="noopener noreferrer">
+            LinkedIn
+          </a>
+          .
         </p>
       </div>
     </section>

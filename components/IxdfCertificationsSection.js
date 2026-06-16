@@ -4,11 +4,22 @@ import ScrollReveal from "@/components/ScrollReveal";
 import IxdfCertIcon from "@/components/IxdfCertIcon";
 import { ixdfCertCategories } from "@/config/ixdfCertifications";
 
-function IxdfBadge({ title, iconBg, iconKey }) {
+function toIconColor(bg) {
+  if (typeof bg !== "string") return undefined;
+  const m = bg.match(/rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/i);
+  if (!m) return undefined;
+  const r = Number(m[1]);
+  const g = Number(m[2]);
+  const b = Number(m[3]);
+  if (![r, g, b].every((v) => Number.isFinite(v))) return undefined;
+  return `rgb(${r} ${g} ${b})`;
+}
+
+function IxdfBadge({ title, iconBg, iconKey, iconColor }) {
   return (
     <div className="ixdf-badge reveal">
       <div className="ixdf-icon-wrap" style={{ background: iconBg }}>
-        <IxdfCertIcon name={iconKey} />
+        <IxdfCertIcon name={iconKey} color={iconColor} />
       </div>
       <span className="ixdf-badge-title">{title}</span>
       <span className="ixdf-badge-issuer">IxDF</span>
@@ -46,7 +57,8 @@ export default function IxdfCertificationsSection() {
                     <IxdfBadge
                       key={cert.key}
                       title={cert.title}
-                      iconBg={cert.iconBg}
+                      iconBg={category.certificates?.[0]?.iconBg ?? cert.iconBg}
+                      iconColor={toIconColor(category.certificates?.[0]?.iconBg) ?? toIconColor(cert.iconBg)}
                       iconKey={cert.key}
                     />
                   ))}

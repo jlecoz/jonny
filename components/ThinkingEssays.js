@@ -10,6 +10,35 @@ function setEssayScrollLock(locked) {
   document.body.classList.toggle("thinking-essay-open", locked);
 }
 
+function flattenToText(value) {
+  if (value == null) return "";
+  if (typeof value === "string") return value;
+  if (Array.isArray(value)) return value.map(flattenToText).join(" ");
+  if (typeof value === "object") {
+    if (value.parts) return flattenToText(value.parts);
+    if (value.quote?.parts) return flattenToText(value.quote.parts);
+    if (value.images) return "";
+  }
+  return "";
+}
+
+function estimateReadTimeMinutes(essay) {
+  const text = [
+    essay.title,
+    essay.excerpt,
+    essay.lede,
+    essay.paragraphs,
+  ]
+    .map(flattenToText)
+    .join(" ")
+    .replace(/\s+/g, " ")
+    .trim();
+
+  const wordCount = text ? text.split(" ").length : 0;
+  const minutes = Math.max(1, Math.round(wordCount / 220));
+  return minutes;
+}
+
 function renderParagraph(paragraph, index) {
   if (typeof paragraph === "string") {
     return (
@@ -158,6 +187,7 @@ export default function ThinkingEssays() {
   }, []);
 
   const activeEssay = thinkingEssays.find((essay) => essay.id === openEssayId);
+  const activeReadTime = activeEssay ? estimateReadTimeMinutes(activeEssay) : null;
 
   const essayOverlay =
     activeEssay ? (
@@ -183,6 +213,7 @@ export default function ThinkingEssays() {
         <div className="thinking-essay-body">
           <p className="thinking-essay-body-eyebrow">
             {activeEssay.category} · {activeEssay.year}
+            {typeof activeReadTime === "number" ? ` · ${activeReadTime} min read` : ""}
           </p>
           <h1 className="thinking-essay-body-title" id={`${activeEssay.id}-title`}>
             {activeEssay.title}
@@ -234,6 +265,9 @@ export default function ThinkingEssays() {
 
         <ScrollReveal stagger>
           {thinkingEssays.map((essay) => (
+            (() => {
+              const readTime = estimateReadTimeMinutes(essay);
+              return (
             <article
               key={essay.id}
               className="thinking-essay-card reveal reveal-left"
@@ -252,6 +286,8 @@ export default function ThinkingEssays() {
                   <span>{essay.category}</span>
                   <span className="thinking-essay-meta-dot" aria-hidden="true" />
                   <span>{essay.year}</span>
+                  <span className="thinking-essay-meta-dot" aria-hidden="true" />
+                  <span>{readTime} min read</span>
                 </div>
                 <h2 className="thinking-essay-title">{essay.title}</h2>
                 <p className="thinking-essay-excerpt">{essay.excerpt}</p>
@@ -260,6 +296,8 @@ export default function ThinkingEssays() {
                 ↗
               </span>
             </article>
+              );
+            })()
           ))}
         </ScrollReveal>
       </section>

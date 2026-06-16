@@ -11,8 +11,6 @@ export const cv = {
   name: "Jonathan Le Coz",
   title: "Experiential Design",
   meta: "20+ years of creative arts, brand design and web technology",
-  location: "Manchester, United Kingdom",
-  phone: "+44 793 163 7144",
   email: "jonathan.lecoz@gmail.com",
   languages: [
     { label: "English", level: 5 },
@@ -44,7 +42,6 @@ export const cv = {
         {
           title: "Experience Design Lead",
           periodLine: "Jan 2022 – Dec 2022 · 1 yr",
-          location: "Manchester Area, United Kingdom",
           bullets: [],
           skills: "Product Strategy, Web Design, and +8 skills",
         },
@@ -71,7 +68,6 @@ export const cv = {
         {
           title: "Principal Product Designer",
           periodLine: "Nov 2020 – Jun 2021 · 8 mos",
-          location: "Manchester Area, United Kingdom",
           summary:
             "Digital Retailing and Onward Journey — CORE/B2B. Direction of the post-sale journey customers and suppliers engage with in the Auto Trader ecosystem.",
           bullets: [],
@@ -80,11 +76,30 @@ export const cv = {
       ],
     },
     {
+      key: "intuit",
+      orgDisplay: "Intuit",
+      orgUrl: "https://www.intuit.com",
+      logoDomain: "intuit.com",
+      companyTagline: "Full-time · Product design leadership across UK & France",
+      roles: [
+        {
+          title: "Product Design Lead",
+          periodLine: "2016 – 2018",
+          bullets: [
+            "Led product design across UK and France, aligning local needs with a shared platform direction.",
+            "Designed for trust in regulated, high-stakes financial flows — balancing compliance, clarity, and customer confidence.",
+            "Partnered with product and engineering leads on discovery, prioritisation, and measurable outcomes.",
+          ],
+          skills: "Product Strategy, UX Research, and +8 skills",
+        },
+      ],
+    },
+    {
       key: "booking",
       orgDisplay: "Booking.com",
       orgUrl: "https://www.booking.com",
       logoDomain: "booking.com",
-      companyTagline: "Full-time · 2 yrs 2 mos · Manchester Area, United Kingdom",
+      companyTagline: "Full-time · 2 yrs 2 mos · United Kingdom",
       roles: [
         {
           title: "Design Lead",
@@ -112,7 +127,8 @@ export const cv = {
     {
       school: "Interaction Design Foundation",
       degree: "Online certifications & Career Path Program & Career Pathways Program",
-      description: "Human Computer Interaction",
+      description: "Human Computer Interaction, UX Research, Psychology, VR/AR/XR",
+      details: ["Structured through Auto Trader's Career Pathways Program"],
       period: "2018 – 2022",
       logo: "/img/ixdf-foundation-mark-dark.svg",
       logoContain: true,
