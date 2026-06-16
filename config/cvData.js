@@ -28,7 +28,7 @@ export const cv = {
       roles: [
         {
           title: "Director of Digital Experience",
-          periodLine: "Jan 2021 – Present · 3 yrs and 4 months",
+          periodStart: { month: 1, year: 2022 },
           workMode: "Hybrid",
           bullets: [
             "Advocate for design thinking and design linking. I support Product Owners, Engineers and Designers throughout the NGP pillar to work smart and deliver value for our experience across multiple product lines.",
@@ -76,25 +76,6 @@ export const cv = {
       ],
     },
     {
-      key: "intuit",
-      orgDisplay: "Intuit",
-      orgUrl: "https://www.intuit.com",
-      logoDomain: "intuit.com",
-      companyTagline: "Full-time · Product design leadership across UK & France",
-      roles: [
-        {
-          title: "Product Design Lead",
-          periodLine: "2016 – 2018",
-          bullets: [
-            "Led product design across UK and France, aligning local needs with a shared platform direction.",
-            "Designed for trust in regulated, high-stakes financial flows — balancing compliance, clarity, and customer confidence.",
-            "Partnered with product and engineering leads on discovery, prioritisation, and measurable outcomes.",
-          ],
-          skills: "Product Strategy, UX Research, and +8 skills",
-        },
-      ],
-    },
-    {
       key: "booking",
       orgDisplay: "Booking.com",
       orgUrl: "https://www.booking.com",
@@ -112,6 +93,26 @@ export const cv = {
           ],
           skills: "Product Strategy, Web Design, and +8 skills",
           featured: "Featured project: Booking.com One Million — social wall campaign.",
+        },
+      ],
+    },
+    {
+      key: "intuit",
+      orgDisplay: "Intuit",
+      orgUrl: "https://www.intuit.com",
+      logoDomain: "intuit.com",
+      companyTagline: "Full-time · Product design leadership across UK & France",
+      roles: [
+        {
+          title: "Product Design Lead",
+          periodStart: { month: 8, year: 2017 },
+          periodEnd: { month: 9, year: 2018 },
+          bullets: [
+            "Led product design across UK and France, aligning local needs with a shared platform direction.",
+            "Designed for trust in regulated, high-stakes financial flows — balancing compliance, clarity, and customer confidence.",
+            "Partnered with product and engineering leads on discovery, prioritisation, and measurable outcomes.",
+          ],
+          skills: "Product Strategy, UX Research, and +8 skills",
         },
       ],
     },

@@ -2,6 +2,7 @@ import ScrollReveal from "@/components/ScrollReveal";
 import ExperienceHeadlineDecrypt from "@/components/ExperienceHeadlineDecrypt";
 import ShowMoreBullets from "@/components/ShowMoreBullets";
 import { cv, linkedInExperienceUrl } from "@/config/cvData";
+import { formatRolePeriod } from "@/lib/formatExperiencePeriod";
 
 export default function ExperienceSection() {
   return (
@@ -49,7 +50,9 @@ export default function ExperienceSection() {
                         <div key={`${group.key}-${role.title}-${idx}`} className="cv-role-position">
                           <div className="cv-role-job-block">
                             <h4 className="cv-role-job-title">{role.title}</h4>
-                            {role.periodLine ? <p className="cv-role-job-dates">{role.periodLine}</p> : null}
+                            {(role.periodStart || role.periodLine) ? (
+                              <p className="cv-role-job-dates">{formatRolePeriod(role)}</p>
+                            ) : null}
                             {role.location ? <p className="cv-role-work-mode">{role.location}</p> : null}
                             {role.workMode ? <p className="cv-role-work-mode">{role.workMode}</p> : null}
                             {role.summary ? <p className="cv-role-summary">{role.summary}</p> : null}

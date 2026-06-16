@@ -1105,6 +1105,11 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
   padding-top: 32px;
 }
 
+#about.cv-pitch-section .section-services-inner {
+  padding-top: 64px;
+  padding-bottom: 64px;
+}
+
 .about-hero-intro {
   margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
 }
