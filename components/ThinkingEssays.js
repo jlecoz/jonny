@@ -48,6 +48,22 @@ function renderParagraph(paragraph, index) {
     );
   }
 
+  if (paragraph.quote) {
+    return (
+      <blockquote key={`quote-${index}`} className="thinking-essay-quote">
+        <p>
+          {paragraph.quote.parts.map((part, partIndex) =>
+            typeof part === "string" ? (
+              part
+            ) : (
+              <strong key={partIndex}>{part.strong}</strong>
+            ),
+          )}
+        </p>
+      </blockquote>
+    );
+  }
+
   return (
     <p key={`rich-${index}`}>
       {paragraph.parts.map((part, partIndex) =>
@@ -172,13 +188,27 @@ export default function ThinkingEssays() {
             {activeEssay.title}
           </h1>
           <div className="thinking-essay-body-prose">
-            {(Array.isArray(activeEssay.lede) ? activeEssay.lede : [activeEssay.lede]).map(
-              (paragraph, index) => (
-                <p key={index} className={index === 0 ? "lede" : undefined}>
-                  {paragraph}
-                </p>
-              ),
-            )}
+            {(() => {
+              const ledeItems = Array.isArray(activeEssay.lede)
+                ? activeEssay.lede
+                : [activeEssay.lede];
+
+              return ledeItems.map((paragraph, index) => {
+                if (paragraph?.images) {
+                  return renderParagraph(paragraph, `lede-${index}`);
+                }
+
+                const ledeTextIndex = ledeItems
+                  .slice(0, index)
+                  .filter((item) => typeof item === "string").length;
+
+                return (
+                  <p key={index} className={ledeTextIndex === 0 ? "lede" : undefined}>
+                    {paragraph}
+                  </p>
+                );
+              });
+            })()}
             {activeEssay.paragraphs.map((paragraph, index) => renderParagraph(paragraph, index))}
           </div>
           {activeEssay.linkedInArticleUrl ? (

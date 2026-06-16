@@ -4522,6 +4522,28 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
   font-weight: 600;
 }
 
+.thinking-essay-quote {
+  margin: 2.75rem 0;
+  padding-left: 1.35rem;
+  border-left: 2px solid var(--color-accent);
+  max-width: 62ch;
+}
+
+.thinking-essay-quote p {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(var(--size-300), 3.6vw, var(--size-500));
+  font-weight: 500;
+  line-height: 1.22;
+  letter-spacing: -0.012em;
+  color: var(--color-fg);
+}
+
+.thinking-essay-quote strong {
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
 .thinking-essay-figures {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
