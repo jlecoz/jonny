@@ -1106,8 +1106,8 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
 }
 
 #about.cv-pitch-section .section-services-inner {
-  padding-top: 64px;
-  padding-bottom: 64px;
+  padding-top: 128px;
+  padding-bottom: 128px;
 }
 
 .about-hero-intro {
@@ -1190,7 +1190,7 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
   z-index: 1;
   width: 100%;
   max-width: 100%;
-  padding: 32px;
+  padding: 64px;
   margin-top: 0;
   isolation: isolate;
 }
@@ -1246,21 +1246,15 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
   pointer-events: auto;
 }
 
+#about.cv-pitch-section .section-headline-outside {
+  margin-top: 128px;
+}
+
 #about.cv-pitch-section .cv-pitch-card .cv-pitch-copy-content,
 #about.cv-pitch-section .cv-pitch-card .cv-pitch-copy {
-  pointer-events: auto;
-}
-
-#about.cv-pitch-section .cv-pitch-card:not(.is-pitch-copy-revealed) .cv-pitch-copy-content,
-#about.cv-pitch-section .cv-pitch-card:not(.is-pitch-copy-revealed) .cv-pitch-copy {
-  opacity: 0;
-  transform: translateX(-22px);
-}
-
-#about.cv-pitch-section .cv-pitch-card.is-pitch-copy-revealed .cv-pitch-copy-content,
-#about.cv-pitch-section .cv-pitch-card.is-pitch-copy-revealed .cv-pitch-copy {
   opacity: 1;
   transform: none;
+  pointer-events: auto;
 }
 
 @media (min-width: 769px) {
@@ -3892,7 +3886,7 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
   }
 
   .cv-pitch-copy-body {
-    padding: 32px;
+    padding: 64px;
   }
 
   .cv-pitch-avatar-target {

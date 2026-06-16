@@ -1,6 +1,7 @@
 import "./globals.css";
 import Link from "next/link";
 import SiteHeader from "@/components/SiteHeader";
+import MainBelowFoldReveal from "@/components/MainBelowFoldReveal";
 import { siteConfig } from "@/config/siteConfig";
 
 const defaultDescription =
@@ -109,7 +110,10 @@ export default function RootLayout({ children }) {
           <div className="parallax-content">
             <div className="page-shell">
               <SiteHeader />
-              <main>{children}</main>
+              <main>
+                {children}
+                <MainBelowFoldReveal />
+              </main>
               <Footer />
             </div>
           </div>

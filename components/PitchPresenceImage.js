@@ -35,40 +35,14 @@ export default function PitchPresenceImage({ src, alt = "", width, height }) {
 
   useEffect(() => {
     const card = rootRef.current?.closest(".cv-pitch-card");
-    const section = card?.closest(".cv-pitch-section");
-    if (!card || !section) return undefined;
+    if (!card) return undefined;
 
-    const desktopQuery = window.matchMedia("(min-width: 769px)");
-    let raf = 0;
-
-    const updateRevealState = () => {
-      raf = 0;
-      if (!desktopQuery.matches || reduceMotion) {
-        card.classList.add("is-pitch-copy-revealed");
-        return;
-      }
-
-      const sectionRect = section.getBoundingClientRect();
-      const sectionMidpoint = sectionRect.top + sectionRect.height / 2;
-      card.classList.toggle("is-pitch-copy-revealed", sectionMidpoint <= window.innerHeight / 2);
-    };
-
-    const schedule = () => {
-      if (raf) return;
-      raf = requestAnimationFrame(updateRevealState);
-    };
-
-    updateRevealState();
-    const detachScrollResize = attachScrollAndResize(schedule);
-    desktopQuery.addEventListener("change", schedule);
+    card.classList.add("is-pitch-copy-revealed");
 
     return () => {
-      detachScrollResize();
-      desktopQuery.removeEventListener("change", schedule);
-      cancelAnimationFrame(raf);
       card.classList.remove("is-pitch-copy-revealed");
     };
-  }, [reduceMotion]);
+  }, []);
 
   useEffect(() => {
     const card = rootRef.current?.closest(".cv-pitch-card");

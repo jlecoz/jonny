@@ -21,7 +21,7 @@ export default function AboutSection() {
           </h1>
         </div>
 
-        <div className="cv-pitch-card">
+        <div className="cv-pitch-card is-pitch-copy-revealed">
           <div className="cv-pitch-copy-body">
             <div className="cv-pitch-avatar-target is-settled" aria-hidden="true">
               <PitchPresenceImage
