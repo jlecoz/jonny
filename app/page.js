@@ -1,4 +1,3 @@
-import Link from "next/link";
 import ScrollReveal from "@/components/ScrollReveal";
 import HeroOverviewSection from "@/components/HeroOverviewSection";
 import ExperienceHeadlineDecrypt from "@/components/ExperienceHeadlineDecrypt";
@@ -88,9 +87,6 @@ function WorksSection() {
                       {item.client ? <h4 className="cv-work-client">{item.client}</h4> : null}
                       <p>{item.blurb}</p>
                       <div className="cv-work-card-actions">
-                        <Link href={`/works/${item.slug}`} className="button button-secondary">
-                          Learn more
-                        </Link>
                         <a
                           className="cv-work-card-external"
                           href={item.href}
