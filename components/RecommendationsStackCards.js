@@ -30,6 +30,21 @@ export default function RecommendationsStackCards({ cardCount, children, footer 
       root.style.removeProperty("--rec-stack-hold");
       root.style.removeProperty("--rec-stack-runway");
       root.style.removeProperty("--rec-stack-stage-height");
+
+      const section = root.closest("#recommendations");
+      section?.querySelector(".recommendations-title")?.classList.remove("is-rec-title-released");
+      syncTitleHeight(section);
+    };
+
+    const syncTitleHeight = (section) => {
+      const inner = section?.querySelector(".section-services-inner");
+      const title = section?.querySelector(".recommendations-title");
+      if (!inner || !title) return;
+
+      inner.style.setProperty(
+        "--rec-title-height",
+        `${Math.ceil(title.getBoundingClientRect().height)}px`,
+      );
     };
 
     const measureStackHeight = (contents) => {
@@ -63,12 +78,14 @@ export default function RecommendationsStackCards({ cardCount, children, footer 
       const stackHeight = measureStackHeight(contents);
       const holdHeight = measureHoldHeight(contents);
       const runway = Math.ceil(stackHeight + holdHeight);
+      const section = root.closest("#recommendations");
 
       root.style.setProperty("--rec-stack-runway", `${runway}px`);
       root.style.setProperty("--rec-stack-height", `${stackHeight}px`);
       // Hold drives scroll while the pile stays pinned; keep it stable to avoid layout jumps.
       root.style.setProperty("--rec-stack-hold", `${holdHeight}px`);
       root.classList.add("is-rec-stack-settled");
+      section?.querySelector(".recommendations-title")?.classList.add("is-rec-title-released");
     };
 
     const run = () => {
@@ -116,7 +133,6 @@ export default function RecommendationsStackCards({ cardCount, children, footer 
 
       if (allStacked && sectionVisible) {
         settle(contents);
-        updateFade(section);
         return;
       }
 
@@ -135,7 +151,10 @@ export default function RecommendationsStackCards({ cardCount, children, footer 
     };
 
     schedule();
-    const detach = attachScrollAndResize(schedule);
+    const detach = attachScrollAndResize(() => {
+      syncTitleHeight(root.closest("#recommendations"));
+      schedule();
+    });
     reduceMotion.addEventListener("change", schedule);
 
     return () => {

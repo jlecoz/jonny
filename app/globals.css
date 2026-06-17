@@ -1597,21 +1597,28 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
 }
 
 #recommendations .section-services-inner {
-  padding-top: 128px;
+  padding-top: 32px;
+  --rec-title-height: 0px;
 }
 
 /* Keep the recommendations title visible while cards scroll. */
 #recommendations .recommendations-title {
   position: sticky;
   top: clamp(1rem, 4vh, 2.25rem);
-  z-index: 7;
+  z-index: 12;
   padding-bottom: clamp(0.75rem, 2vh, 1.25rem);
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0) 0%,
-    rgba(0, 0, 0, 0) 35%,
-    rgba(255, 255, 255, 0.6) 100%
-  );
+  background: var(--color-bg);
+}
+
+#recommendations .recommendations-title.is-rec-title-released {
+  position: relative;
+  top: auto;
+}
+
+.rec-stack-cards.is-rec-stack-settled {
+  /* Preserve original scroll runway to avoid a "jump" when switching to settled mode. */
+  --rec-title-height: 0px;
+  min-height: var(--rec-stack-runway, auto);
 }
 
 /* Stacking recommendation cards — scroll-driven scale (Chrome 115+).
@@ -1650,16 +1657,13 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
 .rec-stack-cards.is-rec-stack-settled .rec-stack-footer {
   position: sticky;
   /* Stick just below the stacked pile, not to viewport bottom (avoids clipping by section overflow). */
-  top: calc(var(--stack-base) + var(--rec-stack-height, 0px) + 1.25rem);
+  top: calc(
+    var(--rec-title-height, 0px) + var(--stack-base) + var(--rec-stack-height, 0px) + 1.25rem
+  );
   z-index: 6;
   opacity: 1;
   transform: translate3d(0, 0, 0);
   pointer-events: auto;
-}
-
-.rec-stack-cards.is-rec-stack-settled {
-  /* Preserve original scroll runway to avoid a "jump" when switching to settled mode. */
-  min-height: var(--rec-stack-runway, auto);
 }
 
 /* When not settled, let the wrapper follow the live stage height. */
@@ -1703,7 +1707,9 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
 
 .rec-stack-card__content {
   position: sticky;
-  top: calc(var(--stack-base) + var(--index0) * var(--stack-step));
+  top: calc(
+    var(--rec-title-height, 0px) + var(--stack-base) + var(--index0) * var(--stack-step)
+  );
   z-index: calc(var(--index) + 5);
   transform-origin: center top;
   box-shadow: 0 12px 40px rgba(15, 32, 35, 0.12);
@@ -1736,7 +1742,7 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
 /* Once all cards stack, pin the pile and scroll through hold to section end */
 .rec-stack-cards.is-rec-stack-settled .rec-stack-stage {
   position: sticky;
-  top: var(--stack-base);
+  top: calc(var(--rec-title-height, 0px) + var(--stack-base));
   height: var(--rec-stack-height);
   z-index: 5;
 }
