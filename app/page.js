@@ -138,7 +138,25 @@ function RecommendationsSection() {
           </h2>
         </ScrollReveal>
 
-        <RecommendationsStackCards cardCount={recCount}>
+        <RecommendationsStackCards
+          cardCount={recCount}
+          footer={
+            <div className="cv-experience-more">
+              <a
+                className="cv-experience-more-link"
+                href={linkedInRecommendationsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Show all recommendations on LinkedIn"
+              >
+                <span>Show all</span>
+                <span className="cv-experience-more-arrow" aria-hidden="true">
+                  →
+                </span>
+              </a>
+            </div>
+          }
+        >
           {cv.recommendations.map((r, i) => (
             <div
               key={r.name}
@@ -174,23 +192,6 @@ function RecommendationsSection() {
             </div>
           ))}
         </RecommendationsStackCards>
-
-        <ScrollReveal>
-          <div className="cv-experience-more">
-            <a
-              className="cv-experience-more-link"
-              href={linkedInRecommendationsUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Show all recommendations on LinkedIn"
-            >
-              <span>Show all</span>
-              <span className="cv-experience-more-arrow" aria-hidden="true">
-                →
-              </span>
-            </a>
-          </div>
-        </ScrollReveal>
       </div>
     </section>
   );

@@ -1,132 +1,187 @@
-"use client";
-
-import { useEffect, useRef } from "react";
-import { attachScrollAndResize } from "@/lib/scrollRoot";
-
-const STACK_STEP_PX = 14;
-const LOCK_TOLERANCE_PX = 10;
-
-/**
- * Scroll-stacked recommendation cards. Once all cards lock into the pile,
- * pins the stack as one unit through the rest of the section.
- */
-export default function RecommendationsStackCards({ cardCount, children }) {
-  const rootRef = useRef(null);
-
-  useEffect(() => {
-    const root = rootRef.current;
-    if (!root) return undefined;
-
-    const stage = root.querySelector(".rec-stack-stage");
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-
-    const clear = () => {
-      root.classList.remove("is-rec-stack-settled");
-      root.style.removeProperty("--rec-stack-height");
-      root.style.removeProperty("--rec-stack-hold");
-    };
-
-    const measureStackHeight = (contents) => {
-      if (!contents.length) return 0;
-
-      const first = contents[0].getBoundingClientRect();
-      const last = contents[contents.length - 1].getBoundingClientRect();
-      return Math.ceil(last.bottom - first.top);
-    };
-
-    const areCardsStacked = (contents) => {
-      if (contents.length < 2) return contents.length === 1;
-
-      const firstTop = contents[0].getBoundingClientRect().top;
-      return contents.every((content, index) => {
-        const expectedTop = firstTop + index * STACK_STEP_PX;
-        return Math.abs(content.getBoundingClientRect().top - expectedTop) < LOCK_TOLERANCE_PX;
-      });
-    };
-
-    const measureHoldHeight = (contents) => {
-      const section = root.closest("#recommendations");
-      if (!section || !contents.length) return 96;
-
-      const stackBottom = contents[contents.length - 1].getBoundingClientRect().bottom;
-      const sectionBottom = section.getBoundingClientRect().bottom;
-      return Math.max(64, Math.ceil(sectionBottom - stackBottom));
-    };
-
-    const settle = (contents) => {
-      root.style.setProperty("--rec-stack-height", `${measureStackHeight(contents)}px`);
-      root.style.setProperty("--rec-stack-hold", `${measureHoldHeight(contents)}px`);
-      root.classList.add("is-rec-stack-settled");
-    };
-
-    const run = () => {
-      if (reduceMotion.matches || !stage) {
-        clear();
-        return;
-      }
-
-      const contents = [...root.querySelectorAll(".rec-stack-card__content")];
-      if (!contents.length) return;
-
-      const rootRect = root.getBoundingClientRect();
-      const section = root.closest("#recommendations");
-      const sectionRect = section?.getBoundingClientRect();
-      const sectionOffscreen =
-        !sectionRect ||
-        sectionRect.bottom < 0 ||
-        sectionRect.top > window.innerHeight;
-
-      if (root.classList.contains("is-rec-stack-settled")) {
-        if (sectionOffscreen) {
-          clear();
-        }
-        return;
-      }
-
-      const sectionVisible = rootRect.bottom > 0 && rootRect.top < window.innerHeight;
-      const allStacked = areCardsStacked(contents);
-
-      if (allStacked && sectionVisible) {
-        settle(contents);
-        return;
-      }
-
-      if (!allStacked && rootRect.bottom < 0) {
-        clear();
-      }
-    };
-
-    let raf = 0;
-    const schedule = () => {
-      if (raf) return;
-      raf = requestAnimationFrame(() => {
-        run();
-        raf = 0;
-      });
-    };
-
-    schedule();
-    const detach = attachScrollAndResize(schedule);
-    reduceMotion.addEventListener("change", schedule);
-
-    return () => {
-      detach();
-      reduceMotion.removeEventListener("change", schedule);
-      cancelAnimationFrame(raf);
-      clear();
-    };
-  }, [cardCount]);
-
-  return (
-    <div
-      ref={rootRef}
-      id="recommendation-cards"
-      className="rec-stack-cards"
-      style={{ "--numcards": cardCount }}
-    >
-      <div className="rec-stack-stage">{children}</div>
-      <div className="rec-stack-hold" aria-hidden="true" />
-    </div>
-  );
-}
-
+"use client";
+
+import { useEffect, useRef } from "react";
+import { attachScrollAndResize } from "@/lib/scrollRoot";
+
+const STACK_STEP_PX = 14;
+const LOCK_TOLERANCE_PX = 10;
+const FADE_START_VH = 0.9;
+const FADE_END_VH = 0.55;
+
+/**
+ * Scroll-stacked recommendation cards. Once all cards lock into the pile,
+ * pins the stack as one unit through the rest of the section.
+ */
+export default function RecommendationsStackCards({ cardCount, children, footer }) {
+  const rootRef = useRef(null);
+
+  useEffect(() => {
+    const root = rootRef.current;
+    if (!root) return undefined;
+
+    const stage = root.querySelector(".rec-stack-stage");
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const parallaxContainer = document.querySelector(".parallax-container");
+    const getScrollTop = () =>
+      parallaxContainer ? parallaxContainer.scrollTop : window.scrollY || window.pageYOffset || 0;
+    let lastScrollTop = getScrollTop();
+
+    const clear = () => {
+      root.classList.remove("is-rec-stack-settled");
+      root.style.removeProperty("--rec-stack-height");
+      root.style.removeProperty("--rec-stack-hold");
+      root.style.removeProperty("--rec-stack-runway");
+      root.style.removeProperty("--rec-stack-opacity");
+      root.style.removeProperty("--rec-stack-stage-height");
+    };
+
+    const measureStackHeight = (contents) => {
+      if (!contents.length) return 0;
+
+      const first = contents[0].getBoundingClientRect();
+      const last = contents[contents.length - 1].getBoundingClientRect();
+      return Math.ceil(last.bottom - first.top);
+    };
+
+    const areCardsStacked = (contents) => {
+      if (contents.length < 2) return contents.length === 1;
+
+      const firstTop = contents[0].getBoundingClientRect().top;
+      return contents.every((content, index) => {
+        const expectedTop = firstTop + index * STACK_STEP_PX;
+        return Math.abs(content.getBoundingClientRect().top - expectedTop) < LOCK_TOLERANCE_PX;
+      });
+    };
+
+    const measureHoldHeight = (contents) => {
+      const section = root.closest("#recommendations");
+      if (!section || !contents.length) return 96;
+
+      const stackBottom = contents[contents.length - 1].getBoundingClientRect().bottom;
+      const sectionBottom = section.getBoundingClientRect().bottom;
+      return Math.max(64, Math.ceil(sectionBottom - stackBottom));
+    };
+
+    const settle = (contents) => {
+      const stackHeight = measureStackHeight(contents);
+      const holdHeight = measureHoldHeight(contents);
+      const runway = Math.ceil(stackHeight + holdHeight);
+
+      root.style.setProperty("--rec-stack-runway", `${runway}px`);
+      root.style.setProperty("--rec-stack-height", `${stackHeight}px`);
+      // Hold drives scroll while the pile stays pinned; keep it stable to avoid layout jumps.
+      root.style.setProperty("--rec-stack-hold", `${holdHeight}px`);
+      root.classList.add("is-rec-stack-settled");
+    };
+
+    const getNextSectionRect = (section) => {
+      if (!section) return null;
+      let el = section.nextElementSibling;
+      while (el && el.tagName !== "SECTION") el = el.nextElementSibling;
+      return el ? el.getBoundingClientRect() : null;
+    };
+
+    const updateFade = (section) => {
+      const nextRect = getNextSectionRect(section);
+      if (!nextRect) {
+        root.style.setProperty("--rec-stack-opacity", "1");
+        return;
+      }
+
+      const start = window.innerHeight * FADE_START_VH;
+      const end = window.innerHeight * FADE_END_VH;
+      const t = (nextRect.top - end) / (start - end);
+      const opacity = Math.max(0, Math.min(1, t));
+      root.style.setProperty("--rec-stack-opacity", opacity.toFixed(3));
+    };
+
+    const run = () => {
+      if (reduceMotion.matches || !stage) {
+        clear();
+        return;
+      }
+
+      // Keep section/runway sizing in sync with the actual stacked stage height.
+      root.style.setProperty(
+        "--rec-stack-stage-height",
+        `${Math.ceil(stage.getBoundingClientRect().height)}px`,
+      );
+
+      const scrollTop = getScrollTop();
+      const isScrollingUp = scrollTop < lastScrollTop - 2;
+      lastScrollTop = scrollTop;
+
+      const contents = [...root.querySelectorAll(".rec-stack-card__content")];
+      if (!contents.length) return;
+
+      const rootRect = root.getBoundingClientRect();
+      const section = root.closest("#recommendations");
+      const sectionRect = section?.getBoundingClientRect();
+      const sectionOffscreen =
+        !sectionRect ||
+        sectionRect.bottom < 0 ||
+        sectionRect.top > window.innerHeight;
+
+      if (root.classList.contains("is-rec-stack-settled")) {
+        updateFade(section);
+        // When scrolling back up into the section, drop the pinned layout so cards "rewind"
+        // through their sticky stacking positions again.
+        if (isScrollingUp && sectionRect && sectionRect.top > -80) {
+          clear();
+          return;
+        }
+        if (sectionOffscreen) {
+          clear();
+        }
+        return;
+      }
+
+      const sectionVisible = rootRect.bottom > 0 && rootRect.top < window.innerHeight;
+      const allStacked = areCardsStacked(contents);
+
+      if (allStacked && sectionVisible) {
+        settle(contents);
+        updateFade(section);
+        return;
+      }
+
+      if (!allStacked && rootRect.bottom < 0) {
+        clear();
+      }
+    };
+
+    let raf = 0;
+    const schedule = () => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        run();
+        raf = 0;
+      });
+    };
+
+    schedule();
+    const detach = attachScrollAndResize(schedule);
+    reduceMotion.addEventListener("change", schedule);
+
+    return () => {
+      detach();
+      reduceMotion.removeEventListener("change", schedule);
+      cancelAnimationFrame(raf);
+      clear();
+    };
+  }, [cardCount]);
+
+  return (
+    <div
+      ref={rootRef}
+      id="recommendation-cards"
+      className="rec-stack-cards"
+      style={{ "--numcards": cardCount }}
+    >
+      <div className="rec-stack-stage">{children}</div>
+      {footer ? <div className="rec-stack-footer">{footer}</div> : null}
+      <div className="rec-stack-hold" aria-hidden="true" />
+    </div>
+  );
+}
+

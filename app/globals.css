@@ -1609,6 +1609,8 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
 
 .rec-stack-stage {
   position: relative;
+  opacity: var(--rec-stack-opacity, 1);
+  transition: opacity 160ms linear;
 }
 
 .rec-stack-hold {
@@ -1616,6 +1618,32 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
   height: 0;
   width: 100%;
   pointer-events: none;
+}
+
+.rec-stack-footer {
+  position: sticky;
+  top: calc(var(--stack-base) + var(--rec-stack-height, 0px) + 1.25rem);
+  z-index: 6;
+  opacity: 0;
+  transform: translate3d(0, 10px, 0);
+  pointer-events: none;
+  transition: opacity 180ms linear, transform 220ms var(--ease, ease);
+}
+
+.rec-stack-cards.is-rec-stack-settled .rec-stack-footer {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  pointer-events: auto;
+}
+
+.rec-stack-cards.is-rec-stack-settled {
+  /* Preserve original scroll runway to avoid a "jump" when switching to settled mode. */
+  min-height: var(--rec-stack-runway, auto);
+}
+
+/* When not settled, let the wrapper follow the live stage height. */
+.rec-stack-cards:not(.is-rec-stack-settled) {
+  min-height: var(--rec-stack-stage-height, auto);
 }
 
 .rec-stack-cards.is-rec-stack-settled .rec-stack-hold {
@@ -3147,6 +3175,9 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
 
 .cv-edu-row--rec .cv-edu-org {
   white-space: pre-line;
+  font-size: var(--size-200);
+  font-weight: 700;
+  color: var(--color-fg);
 }
 
 .cv-edu-main .cv-edu-period {

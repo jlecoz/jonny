@@ -15,7 +15,8 @@ export default function AboutSection() {
             decrypt
           />
           <h1 className="cv-pitch-headline">
-            I make complex things feel obvious.
+            I make complex things{" "}
+            <span className="gold">feel obvious.</span>
           </h1>
           <p className="section-intro">
             Twenty years of design across four countries — building the products, the teams, and the

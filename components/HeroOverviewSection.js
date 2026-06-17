@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { siteConfig } from "@/config/siteConfig";
 import HeroGoldScramble from "@/components/HeroGoldScramble";
@@ -10,6 +10,24 @@ import { useScrollParallax } from "@/lib/useScrollParallax";
 export default function HeroOverviewSection({ meta, title }) {
   const sectionRef = useRef(null);
   const [activeAvatarRole, setActiveAvatarRole] = useState(null);
+  const [supportsHover, setSupportsHover] = useState(true);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const mq = window.matchMedia("(hover: hover) and (pointer: fine)");
+    const update = () => setSupportsHover(Boolean(mq.matches));
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+
+  useEffect(() => {
+    // On touch/mobile (no hover), default to showing the designer side and keep it stable.
+    if (!supportsHover && activeAvatarRole == null) {
+      setActiveAvatarRole("designer");
+    }
+  }, [supportsHover, activeAvatarRole]);
+
   const showDesignerAvatar = () => setActiveAvatarRole("designer");
   const showCoderAvatar = () => setActiveAvatarRole("coder");
   const updateAvatarFromPointer = (event) => {
@@ -47,8 +65,8 @@ export default function HeroOverviewSection({ meta, title }) {
         <div
           className={`hero-duality${activeAvatarRole ? ` is-avatar-${activeAvatarRole}` : ""}`}
           aria-label="Designer and coder overview"
-          onPointerMove={updateAvatarFromPointer}
-          onPointerLeave={() => setActiveAvatarRole(null)}
+          onPointerMove={supportsHover ? updateAvatarFromPointer : undefined}
+          onPointerLeave={supportsHover ? () => setActiveAvatarRole(null) : undefined}
         >
           <div className="hero-duality-inner">
             <div
