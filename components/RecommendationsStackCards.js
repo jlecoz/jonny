@@ -5,8 +5,6 @@ import { attachScrollAndResize } from "@/lib/scrollRoot";
 
 const STACK_STEP_PX = 14;
 const LOCK_TOLERANCE_PX = 10;
-const FADE_START_VH = 0.9;
-const FADE_END_VH = 0.55;
 
 /**
  * Scroll-stacked recommendation cards. Once all cards lock into the pile,
@@ -31,7 +29,6 @@ export default function RecommendationsStackCards({ cardCount, children, footer 
       root.style.removeProperty("--rec-stack-height");
       root.style.removeProperty("--rec-stack-hold");
       root.style.removeProperty("--rec-stack-runway");
-      root.style.removeProperty("--rec-stack-opacity");
       root.style.removeProperty("--rec-stack-stage-height");
     };
 
@@ -74,27 +71,6 @@ export default function RecommendationsStackCards({ cardCount, children, footer 
       root.classList.add("is-rec-stack-settled");
     };
 
-    const getNextSectionRect = (section) => {
-      if (!section) return null;
-      let el = section.nextElementSibling;
-      while (el && el.tagName !== "SECTION") el = el.nextElementSibling;
-      return el ? el.getBoundingClientRect() : null;
-    };
-
-    const updateFade = (section) => {
-      const nextRect = getNextSectionRect(section);
-      if (!nextRect) {
-        root.style.setProperty("--rec-stack-opacity", "1");
-        return;
-      }
-
-      const start = window.innerHeight * FADE_START_VH;
-      const end = window.innerHeight * FADE_END_VH;
-      const t = (nextRect.top - end) / (start - end);
-      const opacity = Math.max(0, Math.min(1, t));
-      root.style.setProperty("--rec-stack-opacity", opacity.toFixed(3));
-    };
-
     const run = () => {
       if (reduceMotion.matches || !stage) {
         clear();
@@ -123,7 +99,6 @@ export default function RecommendationsStackCards({ cardCount, children, footer 
         sectionRect.top > window.innerHeight;
 
       if (root.classList.contains("is-rec-stack-settled")) {
-        updateFade(section);
         // When scrolling back up into the section, drop the pinned layout so cards "rewind"
         // through their sticky stacking positions again.
         if (isScrollingUp && sectionRect && sectionRect.top > -80) {

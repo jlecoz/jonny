@@ -131,12 +131,14 @@ function RecommendationsSection() {
   return (
     <section className="section" id="recommendations">
       <div className="section-services-inner">
-        <ScrollReveal>
-          <ExperienceHeadlineDecrypt as="p" className="section-label" text="RECOMMENDATIONS" decrypt />
-          <h2 className="section-headline">
-            What colleagues say about <span className="gold">working together.</span>
-          </h2>
-        </ScrollReveal>
+        <div className="recommendations-title">
+          <ScrollReveal>
+            <ExperienceHeadlineDecrypt as="p" className="section-label" text="RECOMMENDATIONS" decrypt />
+            <h2 className="section-headline">
+              What colleagues say about <span className="gold">working together.</span>
+            </h2>
+          </ScrollReveal>
+        </div>
 
         <RecommendationsStackCards
           cardCount={recCount}

@@ -1533,8 +1533,8 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
   margin-right: calc(50% - 50vw);
   padding-inline: 0;
   box-sizing: border-box;
-  padding-top: 160px;
-  padding-bottom: 160px;
+  padding-top: 128px;
+  padding-bottom: 128px;
   border-top-color: color-mix(in srgb, var(--color-white), transparent 78%);
 }
 
@@ -1596,6 +1596,24 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
   padding-bottom: 128px;
 }
 
+#recommendations .section-services-inner {
+  padding-top: 128px;
+}
+
+/* Keep the recommendations title visible while cards scroll. */
+#recommendations .recommendations-title {
+  position: sticky;
+  top: clamp(1rem, 4vh, 2.25rem);
+  z-index: 7;
+  padding-bottom: clamp(0.75rem, 2vh, 1.25rem);
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0) 35%,
+    rgba(255, 255, 255, 0.6) 100%
+  );
+}
+
 /* Stacking recommendation cards — scroll-driven scale (Chrome 115+).
    Pattern from https://scroll-driven-animations.style/demos/stacking-cards/css/
    Quote lives in .rec-stack-card__content; .rec-stack-card__slack is empty scroll runway.
@@ -1609,8 +1627,7 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
 
 .rec-stack-stage {
   position: relative;
-  opacity: var(--rec-stack-opacity, 1);
-  transition: opacity 160ms linear;
+  opacity: 1;
 }
 
 .rec-stack-hold {
@@ -1621,9 +1638,9 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
 }
 
 .rec-stack-footer {
-  position: sticky;
-  top: calc(var(--stack-base) + var(--rec-stack-height, 0px) + 1.25rem);
-  z-index: 6;
+  position: relative;
+  z-index: 1;
+  margin-top: clamp(1rem, 3vh, 1.75rem);
   opacity: 0;
   transform: translate3d(0, 10px, 0);
   pointer-events: none;
@@ -1631,6 +1648,10 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
 }
 
 .rec-stack-cards.is-rec-stack-settled .rec-stack-footer {
+  position: sticky;
+  /* Stick just below the stacked pile, not to viewport bottom (avoids clipping by section overflow). */
+  top: calc(var(--stack-base) + var(--rec-stack-height, 0px) + 1.25rem);
+  z-index: 6;
   opacity: 1;
   transform: translate3d(0, 0, 0);
   pointer-events: auto;
