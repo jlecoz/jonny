@@ -6,6 +6,7 @@ import HowIThinkMoment from "@/components/HowIThinkMoment";
 import ContactCTA from "@/components/ContactCTA";
 import MainSectionParallax from "@/components/MainSectionParallax";
 import WorksCardsTimeline from "@/components/WorksCardsTimeline";
+import RecommendationsStackCards from "@/components/RecommendationsStackCards";
 import { worksProjects } from "@/config/worksProjects";
 
 import { cv, linkedInRecommendationsUrl } from "@/config/cvData";
@@ -137,11 +138,7 @@ function RecommendationsSection() {
           </h2>
         </ScrollReveal>
 
-        <div
-          id="recommendation-cards"
-          className="rec-stack-cards"
-          style={{ "--numcards": recCount }}
-        >
+        <RecommendationsStackCards cardCount={recCount}>
           {cv.recommendations.map((r, i) => (
             <div
               key={r.name}
@@ -173,11 +170,10 @@ function RecommendationsSection() {
                   </div>
                 </div>
               </div>
-              {/* Scroll runway below quote; overlap happens here so the next card stacks without covering text */}
               <div className="rec-stack-card__slack" aria-hidden="true" />
             </div>
           ))}
-        </div>
+        </RecommendationsStackCards>
 
         <ScrollReveal>
           <div className="cv-experience-more">

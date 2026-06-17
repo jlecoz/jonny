@@ -50,6 +50,74 @@ export const worksProjects = [
     },
   },
   {
+    slug: "digital-retailing",
+    title: "Digital Retailing",
+    client: "Auto Trader UK",
+    blurb: "Online digital purchase journey for automotive retailers on autotrader.co.uk",
+    href: "https://www.autotrader.co.uk",
+    coverImage: "/img/works-autotrader-deal-builder-hero.webp",
+    coverImageWidth: 2048,
+    coverImageHeight: 1106,
+    coverAlt:
+      "Auto Trader UK — Build your deal: reservation flow with progress steps and vehicle summary",
+    caseStudy: {
+      heroDek:
+        "Connecting retailer tooling with consumer-facing flows — reservations, finance, and part-exchange in one coherent funnel.",
+      sections: [
+        {
+          id: "overview",
+          label: "OVERVIEW",
+          body: [
+            "Led UX direction for pilot retailers adopting digital retailing capabilities, reducing drop-off across handoffs between retailer CRM and marketplace surfaces.",
+          ],
+        },
+        {
+          id: "challenge",
+          label: "CHALLENGE",
+          title: "Many stakeholders, one journey",
+          body: [
+            "Retailers varied widely in readiness; flows had to degrade gracefully while still producing complete orders for fulfilment.",
+          ],
+        },
+        {
+          id: "approach",
+          label: "THE APPROACH",
+          type: "process",
+          steps: [
+            { name: "Discovery", tint: "#1a7a73" },
+            { name: "Define", tint: "#24a89e" },
+            { name: "Design", tint: "#4ac8e8" },
+            { name: "Deliver", tint: "#7ddff2" },
+          ],
+        },
+        {
+          id: "discovery",
+          label: "DISCOVERY & INSIGHTS",
+          type: "quote",
+          quote:
+            "Staff lived in spreadsheets and phone callbacks — surfacing stock and deal status digitally had to feel safer than their old playbook.",
+          attribution: "Retail partner interviews",
+        },
+        {
+          id: "ia",
+          label: "INFORMATION ARCHITECTURE",
+          body: [
+            "Mapped retailer admin tasks vs buyer-facing milestones so both sides stayed synchronised across test drives, deposits, and amendments.",
+          ],
+        },
+        {
+          id: "design-system",
+          label: "DESIGN SYSTEM & PROTOTYPING",
+          type: "palette",
+          palette: ["#003d39", "#00847a", "#00bfb3", "#ff8800", "#ffffff"],
+          body: [
+            "Specs covered responsive breakpoints, validation states, and API-driven empty states — enabling squads to iterate in parallel.",
+          ],
+        },
+      ],
+    },
+  },
+  {
     slug: "loyalty-program",
     title: "Loyalty Program",
     client: "Imperial Brands",
@@ -113,74 +181,6 @@ export const worksProjects = [
           palette: ["#0a0b0c", "#1a7a73", "#4ac8e8", "#e8927c", "#ffffff"],
           body: [
             "High-fidelity prototypes aligned marketing, legal, and product on edge cases before build; components reused patterns from Breeze DS where applicable.",
-          ],
-        },
-      ],
-    },
-  },
-  {
-    slug: "digital-retailing",
-    title: "Digital Retailing",
-    client: "Auto Trader UK",
-    blurb: "Online digital purchase journey for automotive retailers on autotrader.co.uk",
-    href: "https://www.autotrader.co.uk",
-    coverImage: "/img/works-autotrader-deal-builder-hero.webp",
-    coverImageWidth: 2048,
-    coverImageHeight: 1106,
-    coverAlt:
-      "Auto Trader UK — Build your deal: reservation flow with progress steps and vehicle summary",
-    caseStudy: {
-      heroDek:
-        "Connecting retailer tooling with consumer-facing flows — reservations, finance, and part-exchange in one coherent funnel.",
-      sections: [
-        {
-          id: "overview",
-          label: "OVERVIEW",
-          body: [
-            "Led UX direction for pilot retailers adopting digital retailing capabilities, reducing drop-off across handoffs between retailer CRM and marketplace surfaces.",
-          ],
-        },
-        {
-          id: "challenge",
-          label: "CHALLENGE",
-          title: "Many stakeholders, one journey",
-          body: [
-            "Retailers varied widely in readiness; flows had to degrade gracefully while still producing complete orders for fulfilment.",
-          ],
-        },
-        {
-          id: "approach",
-          label: "THE APPROACH",
-          type: "process",
-          steps: [
-            { name: "Discovery", tint: "#1a7a73" },
-            { name: "Define", tint: "#24a89e" },
-            { name: "Design", tint: "#4ac8e8" },
-            { name: "Deliver", tint: "#7ddff2" },
-          ],
-        },
-        {
-          id: "discovery",
-          label: "DISCOVERY & INSIGHTS",
-          type: "quote",
-          quote:
-            "Staff lived in spreadsheets and phone callbacks — surfacing stock and deal status digitally had to feel safer than their old playbook.",
-          attribution: "Retail partner interviews",
-        },
-        {
-          id: "ia",
-          label: "INFORMATION ARCHITECTURE",
-          body: [
-            "Mapped retailer admin tasks vs buyer-facing milestones so both sides stayed synchronised across test drives, deposits, and amendments.",
-          ],
-        },
-        {
-          id: "design-system",
-          label: "DESIGN SYSTEM & PROTOTYPING",
-          type: "palette",
-          palette: ["#003d39", "#00847a", "#00bfb3", "#ff8800", "#ffffff"],
-          body: [
-            "Specs covered responsive breakpoints, validation states, and API-driven empty states — enabling squads to iterate in parallel.",
           ],
         },
       ],

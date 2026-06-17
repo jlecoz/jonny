@@ -15,10 +15,13 @@ export default function AboutSection() {
             decrypt
           />
           <h1 className="cv-pitch-headline">
-            I build teams that make
-            <br />
-            complex things feel simple.
+            I make complex things feel obvious.
           </h1>
+          <p className="section-intro">
+            Twenty years of design across four countries — building the products, the teams, and the
+            systems that let an idea survive contact with a real organisation. I design. And I build.
+            Knowing both is what lets me tell a real constraint from an imagined one.
+          </p>
         </div>
 
         <div className="cv-pitch-card is-pitch-copy-revealed">
@@ -32,33 +35,30 @@ export default function AboutSection() {
               />
             </div>
             <div className="cv-pitch-copy-content">
+              <p className="cv-pitch-copy-label">What I actually do</p>
+              <h2 className="cv-pitch-copy-headline">
+                I don&apos;t ship deliverables. I change how organisations{" "}
+                <span className="gold">decide.</span>
+              </h2>
               <p className="cv-pitch-copy">
-                <strong>10 years leading UX</strong> across SaaS, ecommerce, and digital products - from{" "}
-                <strong>pixels to strategy</strong>, from <strong>solo contributor to team builder</strong>.
+                Anyone can produce a screen. The harder, rarer work is the part nobody photographs:
+                negotiating the contracts, rewriting the governance, bringing in the tooling, and shifting
+                a culture from <strong>opinions to evidence</strong> so good decisions outlive whoever was
+                in the room that day.
               </p>
               <p className="cv-pitch-copy">
-                During my current endeavor, I have{" "}
-                <strong>built our Digital R&amp;D from the ground up.</strong> Taking a team of two ad-hoc
-                designers into a <strong>full-blown in-house design agency</strong> with 3 Product
-                Designers, 3 UX Researchers, 1 Systems Design Lead and 3 Front-end engineers.
+                I&apos;ve done that inside a marketplace, a fintech, and one of the most heavily-regulated
+                industries there is. The constraints change. The method doesn&apos;t: understand the human
+                deeply enough to make a better decision — then build the system that makes that decision
+                repeatable.
               </p>
-              <p className="cv-pitch-copy">
-                My team, located in Amsterdam, worked{" "}
-                <strong>hand in hand with two large external digital partners</strong> located in London,
-                Publicis Sapient and Live &amp; Breathe. Together, we{" "}
-                <strong>defined, shaped, tested, delivered and measured the experiences</strong> for
-                blu.com and pulze.com under Imperial Brands PLC.
-              </p>
-              <p className="cv-pitch-copy">
-                The organisation was lacking in tools and processes to{" "}
-                <strong>make design process efficient, consistent and robust</strong>. Negotiating the
-                contracts, working with leadership and stakeholders across departments, and putting in
-                place the requests and governance models. I brought UserTesting.com, Figma, and Hotjar
-                to Imperial to <strong>evolve their old legacy design workflows and systems</strong>,
-                drastically <strong>improving file structure and visibility</strong> and injecting
-                human-centric consumer culture to the core of the business&apos; digital pathways and
-                channels.
-              </p>
+              <blockquote className="cv-pitch-copy-quote">
+                <p>
+                  Twenty years across four countries taught me the job isn&apos;t applying design
+                  principles. It&apos;s interrogating assumptions —{" "}
+                  <span className="gold">starting with my own.</span>
+                </p>
+              </blockquote>
             </div>
           </div>
         </div>
