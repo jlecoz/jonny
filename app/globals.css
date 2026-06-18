@@ -1111,12 +1111,16 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
 }
 
 .about-hero-intro {
-  margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+  margin-bottom: 64px;
 }
 
-.about-hero-intro .section-headline,
-.about-hero-intro .cv-pitch-headline {
+.about-hero-intro .section-headline {
   margin-bottom: 0;
+  padding: 0;
+}
+
+.about-hero-intro .cv-pitch-headline {
+  margin-bottom: 64px;
   padding: 0;
 }
 
@@ -1205,7 +1209,7 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
   z-index: 2;
   width: 100%;
   max-width: 100%;
-  padding: 32px;
+  padding: 64px;
   background: color-mix(in srgb, var(--color-void, #0a0b0c) 82%, transparent);
   backdrop-filter: blur(6px);
   box-sizing: border-box;
@@ -3989,6 +3993,32 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
 }
 
 /* ── Responsive ───────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .cv-pitch-card {
+    display: flex;
+    flex-direction: column;
+    min-height: clamp(22rem, 55vw, 34rem);
+  }
+
+  .cv-pitch-copy-body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100%;
+    padding: 0;
+  }
+
+  .cv-pitch-copy-content {
+    width: 100%;
+    height: 100%;
+    flex: 1 1 auto;
+    min-height: 100%;
+    max-width: 100%;
+    align-self: stretch;
+  }
+}
+
 @media (max-width: 768px) {
   .hero {
     padding: 8rem 0 5rem;
@@ -4054,10 +4084,6 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
     --pitch-text-width: 100%;
   }
 
-  .cv-pitch-copy-body {
-    padding: 64px;
-  }
-
   .cv-pitch-avatar-target {
     position: absolute;
     inset: 0;
@@ -4075,7 +4101,6 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
   }
 
   .cv-pitch-copy-content {
-    max-width: 100%;
     background: color-mix(in srgb, var(--color-void, #0a0b0c) 86%, transparent);
   }
 
