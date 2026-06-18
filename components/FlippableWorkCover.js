@@ -58,6 +58,18 @@ export default function FlippableWorkCover({ item, children }) {
           {children}
         </div>
       </div>
+
+      {item.documentationHref ? (
+        <a
+          className="cv-work-card-learn-more button button-gold"
+          href={item.documentationHref}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={(event) => event.stopPropagation()}
+        >
+          Learn more
+        </a>
+      ) : null}
     </div>
   );
 }

@@ -88,6 +88,16 @@ function WorksSection() {
                       {item.client ? <h4 className="cv-work-client">{item.client}</h4> : null}
                       <p>{item.blurb}</p>
                       <div className="cv-work-card-actions">
+                        {item.documentationHref ? (
+                          <a
+                            className="cv-work-card-external"
+                            href={item.documentationHref}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            Learn more →
+                          </a>
+                        ) : null}
                         <a
                           className="cv-work-card-external"
                           href={item.href}

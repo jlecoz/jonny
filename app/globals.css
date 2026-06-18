@@ -38,6 +38,12 @@
   --duration-mid: 600ms;
   --duration-slow: 800ms;
 
+  /* Scroll reveal cascade */
+  --reveal-duration: 0.5s;
+  --reveal-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --reveal-stagger-step: 80ms;
+  --reveal-distance: 20px;
+
   /* Core sizing (8pt-based scale, with intermediate steps) */
   --size-0: 0px;
   --size-50: 4px;
@@ -543,9 +549,11 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
 /* ── Scroll Reveal Animations ─────────────────────────── */
 .reveal {
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity var(--duration-slow) var(--ease),
-    transform var(--duration-slow) var(--ease);
+  transform: translateY(var(--reveal-distance));
+  transition:
+    opacity var(--reveal-duration) var(--reveal-ease),
+    transform var(--reveal-duration) var(--reveal-ease);
+  transition-delay: calc(var(--reveal-index, 0) * var(--reveal-stagger-step));
 }
 
 .reveal.reveal-fade {
@@ -553,23 +561,31 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
 }
 
 .reveal.reveal-down {
-  transform: translateY(-18px);
+  transform: translateY(calc(var(--reveal-distance) * -1));
 }
 
 .reveal.reveal-left {
-  transform: translateX(-18px);
+  transform: translateX(calc(var(--reveal-distance) * -1));
 }
 
 .reveal.reveal-right {
-  transform: translateX(18px);
+  transform: translateX(var(--reveal-distance));
 }
 
+.section-revealed .reveal,
 .reveal.visible {
   opacity: 1;
   transform: translateY(0);
 }
 
+.section-revealed .reveal.reveal-fade,
+.reveal.visible.reveal-fade {
+  transform: none;
+}
+
 /* X variants should also settle to neutral */
+.section-revealed .reveal.reveal-left,
+.section-revealed .reveal.reveal-right,
 .reveal.visible.reveal-left,
 .reveal.visible.reveal-right {
   transform: translateX(0);
@@ -579,21 +595,13 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
   .reveal,
   .reveal.reveal-down,
   .reveal.reveal-left,
-  .reveal.reveal-right {
+  .reveal.reveal-right,
+  .reveal.reveal-fade {
     opacity: 1;
     transform: none;
     transition: none;
   }
 }
-
-.reveal-stagger > .reveal:nth-child(1) { transition-delay: 0ms; }
-.reveal-stagger > .reveal:nth-child(2) { transition-delay: 100ms; }
-.reveal-stagger > .reveal:nth-child(3) { transition-delay: 200ms; }
-.reveal-stagger > .reveal:nth-child(4) { transition-delay: 300ms; }
-.reveal-stagger > .reveal:nth-child(5) { transition-delay: 400ms; }
-.reveal-stagger > .reveal:nth-child(6) { transition-delay: 500ms; }
-.reveal-stagger > .reveal:nth-child(7) { transition-delay: 600ms; }
-.reveal-stagger > .reveal:nth-child(8) { transition-delay: 700ms; }
 
 /* ── Hero ─────────────────────────────────────────────── */
 .hero {
@@ -2323,6 +2331,23 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
     box-shadow var(--duration-mid) var(--ease);
 }
 
+.cv-work-card-learn-more {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 7;
+  padding: 0.55rem 1rem;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  box-shadow: 0 10px 28px color-mix(in srgb, var(--color-accent), transparent 72%);
+  transition: opacity var(--duration-fast) var(--ease);
+}
+
+.cv-work-card-cover--flip.is-flipped .cv-work-card-learn-more {
+  opacity: 0;
+  pointer-events: none;
+}
+
 .cv-work-card-cover-front::after {
   content: "";
   position: absolute;
@@ -3522,27 +3547,33 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
   opacity: 0.85;
 }
 
-#languages .languages-row.reveal.visible .languages-dot.is-on {
-  animation: languages-dot-fill-in 0.48s cubic-bezier(0.34, 1.2, 0.64, 1) forwards;
+#languages .languages-row.reveal.visible .languages-dot.is-on,
+#languages .section-revealed .languages-row.reveal .languages-dot.is-on {
+  animation: languages-dot-fill-in 0.5s var(--reveal-ease) forwards;
 }
 
-#languages .languages-row.reveal.visible .languages-dot.is-on:nth-child(1) {
+#languages .languages-row.reveal.visible .languages-dot.is-on:nth-child(1),
+#languages .section-revealed .languages-row.reveal .languages-dot.is-on:nth-child(1) {
   animation-delay: 0.05s;
 }
 
-#languages .languages-row.reveal.visible .languages-dot.is-on:nth-child(2) {
+#languages .languages-row.reveal.visible .languages-dot.is-on:nth-child(2),
+#languages .section-revealed .languages-row.reveal .languages-dot.is-on:nth-child(2) {
   animation-delay: 0.14s;
 }
 
-#languages .languages-row.reveal.visible .languages-dot.is-on:nth-child(3) {
+#languages .languages-row.reveal.visible .languages-dot.is-on:nth-child(3),
+#languages .section-revealed .languages-row.reveal .languages-dot.is-on:nth-child(3) {
   animation-delay: 0.23s;
 }
 
-#languages .languages-row.reveal.visible .languages-dot.is-on:nth-child(4) {
+#languages .languages-row.reveal.visible .languages-dot.is-on:nth-child(4),
+#languages .section-revealed .languages-row.reveal .languages-dot.is-on:nth-child(4) {
   animation-delay: 0.32s;
 }
 
-#languages .languages-row.reveal.visible .languages-dot.is-on:nth-child(5) {
+#languages .languages-row.reveal.visible .languages-dot.is-on:nth-child(5),
+#languages .section-revealed .languages-row.reveal .languages-dot.is-on:nth-child(5) {
   animation-delay: 0.41s;
 }
 

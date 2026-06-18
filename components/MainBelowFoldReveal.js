@@ -1,117 +1,87 @@
 "use client";
 
 import { useEffect } from "react";
-
-const FOLD_RATIO = 0.92;
-const DATA_ATTR = "data-below-fold-reveal";
-
-const TARGET_SELECTORS = [
-  "section:not(#overview) .section-services-inner > *",
-  "section:not(#overview):not(:has(> .section-services-inner)) > *",
-  ".case-study-page .case-study-inner > *",
-  ".case-study-page .case-study-footer",
-].join(", ");
-
-function shouldSkip(el) {
-  if (!el || el.nodeType !== 1) return true;
-  if (el.hasAttribute(DATA_ATTR)) return false;
-  if (el.matches("script, style, [aria-hidden='true']")) return true;
-  if (el.classList.contains("reveal") || el.classList.contains("reveal-stagger")) return true;
-  if (el.closest(".reveal, .reveal-stagger")) return true;
-  if (el.hasAttribute("data-below-fold-skip")) return true;
-  return false;
-}
-
-function isBelowFold(el) {
-  return el.getBoundingClientRect().top >= window.innerHeight * FOLD_RATIO;
-}
-
-function clearAutoReveal(el, observer, observed) {
-  el.classList.remove("reveal", "reveal-fade", "visible");
-  el.removeAttribute(DATA_ATTR);
-  if (observer && observed.has(el)) {
-    observer.unobserve(el);
-    observed.delete(el);
-  }
-}
+import { usePathname } from "next/navigation";
+import {
+  assignRevealIndices,
+  collectCascadeSections,
+  collectRevealTargets,
+  getScrollRoot,
+  revealSection,
+  resetSectionReveal,
+} from "@/lib/cascadeReveal";
 
 /**
- * Applies scroll fades to main content that starts below the initial viewport fold.
- * Skips the hero (#overview) and blocks already handled by ScrollReveal.
+ * Cascading scroll reveals per section: when a section enters the viewport,
+ * its reveal targets animate in sequence (staggered via --reveal-index).
  */
 export default function MainBelowFoldReveal() {
+  const pathname = usePathname();
+
   useEffect(() => {
     if (typeof window === "undefined") return undefined;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return undefined;
 
-    const main = document.querySelector("main");
-    if (!main) return undefined;
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const scrollRoot = getScrollRoot();
+    const sections = collectCascadeSections();
 
-    const observed = new Set();
+    if (!sections.length) return undefined;
+
+    const sectionState = new Map();
+
+    const setupSection = (section) => {
+      resetSectionReveal(section);
+
+      const targets = collectRevealTargets(section);
+      if (!targets.length) return null;
+
+      assignRevealIndices(targets);
+
+      if (reducedMotion) {
+        revealSection(section, targets);
+        return null;
+      }
+
+      return { section, targets };
+    };
+
+    sections.forEach((section) => {
+      const state = setupSection(section);
+      if (state) sectionState.set(section, state);
+    });
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
-          entry.target.classList.add("visible");
+
+          const state = sectionState.get(entry.target);
+          if (!state) return;
+
+          revealSection(state.section, state.targets);
           observer.unobserve(entry.target);
-          observed.delete(entry.target);
+          sectionState.delete(entry.target);
         });
       },
-      { threshold: 0.1, rootMargin: "0px 0px -6% 0px" },
+      {
+        root: scrollRoot,
+        threshold: 0.08,
+        rootMargin: "0px 0px -6% 0px",
+      },
     );
 
-    const apply = () => {
-      main.querySelectorAll(`[${DATA_ATTR}]`).forEach((el) => {
-        if (!isBelowFold(el) && !el.classList.contains("visible")) {
-          clearAutoReveal(el, observer, observed);
-        }
-      });
-
-      main.querySelectorAll(TARGET_SELECTORS).forEach((el) => {
-        if (shouldSkip(el)) return;
-        if (el.classList.contains("visible")) return;
-        if (!isBelowFold(el)) return;
-        if (el.hasAttribute(DATA_ATTR)) {
-          observer.observe(el);
-          observed.add(el);
-          return;
-        }
-
-        el.classList.add("reveal", "reveal-fade");
-        el.setAttribute(DATA_ATTR, "true");
-        observer.observe(el);
-        observed.add(el);
-      });
-    };
-
-    const scheduleApply = () => {
-      requestAnimationFrame(() => {
-        requestAnimationFrame(apply);
-      });
-    };
-
-    scheduleApply();
-
-    let resizeTimer;
-    const onResize = () => {
-      clearTimeout(resizeTimer);
-      resizeTimer = window.setTimeout(scheduleApply, 150);
-    };
-
-    window.addEventListener("resize", onResize);
+    sectionState.forEach(({ section }) => {
+      observer.observe(section);
+    });
 
     return () => {
-      clearTimeout(resizeTimer);
-      window.removeEventListener("resize", onResize);
       observer.disconnect();
-      observed.clear();
-      main.querySelectorAll(`[${DATA_ATTR}]`).forEach((el) => {
-        el.classList.remove("reveal", "reveal-fade", "visible");
-        el.removeAttribute(DATA_ATTR);
+      sections.forEach((section) => {
+        resetSectionReveal(section);
       });
+      sectionState.clear();
     };
-  }, []);
+  }, [pathname]);
 
   return null;
 }

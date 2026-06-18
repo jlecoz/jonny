@@ -60,6 +60,7 @@ export const worksProjects = [
     coverImageHeight: 1106,
     coverAlt:
       "Auto Trader UK — Build your deal: reservation flow with progress steps and vehicle summary",
+    documentationHref: "/autotrader-digital-retailing-case-study.html",
     caseStudy: {
       heroDek:
         "Connecting retailer tooling with consumer-facing flows — reservations, finance, and part-exchange in one coherent funnel.",
