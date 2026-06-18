@@ -1557,7 +1557,7 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
 }
 
 #recommendations .section-services-inner {
-  padding-top: 32px;
+  padding-top: 64px;
   --rec-title-height: 0px;
 }
 
@@ -1965,6 +1965,7 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
 
 #works #cards.cards-scroll-driver .works-horizontal-viewport .section-services-inner {
   padding: 32px;
+  color: var(--teal-deep);
 }
 
 #works #cards.cards-scroll-driver .cv-work-grid {
@@ -2004,17 +2005,15 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
   text-decoration: none;
   color: inherit;
   background: #ffffff;
-  border: 1px solid color-mix(in srgb, var(--color-border), transparent 40%);
+  border: 0;
   border-radius: 0.8rem;
   padding: 1.35rem 1.25rem;
   min-height: 7.5rem;
-  transition: border-color var(--duration-mid) var(--ease),
-    transform var(--duration-mid) var(--ease),
+  transition: transform var(--duration-mid) var(--ease),
     box-shadow var(--duration-mid) var(--ease);
 }
 
 .cv-work-card:hover {
-  border-color: var(--color-accent);
   transform: translateY(-3px);
   box-shadow: 0 12px 36px color-mix(in srgb, var(--color-navy), transparent 92%);
 }
@@ -2112,8 +2111,23 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
   margin-top: auto;
   padding-top: 1rem;
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.65rem 1rem;
+  flex-direction: column;
+  align-items: stretch;
+  width: fit-content;
+  max-width: 100%;
+  gap: 0.65rem;
+}
+
+.cv-work-card-actions .button,
+.cv-work-card-actions .cv-work-card-external {
+  width: 100%;
+  box-sizing: border-box;
+  justify-content: center;
+  text-align: center;
+}
+
+.cv-work-card-actions .cv-work-card-external {
+  display: flex;
   align-items: center;
 }
 
@@ -2193,6 +2207,16 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
   cursor: pointer;
 }
 
+.cv-work-card-cover--flip:focus {
+  outline: none;
+}
+
+.cv-work-card-cover--flip:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 0.35rem;
+  border-radius: 0.8rem;
+}
+
 .cv-work-card--split:hover .cv-work-card-cover,
 .cv-work-card--split:focus-within .cv-work-card-cover {
   transform: translateY(-6px) rotateX(1deg) rotateY(-1deg);
@@ -2208,7 +2232,8 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
   will-change: transform;
 }
 
-.cv-work-card-cover--flip.is-flipped .cv-work-card-cover-flip {
+.cv-work-card-cover--flip:hover .cv-work-card-cover-flip,
+.cv-work-card-cover--flip:focus-within .cv-work-card-cover-flip {
   transform: rotateY(180deg) scale(1.015);
 }
 
@@ -2230,7 +2255,8 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
   outline-offset: 0.35rem;
 }
 
-.cv-work-card-cover--flip.is-flipped .cv-work-card-flip-hotspot {
+.cv-work-card-cover--flip:hover .cv-work-card-flip-hotspot,
+.cv-work-card-cover--flip:focus-within .cv-work-card-flip-hotspot {
   pointer-events: none;
 }
 
@@ -2239,14 +2265,13 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
   inset: 0;
   box-sizing: border-box;
   overflow: hidden;
-  border: 1px solid color-mix(in srgb, var(--color-border), transparent 40%);
+  border: 0;
   border-radius: 0.8rem;
   backface-visibility: hidden;
   box-shadow:
     0 1.5rem 3rem color-mix(in srgb, var(--color-navy), transparent 86%),
     0 0 0 color-mix(in srgb, var(--color-navy), transparent 100%);
-  transition: border-color var(--duration-mid) var(--ease),
-    box-shadow var(--duration-mid) var(--ease);
+  transition: box-shadow var(--duration-mid) var(--ease);
 }
 
 .cv-work-card-cover-flip::before {
@@ -2274,8 +2299,8 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
   transform: translateZ(-10px) scaleX(0.985) scaleY(0.985);
 }
 
-.cv-work-card-cover--flip.is-flipped .cv-work-card-cover-face {
-  border-color: var(--color-accent);
+.cv-work-card-cover--flip:hover .cv-work-card-cover-face,
+.cv-work-card-cover--flip:focus-within .cv-work-card-cover-face {
   box-shadow: 0 12px 36px color-mix(in srgb, var(--color-navy), transparent 92%);
 }
 
@@ -2285,25 +2310,7 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
   transform: rotateY(0deg) translateZ(1px);
   transform-origin: 50% 50%;
   z-index: 2;
-  transition: border-color var(--duration-mid) var(--ease),
-    box-shadow var(--duration-mid) var(--ease);
-}
-
-.cv-work-card-learn-more {
-  position: absolute;
-  right: 1rem;
-  bottom: 1rem;
-  z-index: 7;
-  padding: 0.55rem 1rem;
-  font-size: 0.82rem;
-  letter-spacing: 0.04em;
-  box-shadow: 0 10px 28px color-mix(in srgb, var(--color-accent), transparent 72%);
-  transition: opacity var(--duration-fast) var(--ease);
-}
-
-.cv-work-card-cover--flip.is-flipped .cv-work-card-learn-more {
-  opacity: 0;
-  pointer-events: none;
+  transition: box-shadow var(--duration-mid) var(--ease);
 }
 
 .cv-work-card-cover-front::after {
@@ -2443,7 +2450,8 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
     transform: none;
   }
 
-  .cv-work-card-cover--flip.is-flipped .cv-work-card-cover-flip {
+  .cv-work-card-cover--flip:hover .cv-work-card-cover-flip,
+  .cv-work-card-cover--flip:focus-within .cv-work-card-cover-flip {
     transform: rotateY(180deg);
   }
 }
@@ -2480,6 +2488,18 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
 }
 
 /* ── Case study pages (/works/[slug]) — editorial portfolio layout ───────── */
+body:has(.case-study-page) {
+  background: var(--teal-deep);
+}
+
+body:has(.case-study-page) .parallax-container {
+  background-color: var(--teal-deep);
+}
+
+body:has(.case-study-page) .parallax-bg {
+  display: none;
+}
+
 .case-study-page {
   max-width: 52rem;
   margin: 0 auto;
@@ -2487,6 +2507,35 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
   --cs-warm: #c97b63;
   --cs-teal: var(--color-core-teal);
   --cs-teal-soft: color-mix(in srgb, var(--color-core-teal), white 35%);
+}
+
+body:has(.case-study-page) .case-study-page {
+  --cs-warm: var(--color-cyan-light);
+  --cs-teal: var(--color-white);
+  --cs-teal-soft: var(--color-steel);
+}
+
+body:has(.case-study-page) .case-study-back-link {
+  color: var(--color-steel);
+}
+
+body:has(.case-study-page) .case-study-dek,
+body:has(.case-study-page) .case-study-section-body p,
+body:has(.case-study-page) .case-study-process-name {
+  color: var(--color-fog);
+}
+
+body:has(.case-study-page) .case-study-hero,
+body:has(.case-study-page) .case-study-footer {
+  border-color: color-mix(in srgb, var(--color-white), transparent 78%);
+}
+
+body:has(.case-study-page) .case-study-quote {
+  background: color-mix(in srgb, var(--color-white), transparent 88%);
+}
+
+body:has(.case-study-page) .case-study-palette-hex {
+  color: var(--color-fog);
 }
 
 .case-study-back {
@@ -4468,8 +4517,8 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
   margin-right: calc(50% - 50vw);
   padding-inline: 0;
   box-sizing: border-box;
-  padding-top: 32px;
-  padding-bottom: 48px;
+  padding-top: 96px;
+  padding-bottom: 96px;
   background:
     radial-gradient(
       720px 420px at 14% 18%,

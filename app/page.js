@@ -88,16 +88,6 @@ function WorksSection() {
                       {item.client ? <h4 className="cv-work-client">{item.client}</h4> : null}
                       <p>{item.blurb}</p>
                       <div className="cv-work-card-actions">
-                        {item.documentationHref ? (
-                          <a
-                            className="cv-work-card-external"
-                            href={item.documentationHref}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            Learn more →
-                          </a>
-                        ) : null}
                         <a
                           className="cv-work-card-external"
                           href={item.href}
@@ -106,6 +96,16 @@ function WorksSection() {
                         >
                           Client site →
                         </a>
+                        {item.documentationHref ? (
+                          <a
+                            className="button button-secondary"
+                            href={item.documentationHref}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            Learn more
+                          </a>
+                        ) : null}
                       </div>
                     </div>
                   </FlippableWorkCover>
@@ -155,16 +155,13 @@ function RecommendationsSection() {
           footer={
             <div className="cv-experience-more">
               <a
-                className="cv-experience-more-link"
+                className="button button-secondary"
                 href={linkedInRecommendationsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Show all recommendations on LinkedIn"
+                aria-label="See more recommendations on LinkedIn"
               >
-                <span>Show all</span>
-                <span className="cv-experience-more-arrow" aria-hidden="true">
-                  →
-                </span>
+                See more LinkedIn
               </a>
             </div>
           }
@@ -218,8 +215,8 @@ export default function HomePage() {
         title={cv.title}
       />
       <WorksSection />
-      <RecommendationsSection />
       <HowIThinkMoment />
+      <RecommendationsSection />
       <ContactCTA />
     </>
   );

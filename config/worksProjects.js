@@ -4,52 +4,6 @@
 
 export const worksProjects = [
   {
-    slug: "breeze-ds",
-    title: "Breeze Design Systems 2026",
-    client: "Imperial Brands",
-    blurb: "Multi-brand whitelabel systems and platforms for next-generation smoking products",
-    href: "https://www.imperialbrandsplc.com",
-    coverImage: "/img/works-breeze-design-systems-2026.webp",
-    coverImageWidth: 2048,
-    coverImageHeight: 1152,
-    coverImageClassName: "cv-work-card-cover-img--anchor-bottom-right",
-    coverAlt: "Breeze design system — NGP Digital",
-    documentationHref: "/breeze-ds-case-study.html",
-    caseStudy: {
-      heroDek:
-        "A focused view of the Breeze design framework work: the problem it solved, how the process stayed visible, and the outcomes it made measurable.",
-      sections: [
-        {
-          id: "clear-problem-statement",
-          label: "TOPIC AREA",
-          title: "Clear Problem Statement",
-          body: [
-            "Imperial's NGP digital teams needed to scale multi-brand product experiences without rebuilding the same patterns for every market, brand, and squad.",
-            "The challenge was to create a shared system that reduced duplicated design and engineering effort while still allowing each portfolio brand to retain its own identity and regulatory needs.",
-          ],
-        },
-        {
-          id: "process-transparency",
-          label: "TOPIC AREA",
-          title: "Process Transparency",
-          body: [
-            "The work made decision-making, contribution paths, and design rationale visible across product, design, engineering, and external partner teams.",
-            "Shared documentation, reusable components, and governance rituals helped teams understand what existed, how to use it, and when to contribute improvements back into the system.",
-          ],
-        },
-        {
-          id: "measurable-outcomes",
-          label: "TOPIC AREA",
-          title: "Measurable Outcomes",
-          body: [
-            "Breeze gave teams a clearer way to track reuse, consistency, and delivery quality across brands and product surfaces.",
-            "The system created a foundation for faster delivery, stronger file structure and visibility, and more consistent customer experiences across blu.com, pulze.com, and related Imperial Brands digital channels.",
-          ],
-        },
-      ],
-    },
-  },
-  {
     slug: "digital-retailing",
     title: "Digital Retailing",
     client: "Auto Trader UK",
@@ -113,6 +67,52 @@ export const worksProjects = [
           palette: ["#003d39", "#00847a", "#00bfb3", "#ff8800", "#ffffff"],
           body: [
             "Specs covered responsive breakpoints, validation states, and API-driven empty states — enabling squads to iterate in parallel.",
+          ],
+        },
+      ],
+    },
+  },
+  {
+    slug: "breeze-ds",
+    title: "Breeze Design Systems 2026",
+    client: "Imperial Brands",
+    blurb: "Multi-brand whitelabel systems and platforms for next-generation smoking products",
+    href: "https://www.imperialbrandsplc.com",
+    coverImage: "/img/works-breeze-design-systems-2026.webp",
+    coverImageWidth: 2048,
+    coverImageHeight: 1152,
+    coverImageClassName: "cv-work-card-cover-img--anchor-bottom-right",
+    coverAlt: "Breeze design system — NGP Digital",
+    documentationHref: "/breeze-ds-case-study.html",
+    caseStudy: {
+      heroDek:
+        "A focused view of the Breeze design framework work: the problem it solved, how the process stayed visible, and the outcomes it made measurable.",
+      sections: [
+        {
+          id: "clear-problem-statement",
+          label: "TOPIC AREA",
+          title: "Clear Problem Statement",
+          body: [
+            "Imperial's NGP digital teams needed to scale multi-brand product experiences without rebuilding the same patterns for every market, brand, and squad.",
+            "The challenge was to create a shared system that reduced duplicated design and engineering effort while still allowing each portfolio brand to retain its own identity and regulatory needs.",
+          ],
+        },
+        {
+          id: "process-transparency",
+          label: "TOPIC AREA",
+          title: "Process Transparency",
+          body: [
+            "The work made decision-making, contribution paths, and design rationale visible across product, design, engineering, and external partner teams.",
+            "Shared documentation, reusable components, and governance rituals helped teams understand what existed, how to use it, and when to contribute improvements back into the system.",
+          ],
+        },
+        {
+          id: "measurable-outcomes",
+          label: "TOPIC AREA",
+          title: "Measurable Outcomes",
+          body: [
+            "Breeze gave teams a clearer way to track reuse, consistency, and delivery quality across brands and product surfaces.",
+            "The system created a foundation for faster delivery, stronger file structure and visibility, and more consistent customer experiences across blu.com, pulze.com, and related Imperial Brands digital channels.",
           ],
         },
       ],
