@@ -1301,15 +1301,10 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
 }
 
 /* About page: reveal pitch copy from left on scroll */
-#about.cv-pitch-section .cv-pitch-headline,
-#about.cv-pitch-section .section-headline-outside {
+#about.cv-pitch-section .cv-pitch-headline {
   opacity: 1;
   transform: none;
   pointer-events: auto;
-}
-
-#about.cv-pitch-section .section-headline-outside {
-  margin-top: 128px;
 }
 
 #about.cv-pitch-section .cv-pitch-card .cv-pitch-copy-content,
@@ -3352,7 +3347,8 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
 }
 
 /* Education section — full width; tighter vertical padding */
-#education {
+#education,
+#about-leadership {
   width: 100vw;
   max-width: 100vw;
   margin-left: calc(50% - 50vw);
@@ -3360,8 +3356,20 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
   padding-inline: 0;
   box-sizing: border-box;
   padding-top: 32px;
-  padding-bottom: 96px;
   background: #c1d6d5;
+}
+
+#education {
+  padding-bottom: 96px;
+}
+
+#about-leadership {
+  padding-bottom: 96px;
+}
+
+#about-leadership .section-headline-outside {
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 /* Languages section — full width; tighter vertical padding */
@@ -4101,6 +4109,7 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
   }
 
   .cv-pitch-copy-content {
+    padding: 32px;
     background: color-mix(in srgb, var(--color-void, #0a0b0c) 86%, transparent);
   }
 

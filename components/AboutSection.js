@@ -5,7 +5,8 @@ import PitchPresenceImage from "@/components/PitchPresenceImage";
 
 export default function AboutSection() {
   return (
-    <section className="section cv-pitch-section" id="about">
+    <>
+      <section className="section cv-pitch-section" id="about">
       <div className="section-services-inner">
         <div className="about-hero-intro">
           <ExperienceHeadlineDecrypt
@@ -63,17 +64,22 @@ export default function AboutSection() {
             </div>
           </div>
         </div>
-
-        <h2 className="section-headline section-headline-outside">
-          Most design leadership gets told as a victory lap. This is the other
-          version —{" "}
-          <span className="gold">
-            what it takes to put humans at the centre of a business that
-            wasn&apos;t built for them.
-          </span>
-        </h2>
       </div>
-    </section>
+      </section>
+
+      <section className="section" id="about-leadership">
+        <div className="section-services-inner">
+          <h2 className="section-headline section-headline-outside">
+            Most design leadership gets told as a victory lap. This is the other
+            version —{" "}
+            <span className="gold">
+              what it takes to put humans at the centre of a business that
+              wasn&apos;t built for them.
+            </span>
+          </h2>
+        </div>
+      </section>
+    </>
   );
 }
 
