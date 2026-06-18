@@ -30,6 +30,8 @@ export default function RecommendationsStackCards({ cardCount, children, footer 
       root.style.removeProperty("--rec-stack-hold");
       root.style.removeProperty("--rec-stack-runway");
       root.style.removeProperty("--rec-stack-stage-height");
+      root.style.removeProperty("--rec-stack-footer-height");
+      root.style.removeProperty("--rec-stack-pin-height");
 
       const section = root.closest("#recommendations");
       section?.querySelector(".recommendations-title")?.classList.remove("is-rec-title-released");
@@ -65,23 +67,36 @@ export default function RecommendationsStackCards({ cardCount, children, footer 
       });
     };
 
-    const measureHoldHeight = (contents) => {
+    const measureHoldHeight = (contents, footerHeight = 0) => {
       const section = root.closest("#recommendations");
       if (!section || !contents.length) return 96;
 
       const stackBottom = contents[contents.length - 1].getBoundingClientRect().bottom;
+      const footerGap = footerHeight > 0 ? 20 : 0;
+      const pinBottom = stackBottom + footerGap + footerHeight;
       const sectionBottom = section.getBoundingClientRect().bottom;
-      return Math.max(64, Math.ceil(sectionBottom - stackBottom));
+      return Math.max(64, Math.ceil(sectionBottom - pinBottom));
+    };
+
+    const measureFooterHeight = () => {
+      const footer = root.querySelector(".rec-stack-footer");
+      if (!footer) return 0;
+      return Math.ceil(footer.getBoundingClientRect().height);
     };
 
     const settle = (contents) => {
       const stackHeight = measureStackHeight(contents);
-      const holdHeight = measureHoldHeight(contents);
-      const runway = Math.ceil(stackHeight + holdHeight);
+      const footerHeight = measureFooterHeight();
+      const holdHeight = measureHoldHeight(contents, footerHeight);
+      const footerGap = footerHeight > 0 ? 20 : 0;
+      const pinHeight = stackHeight + footerGap + footerHeight;
+      const runway = Math.ceil(pinHeight + holdHeight);
       const section = root.closest("#recommendations");
 
       root.style.setProperty("--rec-stack-runway", `${runway}px`);
       root.style.setProperty("--rec-stack-height", `${stackHeight}px`);
+      root.style.setProperty("--rec-stack-footer-height", `${footerHeight}px`);
+      root.style.setProperty("--rec-stack-pin-height", `${pinHeight}px`);
       // Hold drives scroll while the pile stays pinned; keep it stable to avoid layout jumps.
       root.style.setProperty("--rec-stack-hold", `${holdHeight}px`);
       root.classList.add("is-rec-stack-settled");
@@ -172,8 +187,10 @@ export default function RecommendationsStackCards({ cardCount, children, footer 
       className="rec-stack-cards"
       style={{ "--numcards": cardCount }}
     >
-      <div className="rec-stack-stage">{children}</div>
-      {footer ? <div className="rec-stack-footer">{footer}</div> : null}
+      <div className="rec-stack-sticky-pin">
+        <div className="rec-stack-stage">{children}</div>
+        {footer ? <div className="rec-stack-footer">{footer}</div> : null}
+      </div>
       <div className="rec-stack-hold" aria-hidden="true" />
     </div>
   );

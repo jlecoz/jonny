@@ -2,6 +2,8 @@
    Social Dynamix — Brand Guidelines v1.0 Implementation
    ═══════════════════════════════════════════════════════ */
 
+@import "./works-case-study-tokens.css";
+
 /* ── Reset ────────────────────────────────────────────── */
 *,
 *::before,
@@ -11,56 +13,7 @@
   padding: 0;
 }
 
-/* ── Root & Font Stack ────────────────────────────────── */
-:root {
-  color-scheme: light;
-
-  /* Nexa via Adobe Fonts (layout → adobeFontsKitIds): kit publishes font-family "nexa"
-     (display) and "nexa-text" (longer copy). Names match Typekit @font-face. */
-  --font-display: "nexa", "Nexa", "termina", "neue-haas-grotesk-display", "Helvetica Neue", system-ui,
-    sans-serif;
-
-  --font-heading: "nexa", "Nexa", "termina", "neue-haas-grotesk-text", "Helvetica Neue", system-ui,
-    sans-serif;
-
-  --font-body: "nexa-text", "nexa", "Nexa", "neue-haas-grotesk-text", "Helvetica Neue", Helvetica, Arial,
-    system-ui, sans-serif;
-
-  --font-label: "nexa-text", "nexa", "Nexa", "neue-haas-grotesk-text", "Helvetica Neue", Helvetica, Arial,
-    system-ui, sans-serif;
-
-  /* Code */
-  --font-mono: "JetBrains Mono", "Fira Code", "SF Mono", monospace;
-
-  /* Motion — brand spec: 400-800ms UI, ease-out */
-  --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  --duration-fast: 400ms;
-  --duration-mid: 600ms;
-  --duration-slow: 800ms;
-
-  /* Scroll reveal cascade */
-  --reveal-duration: 0.5s;
-  --reveal-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
-  --reveal-stagger-step: 80ms;
-  --reveal-distance: 20px;
-
-  /* Core sizing (8pt-based scale, with intermediate steps) */
-  --size-0: 0px;
-  --size-50: 4px;
-  --size-100: 8px;
-  --size-150: 12px;
-  --size-200: 16px;
-  --size-300: 24px;
-  --size-400: 32px;
-  --size-500: 40px;
-  --size-600: 48px;
-  --size-700: 56px;
-  --size-800: 64px;
-  --size-900: 72px;
-  --size-1000: 80px;
-  --size-1100: 88px;
-  --size-1200: 96px;
-}
+/* Token base: public/works-case-study-tokens.css (sourced from config/siteConfig.js) */
 
 /* Brand utilities — Core Teal surface + palette white copy */
 .core-teal {
@@ -1644,6 +1597,10 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
   opacity: 1;
 }
 
+.rec-stack-sticky-pin {
+  position: relative;
+}
+
 .rec-stack-hold {
   min-height: 0;
   height: 0;
@@ -1654,20 +1611,21 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
 .rec-stack-footer {
   position: relative;
   z-index: 1;
-  margin-top: clamp(1rem, 3vh, 1.75rem);
+  margin-top: clamp(1rem, 3vh, 1.25rem);
   opacity: 0;
   transform: translate3d(0, 10px, 0);
   pointer-events: none;
   transition: opacity 180ms linear, transform 220ms var(--ease, ease);
 }
 
-.rec-stack-cards.is-rec-stack-settled .rec-stack-footer {
+.rec-stack-cards.is-rec-stack-settled .rec-stack-sticky-pin {
   position: sticky;
-  /* Stick just below the stacked pile, not to viewport bottom (avoids clipping by section overflow). */
-  top: calc(
-    var(--rec-title-height, 0px) + var(--stack-base) + var(--rec-stack-height, 0px) + 1.25rem
-  );
-  z-index: 6;
+  top: calc(var(--rec-title-height, 0px) + var(--stack-base));
+  z-index: 5;
+  height: var(--rec-stack-pin-height, auto);
+}
+
+.rec-stack-cards.is-rec-stack-settled .rec-stack-footer {
   opacity: 1;
   transform: translate3d(0, 0, 0);
   pointer-events: auto;
@@ -1748,10 +1706,10 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
 
 /* Once all cards stack, pin the pile and scroll through hold to section end */
 .rec-stack-cards.is-rec-stack-settled .rec-stack-stage {
-  position: sticky;
-  top: calc(var(--rec-title-height, 0px) + var(--stack-base));
+  position: relative;
+  top: auto;
   height: var(--rec-stack-height);
-  z-index: 5;
+  z-index: auto;
 }
 
 .rec-stack-cards.is-rec-stack-settled .rec-stack-card {

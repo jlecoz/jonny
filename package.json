@@ -4,8 +4,9 @@
   "description": "Jonathan Le Coz — Experiential Designer CV site",
   "private": true,
   "scripts": {
-    "dev": "next dev --hostname localhost",
-    "build": "next build",
+    "tokens:works": "node scripts/write-works-case-study-tokens.mjs",
+    "dev": "npm run tokens:works && next dev --hostname localhost",
+    "build": "npm run tokens:works && next build",
     "start": "next start",
     "lint": "eslint .",
     "export-essay": "node scripts/export-essay-docx.mjs"

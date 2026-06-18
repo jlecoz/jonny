@@ -3,44 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://use.typekit.net">
+<link rel="preconnect" href="https://p.typekit.net" crossorigin>
+<link rel="stylesheet" href="https://use.typekit.net/ejw0fwc.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/works-case-study-tokens.css">
 <title>Breeze DS — Imperial Brands NGP · Jonathan Le Coz</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
-
 <style>
-/* ═══════════════════════════════════════════════
-   Social Dynamix brand tokens (globals.css)
-   ═══════════════════════════════════════════════ */
-:root {
-  color-scheme: light;
-  --color-bg:           #f2f8fa;
-  --color-fg:           #0d1f23;
-  --color-surface:      #e6f0f3;
-  --color-surface-2:    #d8e8ec;
-  --color-border:       #c5d8dd;
-  --color-border-soft:  rgba(197,216,221,0.45);
-  --color-accent:       #1a7a73;
-  --color-accent-hover: #155f5a;
-  --color-grey:         #4a6368;
-  --color-grey-mid:     #6a8388;
-  --color-steel:        #8fb3bb;
-  --color-gold-light:   #6dd4cc;
-
-  --font-display: "Barlow", "Helvetica Neue", system-ui, sans-serif;
-  --font-heading:  "Barlow", "Helvetica Neue", system-ui, sans-serif;
-  --font-body:     "Barlow", "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif;
-  --font-label:    "Barlow", "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif;
-  --font-mono:     "JetBrains Mono", "Fira Code", monospace;
-
-  --ease:          cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  --duration-fast: 400ms;
-  --duration-mid:  600ms;
-
-  --size-50:4px; --size-100:8px; --size-150:12px; --size-200:16px;
-  --size-300:24px; --size-400:32px; --size-500:40px; --size-600:48px;
-  --size-700:56px; --size-800:64px;
-}
-
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 html, body { min-height: 100%; }
@@ -931,7 +903,7 @@ table.data-table { width: 100%; border-collapse: collapse; font-size: var(--size
         </div>
       </div>
 
-      <div class="roadmap-phase active">
+      <div class="roadmap-phase">
         <div class="phase-label">
           <span class="phase-num">Phase 2</span>
           <span class="phase-period">Q1 2025</span>
@@ -985,6 +957,34 @@ table.data-table { width: 100%; border-collapse: collapse; font-size: var(--size
           <p>Senior front-end developer (managed by me) implements the component library in code, consuming Breeze tokens via Style Dictionary pipeline. Design-code parity validation via Figma Code Connect. Storybook documentation with live brand switching across NGP, blu, and Pulze. WCAG 2.1 AA accessibility audit across all components and brand expressions. Integration handoff packages prepared for product squads.</p>
           <p><strong>Gate:</strong> Full brand switch in Storybook with zero custom overrides. Storybook accepted by Engineering as implementation reference.</p>
           <div class="tag-row" style="margin-top:8px;"><span class="tag accent">Style Dictionary</span><span class="tag">Storybook</span><span class="tag">Code Connect</span><span class="tag">WCAG 2.1 AA</span></div>
+        </div>
+      </div>
+
+      <div class="roadmap-phase">
+        <div class="phase-label">
+          <span class="phase-num">Phase 6</span>
+          <span class="phase-period">Q4 2025</span>
+          <span class="phase-name">QA &amp; UAT</span>
+        </div>
+        <div class="phase-content">
+          <h4>Prove it holds — quality assurance and user acceptance before launch</h4>
+          <p>Full QA sweep across every component, state, and breakpoint. Visual regression testing against Storybook baselines for NGP, blu, and Pulze — a brand switch must produce zero unintended visual drift. Accessibility re-test to WCAG 2.1 AA with assistive-technology passes: screen reader, keyboard-only, and focus-order verification on every interactive component. Documentation QA — each component's anatomy, property table, and token reference checked against the shipped build. User acceptance testing with product squads: designers and engineers assemble representative screens using Breeze components and tokens alone, surfacing gaps, ergonomics issues, and missing patterns. Defects triaged by severity and resolved.</p>
+          <p><strong>Gate:</strong> Sign-off from design, engineering, and accessibility. Zero P1/P2 defects open. UAT squads accept the library for production use.</p>
+          <div class="tag-row" style="margin-top:8px;"><span class="tag accent">Visual regression</span><span class="tag">A11y re-test</span><span class="tag">UAT squads</span><span class="tag">Defect triage</span></div>
+        </div>
+      </div>
+
+      <div class="roadmap-phase active">
+        <div class="phase-label">
+          <span class="phase-num">Phase 7</span>
+          <span class="phase-period">Q1 2026 →</span>
+          <span class="phase-name">Launch &amp; Scale</span>
+        </div>
+        <div class="phase-content">
+          <h4>Launch Breeze and scale it across the business units</h4>
+          <p>Versioned 1.0 release of the Breeze library — Figma and code — under semantic versioning with a published changelog. Rollout to the first product squads with onboarding sessions and office hours. Governance and contribution model established: request intake, review cadence, and a design-system council so the system scales without bottlenecking on the core team. Adoption tracked through component-usage analytics in Figma and code. Phased onboarding of further business units and brands beyond NGP, blu, and Pulze — each new brand instantiated through tokens alone, proving the cost-reduction thesis in production rather than on paper. A v1.x roadmap sets the deprecation policy, new-pattern pipeline, and continuous accessibility monitoring.</p>
+          <p><strong>Gate:</strong> First squads shipping production features on Breeze. A new brand onboarded via tokens only. Governance and contribution model operating.</p>
+          <div class="tag-row" style="margin-top:8px;"><span class="tag accent">v1.0 release</span><span class="tag">Governance model</span><span class="tag">Adoption tracking</span><span class="tag">Multi-BU scale</span></div>
         </div>
       </div>
     </div>

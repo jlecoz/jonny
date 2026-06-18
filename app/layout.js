@@ -3,6 +3,7 @@ import Link from "next/link";
 import SiteHeader from "@/components/SiteHeader";
 import MainBelowFoldReveal from "@/components/MainBelowFoldReveal";
 import { siteConfig } from "@/config/siteConfig";
+import { worksCaseStudyThemeVars } from "@/config/worksCaseStudyTokens";
 
 const defaultDescription =
   "Experiential Designer with 20+ years across creative arts, brand design and web technology.";
@@ -54,33 +55,7 @@ function jsonLdForSite() {
 }
 
 export default function RootLayout({ children }) {
-  const t = siteConfig.theme;
   const typekitKitIds = siteConfig.adobeFontsKitIds ?? ["ejw0fwc"];
-
-  const themeVars = {
-    "--color-bg": t.background,
-    "--color-fg": t.foreground,
-    "--color-accent": t.accent,
-    "--color-accent-hover": t.accentAlt,
-    "--color-surface": t.surface,
-    "--color-border": t.surfaceBorder,
-    "--color-grey": t.grey,
-    "--color-grey-mid": t.greyMid,
-    "--color-navy": t.navy,
-    "--color-gold-light": t.goldLight,
-    "--color-core-teal": t.coreTeal,
-    "--color-pixel-blue": t.pixelBlue,
-    "--color-void": t.void,
-    "--color-deep-teal": t.deepTeal,
-    "--color-bright-teal": t.brightTeal,
-    "--color-cyan-strike": t.cyanStrike,
-    "--color-cyan-light": t.cyanLight,
-    "--color-steel": t.steel,
-    "--color-fog": t.fog,
-    "--color-white": t.white,
-    "--color-off-white": t.offWhite,
-    "--color-light-gray": t.lightGray,
-  };
 
   return (
     <html lang="en">
@@ -100,7 +75,7 @@ export default function RootLayout({ children }) {
           rel="stylesheet"
         />
       </head>
-      <body style={themeVars}>
+      <body style={worksCaseStudyThemeVars}>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdForSite()) }}
