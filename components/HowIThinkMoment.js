@@ -11,7 +11,7 @@ export default function HowIThinkMoment() {
     <section className="section section-how-i-think" id="how-i-think">
       <div className="section-services-inner">
         <ScrollReveal className="reveal-down">
-          <Link href={`/thinking#${featuredEssay.id}`} className="how-i-think-feature">
+          <Link href={`/writing#${featuredEssay.id}`} className="how-i-think-feature">
             <div>
               <div className="how-i-think-feature-meta">
                 <span>{featuredEssay.category}</span>

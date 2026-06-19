@@ -8,6 +8,10 @@ export const worksProjects = [
     title: "Digital Retailing",
     client: "Auto Trader UK",
     blurb: "Online digital purchase journey for automotive retailers on autotrader.co.uk",
+    cardBackDescription: [
+      "The car was never the problem. Earning and keeping their trust was.",
+      "How finance, part-exchange and reservations came online — without asking anyone to buy blind, and without giving up the forecourt that earns the trust in the first place.",
+    ],
     href: "https://www.autotrader.co.uk",
     coverImage: "/img/works-autotrader-deal-builder-hero.webp",
     coverImageWidth: 2048,
@@ -77,6 +81,8 @@ export const worksProjects = [
     title: "Breeze Design Systems 2026",
     client: "Imperial Brands",
     blurb: "Multi-brand whitelabel systems and platforms for next-generation smoking products",
+    cardBackDescription:
+      "It started with three brands. It was built for the entire company. One whitelabel system designed and engineered to scale across Imperial's full portfolio — FMC, next-gen brands, even the B2B Trade App — and keep every one of them in sync without multiplying the costs.",
     href: "https://www.imperialbrandsplc.com",
     coverImage: "/img/works-breeze-design-systems-2026.webp",
     coverImageWidth: 2048,

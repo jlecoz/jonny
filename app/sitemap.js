@@ -11,7 +11,7 @@ export default function sitemap() {
     base,
     ...workUrls,
     `${base}/education`,
-    `${base}/thinking`,
+    `${base}/writing`,
     `${base}/skills`,
     `${base}/#recommendations`,
   ];

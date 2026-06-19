@@ -1,7 +1,7 @@
 import ScrollReveal from "@/components/ScrollReveal";
 import HeroOverviewSection from "@/components/HeroOverviewSection";
 import ExperienceHeadlineDecrypt from "@/components/ExperienceHeadlineDecrypt";
-import FlippableWorkCover from "@/components/FlippableWorkCover";
+import WorkSplitCard from "@/components/WorkSplitCard";
 import HowIThinkMoment from "@/components/HowIThinkMoment";
 import ContactCTA from "@/components/ContactCTA";
 import MainSectionParallax from "@/components/MainSectionParallax";
@@ -76,44 +76,24 @@ function WorksSection() {
           </p>
 
           <ScrollReveal stagger className="cv-work-grid">
-            {works.map((item) => (
-              <article
-                key={`${item.title}-${item.client ?? ""}`}
-                className={`cv-work-card card__content reveal${item.coverImage ? " cv-work-card--split" : ""}`}
-              >
-                {item.coverImage ? (
-                  <FlippableWorkCover item={item}>
-                    <div className="cv-work-card-copy">
-                      <h3>{item.title}</h3>
-                      {item.client ? <h4 className="cv-work-client">{item.client}</h4> : null}
-                      <p>{item.blurb}</p>
-                      <div className="cv-work-card-actions">
-                        <a
-                          className="cv-work-card-external"
-                          href={item.href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          Client site →
-                        </a>
-                        {item.documentationHref ? (
-                          <a
-                            className="button button-secondary"
-                            href={item.documentationHref}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            Learn more
-                          </a>
-                        ) : null}
-                      </div>
-                    </div>
-                  </FlippableWorkCover>
-                ) : (
-                  <>
+            {works.map((item) =>
+              item.coverImage ? (
+                <WorkSplitCard
+                  key={`${item.title}-${item.client ?? ""}`}
+                  item={item}
+                  className="cv-work-card card__content reveal cv-work-card--split"
+                >
+                  <div className="cv-work-card-copy">
                     <h3>{item.title}</h3>
                     {item.client ? <h4 className="cv-work-client">{item.client}</h4> : null}
-                    <p>{item.blurb}</p>
+                    {(Array.isArray(item.cardBackDescription)
+                      ? item.cardBackDescription
+                      : [item.cardBackDescription ?? item.blurb]
+                    ).map((paragraph, paragraphIndex) => (
+                      <p key={paragraphIndex} className="cv-work-card-description">
+                        {paragraph}
+                      </p>
+                    ))}
                     <div className="cv-work-card-actions">
                       <a
                         className="cv-work-card-external"
@@ -123,11 +103,61 @@ function WorksSection() {
                       >
                         Client site →
                       </a>
+                      {item.documentationHref ? (
+                        <a
+                          className="button button-secondary"
+                          href={item.documentationHref}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          Learn more
+                        </a>
+                      ) : (
+                        <p className="cv-work-card-under-construction">
+                          <span className="cv-work-card-under-construction-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path
+                                d="M4 20h16M6 20l2.5-9h7L18 20M9.5 11l1.5-5h2l1.5 5"
+                                stroke="currentColor"
+                                strokeWidth="1.75"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              />
+                              <path
+                                d="M10 14h4"
+                                stroke="currentColor"
+                                strokeWidth="1.75"
+                                strokeLinecap="round"
+                              />
+                            </svg>
+                          </span>
+                          Under construction
+                        </p>
+                      )}
                     </div>
-                  </>
-                )}
-              </article>
-            ))}
+                  </div>
+                </WorkSplitCard>
+              ) : (
+                <article
+                  key={`${item.title}-${item.client ?? ""}`}
+                  className="cv-work-card card__content reveal"
+                >
+                  <h3>{item.title}</h3>
+                  {item.client ? <h4 className="cv-work-client">{item.client}</h4> : null}
+                  <p>{item.blurb}</p>
+                  <div className="cv-work-card-actions">
+                    <a
+                      className="cv-work-card-external"
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Client site →
+                    </a>
+                  </div>
+                </article>
+              ),
+            )}
           </ScrollReveal>
         </div>
       </WorksCardsTimeline>

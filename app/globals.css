@@ -2111,24 +2111,24 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
   margin-top: auto;
   padding-top: 1rem;
   display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  width: fit-content;
-  max-width: 100%;
-  gap: 0.65rem;
-}
-
-.cv-work-card-actions .button,
-.cv-work-card-actions .cv-work-card-external {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
   width: 100%;
-  box-sizing: border-box;
-  justify-content: center;
-  text-align: center;
+  max-width: 100%;
 }
 
 .cv-work-card-actions .cv-work-card-external {
   display: flex;
   align-items: center;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.cv-work-card-actions .button {
+  flex: 0 0 auto;
+  margin-left: auto;
 }
 
 .cv-work-card-external {
@@ -2202,9 +2202,18 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
 
 .cv-work-card-cover--flip {
   min-height: 0;
+  height: 100%;
   perspective: 1000px;
   transform-style: preserve-3d;
   cursor: pointer;
+  transform: translateY(0) rotateX(0deg) rotateY(0deg);
+  transform-origin: 50% 58%;
+  transition: transform 520ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cv-work-card-cover--flip.is-flipped,
+.cv-work-card-cover--flip:focus-within {
+  transform: translateY(-6px) rotateX(1deg) rotateY(-1deg);
 }
 
 .cv-work-card-cover--flip:focus {
@@ -2217,11 +2226,6 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
   border-radius: 0.8rem;
 }
 
-.cv-work-card--split:hover .cv-work-card-cover,
-.cv-work-card--split:focus-within .cv-work-card-cover {
-  transform: translateY(-6px) rotateX(1deg) rotateY(-1deg);
-}
-
 .cv-work-card-cover-flip {
   position: absolute;
   inset: 0;
@@ -2229,10 +2233,9 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
   transform-style: preserve-3d;
   transform-origin: 50% 50%;
   transition: transform 720ms cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: transform;
 }
 
-.cv-work-card-cover--flip:hover .cv-work-card-cover-flip,
+.cv-work-card-cover--flip.is-flipped .cv-work-card-cover-flip,
 .cv-work-card-cover--flip:focus-within .cv-work-card-cover-flip {
   transform: rotateY(180deg) scale(1.015);
 }
@@ -2255,8 +2258,8 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
   outline-offset: 0.35rem;
 }
 
-.cv-work-card-cover--flip:hover .cv-work-card-flip-hotspot,
-.cv-work-card-cover--flip:focus-within .cv-work-card-flip-hotspot {
+.cv-work-card--split:hover .cv-work-card-flip-hotspot,
+.cv-work-card--split:focus-within .cv-work-card-flip-hotspot {
   pointer-events: none;
 }
 
@@ -2299,7 +2302,7 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
   transform: translateZ(-10px) scaleX(0.985) scaleY(0.985);
 }
 
-.cv-work-card-cover--flip:hover .cv-work-card-cover-face,
+.cv-work-card-cover--flip.is-flipped .cv-work-card-cover-face,
 .cv-work-card-cover--flip:focus-within .cv-work-card-cover-face {
   box-shadow: 0 12px 36px color-mix(in srgb, var(--color-navy), transparent 92%);
 }
@@ -2328,8 +2331,8 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
   transform: translateX(0) skewX(-14deg);
 }
 
-.cv-work-card--split:hover .cv-work-card-cover-front::after,
-.cv-work-card--split:focus-within .cv-work-card-cover-front::after {
+.cv-work-card--split:hover .cv-work-card-cover--flip:not(.is-flipped) .cv-work-card-cover-front::after,
+.cv-work-card--split:focus-within .cv-work-card-cover--flip:not(.is-flipped) .cv-work-card-cover-front::after {
   animation: cv-work-card-sheen 920ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -2360,7 +2363,7 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
 
 .cv-work-card-cover-back h3,
 .cv-work-card-cover-back .cv-work-client,
-.cv-work-card-cover-back p,
+.cv-work-card-cover-back .cv-work-card-description,
 .cv-work-card-cover-back .cv-work-card-external {
   color: inherit;
 }
@@ -2373,8 +2376,48 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
   color: var(--color-grey-mid);
 }
 
-.cv-work-card-cover-back p {
+.cv-work-card-cover-back .cv-work-card-description {
   color: var(--color-grey);
+  font-size: 24px;
+  line-height: 1.6;
+}
+
+.cv-work-card-cover-back .cv-work-card-description + .cv-work-card-description {
+  margin-top: 0.85rem;
+}
+
+.cv-work-card-cover-back .cv-work-card-under-construction {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-grey-mid);
+}
+
+.cv-work-card-actions .cv-work-card-under-construction {
+  flex: 0 0 auto;
+  margin-left: auto;
+  position: relative;
+  z-index: 4;
+}
+
+.cv-work-card-under-construction-icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  width: 0.95rem;
+  height: 0.95rem;
+  color: var(--color-accent);
+}
+
+.cv-work-card-under-construction-icon svg {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 .cv-work-card-cover-back .cv-work-card-external {
@@ -2412,8 +2455,8 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
     filter 520ms var(--ease);
 }
 
-.cv-work-card--split:hover .cv-work-card-cover-img,
-.cv-work-card--split:focus-within .cv-work-card-cover-img {
+.cv-work-card--split:hover .cv-work-card-cover--flip:not(.is-flipped) .cv-work-card-cover-img,
+.cv-work-card--split:focus-within .cv-work-card-cover--flip:not(.is-flipped) .cv-work-card-cover-img {
   filter: saturate(1.06) contrast(1.03);
   transform: scale(1.035);
 }
@@ -2427,8 +2470,8 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
   object-fit: contain;
 }
 
-.cv-work-card--split:hover .cv-work-card-cover-img--contain,
-.cv-work-card--split:focus-within .cv-work-card-cover-img--contain {
+.cv-work-card--split:hover .cv-work-card-cover--flip:not(.is-flipped) .cv-work-card-cover-img--contain,
+.cv-work-card--split:focus-within .cv-work-card-cover--flip:not(.is-flipped) .cv-work-card-cover-img--contain {
   transform: scale(1.02);
 }
 
@@ -2441,18 +2484,16 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
     transition: none;
   }
 
-  .cv-work-card--split:hover .cv-work-card-cover,
-  .cv-work-card--split:focus-within .cv-work-card-cover,
-  .cv-work-card--split:hover .cv-work-card-cover-front::after,
-  .cv-work-card--split:focus-within .cv-work-card-cover-front::after,
-  .cv-work-card--split:hover .cv-work-card-cover-img,
-  .cv-work-card--split:focus-within .cv-work-card-cover-img {
+  .cv-work-card--split:hover .cv-work-card-cover--flip:not(.is-flipped) .cv-work-card-cover-front::after,
+  .cv-work-card--split:focus-within .cv-work-card-cover--flip:not(.is-flipped) .cv-work-card-cover-front::after,
+  .cv-work-card--split:hover .cv-work-card-cover--flip:not(.is-flipped) .cv-work-card-cover-img,
+  .cv-work-card--split:focus-within .cv-work-card-cover--flip:not(.is-flipped) .cv-work-card-cover-img {
     transform: none;
   }
 
-  .cv-work-card-cover--flip:hover .cv-work-card-cover-flip,
+  .cv-work-card-cover--flip.is-flipped .cv-work-card-cover-flip,
   .cv-work-card-cover--flip:focus-within .cv-work-card-cover-flip {
-    transform: rotateY(180deg);
+    transform: rotateY(180deg) scale(1.015);
   }
 }
 
@@ -2487,55 +2528,15 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
   }
 }
 
-/* ── Case study pages (/works/[slug]) — editorial portfolio layout ───────── */
-body:has(.case-study-page) {
-  background: var(--teal-deep);
-}
-
-body:has(.case-study-page) .parallax-container {
-  background-color: var(--teal-deep);
-}
-
-body:has(.case-study-page) .parallax-bg {
-  display: none;
-}
-
-.case-study-page {
-  max-width: 52rem;
-  margin: 0 auto;
-  padding: 2rem 1.25rem 4rem;
-  --cs-warm: #c97b63;
-  --cs-teal: var(--color-core-teal);
-  --cs-teal-soft: color-mix(in srgb, var(--color-core-teal), white 35%);
-}
-
-body:has(.case-study-page) .case-study-page {
-  --cs-warm: var(--color-cyan-light);
-  --cs-teal: var(--color-white);
-  --cs-teal-soft: var(--color-steel);
-}
-
-body:has(.case-study-page) .case-study-back-link {
-  color: var(--color-steel);
-}
-
-body:has(.case-study-page) .case-study-dek,
-body:has(.case-study-page) .case-study-section-body p,
-body:has(.case-study-page) .case-study-process-name {
-  color: var(--color-fog);
-}
-
-body:has(.case-study-page) .case-study-hero,
-body:has(.case-study-page) .case-study-footer {
-  border-color: color-mix(in srgb, var(--color-white), transparent 78%);
-}
-
-body:has(.case-study-page) .case-study-quote {
-  background: color-mix(in srgb, var(--color-white), transparent 88%);
-}
-
-body:has(.case-study-page) .case-study-palette-hex {
-  color: var(--color-fog);
+/* ── Case study pages (/works/[slug]) — site section + token layout ─────── */
+.case-study-page .section-services {
+  width: 100vw;
+  max-width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  padding-inline: 0;
+  padding-bottom: 96px;
+  box-sizing: border-box;
 }
 
 .case-study-back {
@@ -2559,43 +2560,15 @@ body:has(.case-study-page) .case-study-palette-hex {
 .case-study-hero {
   margin-bottom: 3rem;
   padding-bottom: 2rem;
-  border-bottom: 1px solid color-mix(in srgb, var(--color-border), transparent 35%);
-}
-
-.case-study-client {
-  font-family: var(--font-label);
-  font-size: var(--size-150);
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--cs-warm);
-  margin: 0 0 0.75rem;
-}
-
-.case-study-hero h1 {
-  font-family: Georgia, "Times New Roman", Times, serif;
-  font-size: clamp(2rem, 4vw, 2.75rem);
-  font-weight: 500;
-  letter-spacing: -0.02em;
-  line-height: 1.12;
-  color: var(--cs-teal);
-  margin: 0 0 1rem;
-}
-
-.case-study-dek {
-  margin: 0;
-  font-size: var(--size-200);
-  line-height: 1.55;
-  color: var(--color-grey);
-  max-width: 40rem;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .case-study-hero-visual {
   margin-top: 2rem;
   border-radius: 0.75rem;
   overflow: hidden;
-  border: 1px solid color-mix(in srgb, var(--color-border), transparent 40%);
-  background: #ffffff;
+  border: 1px solid var(--color-border);
+  background: var(--color-white);
 }
 
 .case-study-hero-visual img {
@@ -2614,30 +2587,16 @@ body:has(.case-study-page) .case-study-palette-hex {
   scroll-margin-top: 5rem;
 }
 
-.case-study-kicker {
-  font-family: var(--font-label);
-  font-size: var(--size-150);
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--cs-warm);
-  margin: 0 0 0.65rem;
-}
-
 .case-study-section-heading {
-  font-family: Georgia, "Times New Roman", Times, serif;
-  font-size: var(--size-300);
-  font-weight: 500;
-  color: var(--cs-teal);
-  margin: 0 0 1rem;
-  letter-spacing: -0.02em;
+  font-size: clamp(var(--size-300), 2.5vw, var(--size-500));
+  margin-bottom: 1rem;
 }
 
 .case-study-section-body p {
   margin: 0 0 0.85rem;
   font-size: var(--size-200);
   line-height: 1.65;
-  color: var(--color-fg);
+  color: var(--color-grey);
 }
 
 .case-study-section-body p:last-child {
@@ -2651,9 +2610,9 @@ body:has(.case-study-page) .case-study-palette-hex {
   gap: 0 0.25rem;
   margin: 1rem 0 1.25rem;
   padding: 1.25rem 1rem;
-  background: color-mix(in srgb, var(--color-surface), white 50%);
+  background: var(--color-surface);
   border-radius: 0.75rem;
-  border: 1px solid color-mix(in srgb, var(--color-border), transparent 30%);
+  border: 1px solid var(--color-border);
 }
 
 .case-study-process-step-wrap {
@@ -2666,7 +2625,7 @@ body:has(.case-study-page) .case-study-palette-hex {
 .case-study-process-line {
   flex: 1 1 1.5rem;
   height: 2px;
-  background: linear-gradient(90deg, var(--cs-teal-soft), var(--color-border));
+  background: linear-gradient(90deg, var(--color-core-teal), var(--color-border));
   margin: 0 0.35rem;
   min-width: 0.75rem;
 }
@@ -2684,31 +2643,32 @@ body:has(.case-study-page) .case-study-palette-hex {
   width: 2.75rem;
   height: 2.75rem;
   border-radius: 50%;
-  border: 2px solid color-mix(in srgb, #ffffff, transparent 30%);
+  border: 2px solid color-mix(in srgb, var(--color-border), transparent 30%);
   box-shadow: 0 4px 14px color-mix(in srgb, var(--color-navy), transparent 90%);
 }
 
 .case-study-process-name {
+  font-family: var(--font-label);
   font-size: var(--size-150);
   font-weight: 600;
-  color: var(--color-fg);
+  color: var(--color-grey);
 }
 
 .case-study-quote {
   margin: 0.75rem 0 0;
   padding: 1.5rem 1.35rem;
-  border-left: 4px solid var(--cs-teal-soft);
-  background: color-mix(in srgb, var(--color-surface), white 40%);
+  border-left: 4px solid var(--color-core-teal);
+  background: var(--color-surface);
   border-radius: 0 0.65rem 0.65rem 0;
 }
 
 .case-study-quote p {
   margin: 0;
-  font-family: Georgia, "Times New Roman", Times, serif;
-  font-size: clamp(1.15rem, 2.2vw, 1.45rem);
+  font-family: var(--font-heading);
+  font-size: clamp(var(--size-200), 2.2vw, var(--size-300));
   font-style: italic;
   line-height: 1.55;
-  color: var(--color-deep-teal);
+  color: var(--color-grey);
 }
 
 .case-study-quote cite {
@@ -2741,11 +2701,11 @@ body:has(.case-study-page) .case-study-palette-hex {
   width: 2.75rem;
   height: 2.75rem;
   border-radius: 50%;
-  border: 1px solid color-mix(in srgb, var(--color-border), transparent 25%);
+  border: 1px solid var(--color-border);
 }
 
 .case-study-palette-hex {
-  font-family: var(--font-mono, ui-monospace, monospace);
+  font-family: var(--font-mono);
   font-size: var(--size-150);
   color: var(--color-grey-mid);
 }
@@ -2753,10 +2713,7 @@ body:has(.case-study-page) .case-study-palette-hex {
 .case-study-footer {
   margin-top: 3rem;
   padding-top: 2rem;
-  border-top: 1px solid color-mix(in srgb, var(--color-border), transparent 35%);
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
+  border-top: 1px solid var(--color-border);
 }
 
 /* Experience — LinkedIn-style role cards (logo, company, timeline bullets) */
@@ -4617,6 +4574,7 @@ body:has(.case-study-page) .case-study-palette-hex {
 }
 
 /* Thinking page — aligned with site brand */
+#writing.section-services,
 #thinking.section-services {
   width: 100vw;
   max-width: 100vw;

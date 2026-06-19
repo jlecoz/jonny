@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ScrollReveal from "@/components/ScrollReveal";
 
 function SectionBody({ body }) {
   const paras = Array.isArray(body) ? body : [body];
@@ -45,8 +46,8 @@ function CaseStudySection({ section }) {
 
   return (
     <section className="case-study-section" id={section.id}>
-      <p className="case-study-kicker">{label}</p>
-      {title ? <h3 className="case-study-section-heading">{title}</h3> : null}
+      <p className="section-label">{label}</p>
+      {title ? <h2 className="section-headline case-study-section-heading">{title}</h2> : null}
 
       {type === "process" && steps ? <ProcessDiagram steps={steps} /> : null}
 
@@ -64,45 +65,59 @@ function CaseStudySection({ section }) {
   );
 }
 
-/** Long-form project narrative — editorial layout inspired by portfolio case studies */
+/** Long-form project narrative — uses site section + token patterns from globals.css */
 export default function CaseStudyPage({ project }) {
   const cs = project.caseStudy;
 
   return (
     <article className="case-study-page">
-      <nav className="case-study-back" aria-label="Section">
-        <Link href="/#works" className="case-study-back-link">
-          ← Works
-        </Link>
-      </nav>
+      <section className="section section-services">
+        <div className="section-services-inner">
+          <nav className="case-study-back" aria-label="Section">
+            <Link href="/#works" className="case-study-back-link">
+              ← Works
+            </Link>
+          </nav>
 
-      <header className="case-study-hero">
-        <p className="case-study-client">{project.client}</p>
-        <h1>{project.title}</h1>
-        <p className="case-study-dek">{cs.heroDek}</p>
-        {project.coverImage ? (
-          <div className="case-study-hero-visual">
-            <img src={project.coverImage} alt={project.coverAlt || ""} width={920} height={560} loading="eager" />
+          <ScrollReveal>
+            <header className="case-study-hero">
+              <p className="section-label">{project.client}</p>
+              <h1 className="section-headline">{project.title}</h1>
+              <p className="section-intro">{cs.heroDek}</p>
+              {project.coverImage ? (
+                <div className="case-study-hero-visual">
+                  <img
+                    src={project.coverImage}
+                    alt={project.coverAlt || ""}
+                    width={920}
+                    height={560}
+                    loading="eager"
+                  />
+                </div>
+              ) : null}
+            </header>
+          </ScrollReveal>
+
+          <div className="case-study-inner">
+            {cs.sections.map((section) => (
+              <ScrollReveal key={section.id}>
+                <CaseStudySection section={section} />
+              </ScrollReveal>
+            ))}
           </div>
-        ) : null}
-      </header>
 
-      <div className="case-study-inner">
-        {cs.sections.map((section) => (
-          <CaseStudySection key={section.id} section={section} />
-        ))}
-      </div>
-
-      <footer className="case-study-footer">
-        {project.documentationHref ? (
-          <Link href={project.documentationHref} className="button button-secondary">
-            Documentation
-          </Link>
-        ) : null}
-        <Link href={project.href} className="button button-secondary" target="_blank" rel="noopener noreferrer">
-          Visit client site
-        </Link>
-      </footer>
+          <footer className="case-study-footer cta-row">
+            {project.documentationHref ? (
+              <Link href={project.documentationHref} className="button button-secondary">
+                Documentation
+              </Link>
+            ) : null}
+            <Link href={project.href} className="button button-secondary" target="_blank" rel="noopener noreferrer">
+              Visit client site
+            </Link>
+          </footer>
+        </div>
+      </section>
     </article>
   );
 }

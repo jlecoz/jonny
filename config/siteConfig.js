@@ -42,7 +42,7 @@ export const siteConfig = {
   nav: [
     { label: "Works", href: "/#works" },
     { label: "About", href: "/about" },
-    { label: "Writing", href: "/thinking" },
+    { label: "Writing", href: "/writing" },
     { label: "Experience & Skills", href: "/skills" },
     { label: "Education", href: "/education" },
   ],

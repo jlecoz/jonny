@@ -1,13 +1,16 @@
 "use client";
 
-export default function FlippableWorkCover({ item, children }) {
+export default function FlippableWorkCover({ item, children, flipped = false }) {
   const coverImageWidth = item.coverImageWidth || 440;
   const coverImageHeight = item.coverImageHeight || 440;
 
   if (!item?.coverImage) return null;
 
   return (
-    <div className="cv-work-card-cover cv-work-card-cover--flip" tabIndex={0}>
+    <div
+      className={`cv-work-card-cover cv-work-card-cover--flip${flipped ? " is-flipped" : ""}`}
+      tabIndex={0}
+    >
       <div className="cv-work-card-cover-flip">
         <div
           className="cv-work-card-cover-face cv-work-card-cover-front"
@@ -31,4 +34,3 @@ export default function FlippableWorkCover({ item, children }) {
     </div>
   );
 }
-
