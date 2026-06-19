@@ -24,11 +24,12 @@ export const cv = {
       orgDisplay: "Imperial Brands PLC",
       orgUrl: "https://www.imperialbrandsplc.com",
       logoDomain: "imperialbrandsplc.com",
-      companyTagline: "Full-time · 4 yrs 4 mos · Bristol, United Kingdom",
+      tenureStart: { month: 1, year: 2022 },
+      location: "Bristol, United Kingdom",
       roles: [
         {
           title: "Director of Digital Experience",
-          periodStart: { month: 1, year: 2022 },
+          periodStart: { month: 1, year: 2023 },
           workMode: "Hybrid",
           bullets: [
             "Advocate for design thinking and design linking. I support Product Owners, Engineers and Designers throughout the NGP pillar to work smart and deliver value for our experience across multiple product lines.",
@@ -41,7 +42,8 @@ export const cv = {
         },
         {
           title: "Experience Design Lead",
-          periodLine: "Jan 2022 – Dec 2022 · 1 yr",
+          periodStart: { month: 1, year: 2022 },
+          periodEnd: { month: 12, year: 2022 },
           bullets: [],
           skills: "Product Strategy, Web Design, and +8 skills",
         },
@@ -52,11 +54,14 @@ export const cv = {
       orgDisplay: "Auto Trader UK",
       orgUrl: "https://www.autotrader.co.uk",
       logoDomain: "autotrader.co.uk",
-      companyTagline: "Full-time · 3 yrs 10 mos · United Kingdom",
+      tenureStart: { month: 11, year: 2020 },
+      tenureEnd: { month: 10, year: 2022 },
+      location: "United Kingdom",
       roles: [
         {
           title: "Experience Design Lead",
-          periodLine: "Jul 2021 – Oct 2022 · 1 yr 4 mos",
+          periodStart: { month: 7, year: 2021 },
+          periodEnd: { month: 10, year: 2022 },
           bullets: [
             "Helped cross-functional teams understand and define pain points and potential gains for the Digital Retailing offer for retailers and customers.",
             "Line-managed and mentored product designers; supported designers to deliver their best work and grow their careers.",
@@ -67,7 +72,8 @@ export const cv = {
         },
         {
           title: "Principal Product Designer",
-          periodLine: "Nov 2020 – Jun 2021 · 8 mos",
+          periodStart: { month: 11, year: 2020 },
+          periodEnd: { month: 6, year: 2021 },
           summary:
             "Digital Retailing and Onward Journey — CORE/B2B. Direction of the post-sale journey customers and suppliers engage with in the Auto Trader ecosystem.",
           bullets: [],
@@ -80,11 +86,14 @@ export const cv = {
       orgDisplay: "Booking.com",
       orgUrl: "https://www.booking.com",
       logoDomain: "booking.com",
-      companyTagline: "Full-time · 2 yrs 2 mos · United Kingdom",
+      tenureStart: { month: 10, year: 2018 },
+      tenureEnd: { month: 11, year: 2020 },
+      location: "United Kingdom",
       roles: [
         {
           title: "Design Lead",
-          periodLine: "Oct 2018 – Nov 2020 · 2 yrs 2 mos",
+          periodStart: { month: 10, year: 2018 },
+          periodEnd: { month: 11, year: 2020 },
           bullets: [
             "Used data-informed discovery and experimentation to influence stakeholders and turn systems thinking into experiences that improved convenience, loyalty and engagement.",
             "Led two UX designers to define and deliver solutions for pain points across the ground transport business.",

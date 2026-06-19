@@ -267,6 +267,79 @@
   color: var(--cs-amber-ink);
 }
 
+/* TL;DR skim layer */
+.cs .tldr {
+  border: 1px solid var(--cs-line);
+  border-left: 3px solid var(--cs-teal);
+  border-radius: 6px;
+  background: var(--cs-surface);
+  padding: 26px 28px;
+  margin: 28px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 760px;
+}
+
+.cs .tldr .k {
+  font-family: var(--font-label, "nexa", system-ui, sans-serif);
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 1;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cs-teal);
+  margin: 0;
+  max-width: none;
+}
+
+.cs .tldr .thesis {
+  font-family: var(--font-display, "termina", "nexa", system-ui, sans-serif);
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 1.3;
+  color: var(--cs-ink);
+  margin: 0;
+  max-width: none;
+}
+
+.cs .tldr p:not(.k):not(.thesis):not(.result) {
+  font-size: 15.5px;
+  line-height: 1.6;
+  color: var(--cs-ink);
+  margin: 0;
+  max-width: 64ch;
+}
+
+.cs .tldr .result {
+  font-family: var(--font-label, "nexa", system-ui, sans-serif);
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--cs-src);
+  padding-top: 12px;
+  border-top: 1px solid var(--cs-line);
+  margin: 0;
+  max-width: none;
+}
+
+.cs .tldr .jump {
+  font-family: var(--font-label, "nexa", system-ui, sans-serif);
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 1;
+  color: var(--cs-teal);
+  text-decoration: none;
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  width: fit-content;
+}
+
+.cs .tldr .jump:hover {
+  text-decoration: underline;
+}
+
 @media (max-width: 720px) {
   .cs .cs-problem {
     grid-template-columns: 1fr;

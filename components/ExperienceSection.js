@@ -2,7 +2,7 @@ import ScrollReveal from "@/components/ScrollReveal";
 import ExperienceHeadlineDecrypt from "@/components/ExperienceHeadlineDecrypt";
 import ShowMoreBullets from "@/components/ShowMoreBullets";
 import { cv, linkedInExperienceUrl } from "@/config/cvData";
-import { formatRolePeriod } from "@/lib/formatExperiencePeriod";
+import { formatGroupCompanyMeta, formatRolePeriod } from "@/lib/formatExperiencePeriod";
 
 export default function ExperienceSection() {
   return (
@@ -17,6 +17,7 @@ export default function ExperienceSection() {
           {cv.experienceGroups.map((group) => {
             const faviconSrc = `https://www.google.com/s2/favicons?domain=${encodeURIComponent(group.logoDomain)}&sz=128`;
             const logoSrc = group.logoSrc || faviconSrc;
+            const companyMeta = formatGroupCompanyMeta(group);
             return (
               <article key={group.key} className="cv-role cv-role--linkedin reveal">
                 <div className="cv-role-layout">
@@ -41,8 +42,8 @@ export default function ExperienceSection() {
                           <span className="cv-role-company">{group.orgDisplay}</span>
                         )}
                       </h3>
-                      {group.companyTagline ? (
-                        <p className="cv-role-company-meta">{group.companyTagline}</p>
+                      {companyMeta ? (
+                        <p className="cv-role-company-meta">{companyMeta}</p>
                       ) : null}
                     </div>
                     <div className="cv-role-positions-rail">
