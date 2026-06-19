@@ -10,6 +10,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/works-case-study-tokens.css">
+<link rel="stylesheet" href="/works-case-study-cs.css">
+
 <title>Breeze DS — Imperial Brands NGP · Jonathan Le Coz</title>
 
 <style>
@@ -541,6 +543,43 @@ table.data-table { width: 100%; border-collapse: collapse; font-size: var(--size
 </div>
 
 
+<!-- ============ BEAT 1 · PROBLEM + CONSTRAINTS ============ -->
+<section class="problem-sec" aria-labelledby="bz-problem-heading">
+  <div class="page-shell">
+    <div class="cs">
+      <div class="cs-problem">
+        <div>
+          <p class="cs-eyebrow">The problem</p>
+          <h2 id="bz-problem-heading">Four brands, four codebases, zero shared infrastructure.</h2>
+          <p>NGP Digital was shipping across blu, Pulze, Trade App, and Zone — each with its own Figma files, its own component logic, and no whitelabel layer. Every market launch meant rebuilding from scratch. What existed was a UI kit masquerading as a design system.</p>
+        </div>
+        <aside class="cs-constraints" aria-label="Project constraints">
+          <h3>Constraints</h3>
+          <ul>
+            <li>One system had to serve four distinct brand identities</li>
+            <li>Regulated category — consistency and auditability non-negotiable</li>
+            <li>Global markets — token pipeline must scale without per-market forks</li>
+            <li>Engineering and design naming had to lock before any component work</li>
+          </ul>
+        </aside>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BEAT 2 · DESIGN TENSION ============ -->
+<section aria-labelledby="bz-tension-heading">
+  <div class="page-shell">
+    <div class="cs">
+      <div class="cs-tension">
+        <p class="cs-eyebrow" id="bz-tension-heading">The design tension</p>
+        <p class="cs-vs">Unify the <em>structure</em> — without flattening <em>brand identity.</em></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
 <!-- ══════════════════════════════════════════
      SECTION 01 — THE BRIEF
      ══════════════════════════════════════════ -->
@@ -795,6 +834,15 @@ table.data-table { width: 100%; border-collapse: collapse; font-size: var(--size
       <p class="section-intro">The Breeze system was not inherited — it was built from a deliberate strategy, with the right team assembled specifically for the work, and a governance model designed to scale beyond the core team.</p>
     </div>
 
+
+    <div class="cs">
+      <div class="cs-rejected" role="note" aria-labelledby="bz-rejected-heading">
+        <h3 id="bz-rejected-heading">What we rejected — and why</h3>
+        <p>Per-brand Figma libraries and per-market component forks — the default when squads move fast without governance. It looked like speed; it guaranteed drift, duplicated engineering, and a rebuild on every new brand. We rejected siloed UI files in favour of a House of Brands model: one structural library, brand identity resolved at the token layer.</p>
+      </div>
+    </div>
+
+
     <div class="card-grid-3" style="margin-bottom:2rem;">
       <div class="disc-card">
         <div class="disc-head"><div class="disc-icon">🎯</div><h3>Strategic direction</h3></div>
@@ -1028,22 +1076,30 @@ table.data-table { width: 100%; border-collapse: collapse; font-size: var(--size
       <p class="section-intro">The business case for Breeze is not theoretical — it maps directly to documented industry outcomes for organisations that have committed to whitelabel design systems at this scale.</p>
     </div>
 
-    <div class="stat-strip" style="grid-template-columns:repeat(4,1fr); margin-bottom:2.5rem;">
-      <div class="stat-cell">
-        <div class="stat-num" style="font-size:clamp(28px,3.5vw,48px);">3→1</div>
-        <div class="stat-label">Brands served<br>from one codebase</div>
-      </div>
-      <div class="stat-cell">
-        <div class="stat-num" style="font-size:clamp(28px,3.5vw,48px);">40%</div>
-        <div class="stat-label">Faster dev velocity<br>from unified component library</div>
-      </div>
-      <div class="stat-cell">
-        <div class="stat-num" style="font-size:clamp(28px,3.5vw,48px);">80%</div>
-        <div class="stat-label">Cost reduction<br>per new brand instantiation</div>
-      </div>
-      <div class="stat-cell">
-        <div class="stat-num" style="font-size:clamp(28px,3.5vw,48px);">0</div>
-        <div class="stat-label">Custom overrides<br>required at brand switch</div>
+
+    <div class="cs" style="margin-bottom:2.5rem;">
+      <p class="cs-eyebrow" id="bz-outcomes-metrics">Outcomes</p>
+      <div class="cs-metrics" role="list" aria-labelledby="bz-outcomes-metrics">
+        <div class="cs-metric" role="listitem">
+          <div class="cs-fig">3→1</div>
+          <div class="cs-lbl">Consumer brands served from one master library (NGP · blu · Pulze)</div>
+          <div class="cs-src">System architecture · PoC validation</div>
+        </div>
+        <div class="cs-metric" role="listitem">
+          <div class="cs-fig">0</div>
+          <div class="cs-lbl">Custom overrides required at brand switch (button PoC gate)</div>
+          <div class="cs-src">Token Studio · Q1 2025 PoC</div>
+        </div>
+        <div class="cs-metric" role="listitem">
+          <div class="cs-fig">40%</div>
+          <div class="cs-lbl">Faster dev velocity from a unified component library (projected)</div>
+          <div class="cs-src">Industry benchmark · cited in case study</div>
+        </div>
+        <div class="cs-metric" role="listitem">
+          <div class="cs-fig">80%</div>
+          <div class="cs-lbl">Cost reduction per new brand instantiation (projected)</div>
+          <div class="cs-src">Industry benchmark · whitelabel DS comparables</div>
+        </div>
       </div>
     </div>
 
