@@ -67,15 +67,10 @@ export default function RecommendationsStackCards({ cardCount, children, footer 
       });
     };
 
-    const measureHoldHeight = (contents, footerHeight = 0) => {
-      const section = root.closest("#recommendations");
-      if (!section || !contents.length) return 96;
-
-      const stackBottom = contents[contents.length - 1].getBoundingClientRect().bottom;
-      const footerGap = footerHeight > 0 ? 20 : 0;
-      const pinBottom = stackBottom + footerGap + footerHeight;
-      const sectionBottom = section.getBoundingClientRect().bottom;
-      return Math.max(64, Math.ceil(sectionBottom - pinBottom));
+    const measureHoldHeight = (footerHeight = 0) => {
+      const footerGap = footerHeight > 0 ? 24 : 0;
+      // Short exit runway — enough to reveal the footer CTA, not the full section tail.
+      return Math.max(72, footerGap + footerHeight + 48);
     };
 
     const measureFooterHeight = () => {
@@ -87,7 +82,7 @@ export default function RecommendationsStackCards({ cardCount, children, footer 
     const settle = (contents) => {
       const stackHeight = measureStackHeight(contents);
       const footerHeight = measureFooterHeight();
-      const holdHeight = measureHoldHeight(contents, footerHeight);
+      const holdHeight = measureHoldHeight(footerHeight);
       const footerGap = footerHeight > 0 ? 20 : 0;
       const pinHeight = stackHeight + footerGap + footerHeight;
       const runway = Math.ceil(pinHeight + holdHeight);

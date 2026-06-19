@@ -75,7 +75,7 @@ img { max-width: 100%; display: block; }
   color: var(--color-fg);
   font-family: var(--font-body);
   font-weight: 400;
-  padding: clamp(48px, 7vw, 120px) clamp(20px, 6vw, 96px) clamp(70px, 9vw, 150px);
+  padding: 0 clamp(20px, 6vw, 96px) clamp(70px, 9vw, 150px);
   overflow: hidden;
   line-height: 1.55;
 }
@@ -83,18 +83,80 @@ img { max-width: 100%; display: block; }
 .dr-case * { box-sizing: border-box; margin: 0; }
 .dr-case-light * { box-sizing: border-box; margin: 0; }
 
+.dr-case-teal {
+  position: relative;
+  background: var(--color-deep-teal);
+  color: var(--color-white);
+  font-family: var(--font-body);
+  font-weight: 400;
+  padding: 0 clamp(20px, 6vw, 96px) clamp(70px, 9vw, 150px);
+  overflow: hidden;
+  line-height: 1.55;
+}
+
+.dr-case-teal * { box-sizing: border-box; margin: 0; }
+
+.dr-case-teal .mvt { color: var(--color-cyan-strike); }
+.dr-case-teal .mvt .ln {
+  background: linear-gradient(90deg, color-mix(in srgb, var(--color-cyan-strike), transparent 35%), transparent);
+}
+.dr-case-teal .lead { color: var(--color-fog); }
+.dr-case-teal .lead strong { color: var(--color-white); }
+.dr-case-teal .sh .st { color: var(--color-white); }
+.dr-case-teal .sh .ss { color: var(--color-steel); }
+.dr-case-teal .sh .ss b { color: var(--color-white); }
+.dr-case-teal .tag {
+  color: var(--color-cyan-strike);
+  border-color: color-mix(in srgb, var(--color-white), transparent 65%);
+  background: color-mix(in srgb, var(--color-white), transparent 92%);
+}
+.dr-case-teal .problem { color: var(--color-white); border-left-color: var(--color-cyan-strike); }
+.dr-case-teal .problem span { color: var(--color-cyan-light); }
+.dr-case-teal .split .body p { color: var(--color-steel); }
+.dr-case-teal .split .body p b { color: var(--color-white); }
+.dr-case-teal .moves li { color: var(--color-steel); }
+.dr-case-teal .moves li b { color: var(--color-white); }
+.dr-case-teal figcaption { color: var(--color-steel); }
+.dr-case-teal .statline {
+  border-top-color: color-mix(in srgb, var(--color-white), transparent 82%);
+  border-bottom-color: color-mix(in srgb, var(--color-white), transparent 82%);
+}
+.dr-case-teal .statline .s .b { color: var(--color-cyan-strike); }
+.dr-case-teal .statline .s .b small { color: var(--color-cyan-light); }
+.dr-case-teal .statline .s .l { color: var(--color-steel); }
+.dr-case-teal .mech {
+  background: color-mix(in srgb, var(--color-white), transparent 92%);
+  border-color: color-mix(in srgb, var(--color-white), transparent 70%);
+}
+.dr-case-teal .mech .k { color: var(--color-cyan-strike); }
+.dr-case-teal .mech p { color: var(--color-fog); }
+.dr-case-teal .mech p b { color: var(--color-white); }
+.dr-case-teal .cs {
+  --cs-ink: var(--color-white);
+  color: var(--color-white);
+}
+.dr-case-teal .cs .cs-rejected {
+  background: var(--cs-amber-bg);
+  border-color: var(--cs-amber-bd);
+}
+.dr-case-teal .cs .cs-rejected h3,
+.dr-case-teal .cs .cs-rejected p {
+  color: var(--cs-amber-ink);
+}
+
 .dr-case-bg {
   position: relative;
   background: var(--color-bg);
   color: var(--color-fg);
   font-family: var(--font-body);
   font-weight: 400;
-  padding: clamp(48px, 7vw, 120px) clamp(20px, 6vw, 96px) clamp(70px, 9vw, 150px);
+  padding: 0 clamp(20px, 6vw, 96px) clamp(70px, 9vw, 150px);
   overflow: hidden;
   line-height: 1.55;
 }
 
 .dr-case-bg * { box-sizing: border-box; margin: 0; }
+
 .dr-wrap { position: relative; z-index: 2; max-width: 1180px; margin: 0 auto; }
 .mono { font-family: var(--font-mono); }
 
@@ -957,9 +1019,11 @@ figcaption {
     <p>Could Auto Trader bring part-exchange, finance, reservations and options <em style="color:var(--cyan);font-style:normal">into</em> the search experience — without breaking the trust the marketplace had earned over 40 years?</p>
   </div>
 
+</div>
+</section>
 
-  <!-- ============ BEAT 1 · PROBLEM + CONSTRAINTS ============ -->
-  <section class="problem-sec" aria-labelledby="at-problem-heading">
+<section class="problem-sec" aria-labelledby="at-problem-heading">
+  <div class="dr-wrap">
     <div class="cs">
       <div class="cs-problem">
         <div>
@@ -978,17 +1042,22 @@ figcaption {
         </aside>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ============ BEAT 2 · DESIGN TENSION ============ -->
-  <section aria-labelledby="at-tension-heading">
+<section class="cs-tension-sec" aria-labelledby="at-tension-heading">
+  <div class="dr-wrap">
     <div class="cs">
       <div class="cs-tension">
         <p class="cs-eyebrow" id="at-tension-heading">The design tension</p>
         <p class="cs-vs">Bring the journey <em>online</em> — without taking it <em>off the forecourt.</em></p>
       </div>
     </div>
-  </section>
+  </div>
+</section>
+
+<section class="dr-case-bg">
+<div class="dr-wrap">
 
   <!-- ============ 01 · WHY NOW ============ -->
   <div class="mvt reveal"><span class="mk">A</span> Why now — the stakes <span class="ln"></span></div>
@@ -1088,10 +1157,9 @@ figcaption {
 
 </div>
 </section>
-<section class="dr-case-light">
+<section class="dr-case-teal">
 <div class="dr-wrap">
 
-  <!-- ============ 04 · THE DESIGN RESPONSE ============ -->
   <div class="mvt reveal"><span class="mk">D</span> The design response — three experiments <span class="ln"></span></div>
 
   <div class="cs">
@@ -1258,7 +1326,7 @@ figcaption {
 </section>
 <script>
 (function(){
-  var els=document.querySelectorAll('.dr-case .reveal, .dr-case-light .reveal, .dr-case-bg .reveal');
+  var els=document.querySelectorAll('.dr-case .reveal, .problem-sec .reveal, .cs-tension-sec .reveal, .dr-case-light .reveal, .dr-case-teal .reveal, .dr-case-bg .reveal');
   if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in');});return;}
   var io=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.08,rootMargin:'0px 0px -6% 0px'});
   els.forEach(function(e){io.observe(e);});

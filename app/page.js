@@ -222,7 +222,6 @@ function RecommendationsSection() {
                   <div className="cv-rec-copy">
                     <h3>{r.name}</h3>
                     {r.title ? <p className="cv-edu-org">{r.title}</p> : null}
-                    <div className="cv-edu-period cv-rec-meta">{r.meta}</div>
                     <RecommendationQuote recommendation={r} />
                   </div>
                 </div>

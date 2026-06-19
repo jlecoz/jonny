@@ -87,14 +87,76 @@ p { max-width: 70ch; line-height: 1.7; }
 .section-band--white {
   background: #ffffff;
 }
-.section-band--bg {
+.section-band--page-bg {
   background: var(--color-bg);
+}
+.section-band--bg {
+  background: var(--color-deep-teal);
+  color: var(--color-white);
 }
 .section-band--white > .page-shell:first-child > .section {
   border-top: none;
 }
+.section-band--page-bg > .page-shell:first-child > .section {
+  border-top: none;
+}
 .section-band--bg > .page-shell:first-child > .section {
   border-top: none;
+  border-bottom-color: color-mix(in srgb, var(--color-white), transparent 82%);
+}
+.section-band--bg .section-label {
+  color: var(--color-cyan-strike);
+}
+.section-band--bg .section-headline {
+  color: var(--color-white);
+}
+.section-band--bg .section-headline .gold {
+  color: var(--color-cyan-light);
+}
+.section-band--bg .section-intro {
+  color: var(--color-fog);
+}
+.section-band--bg .section-head h3 {
+  color: var(--color-white);
+}
+.section-band--bg .cs {
+  --cs-ink: var(--color-white);
+  color: var(--color-white);
+}
+.section-band--bg .callout-panel {
+  background:
+    radial-gradient(600px 500px at 90% -10%, color-mix(in srgb, var(--color-accent), transparent 82%) 0%, transparent 60%),
+    radial-gradient(400px 400px at -5% 110%, color-mix(in srgb, var(--color-gold-light), transparent 88%) 0%, transparent 55%),
+    var(--color-white);
+  border-color: color-mix(in srgb, var(--color-white), transparent 65%);
+}
+.section-band--bg .callout-kicker {
+  color: var(--color-grey-mid);
+}
+.section-band--bg .callout-title {
+  color: var(--color-fg);
+}
+.section-band--bg .callout-title .gold {
+  color: var(--color-accent);
+}
+.section-band--bg .callout-body {
+  color: var(--color-fg);
+}
+.section-band--bg .outcome-cell .outcome-label {
+  color: var(--color-accent);
+}
+.section-band--bg .outcome-cell h4 {
+  color: var(--color-fg);
+}
+.section-band--bg .outcome-cell p {
+  color: var(--color-grey);
+}
+
+.problem-sec,
+.cs-tension-sec,
+section[aria-labelledby="bz-tension-heading"] {
+  padding-top: 64px;
+  padding-bottom: 64px;
 }
 
 /* ── TYPOGRAPHY UTILS ── */
@@ -121,16 +183,34 @@ p { max-width: 70ch; line-height: 1.7; }
 
 /* ── HERO ── */
 .hero {
-  position: relative; padding: 5rem 0 4.5rem; overflow: hidden;
+  position: relative;
+  width: 100vw;
+  max-width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  padding: 5rem 0 4.5rem;
+  overflow: hidden;
   border-bottom: 1px solid var(--color-border);
+  box-sizing: border-box;
 }
 .hero-glow {
-  position: absolute; top: -20%; right: -10%;
-  width: 600px; height: 600px;
+  position: absolute;
+  top: -20%;
+  right: 0;
+  width: min(720px, 55vw);
+  height: min(720px, 70vw);
   background: radial-gradient(circle, color-mix(in srgb, var(--color-accent), transparent 82%) 0%, transparent 65%);
-  border-radius: 50%; pointer-events: none; filter: blur(90px); z-index: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(90px);
+  z-index: 0;
+  transform: translateX(15%);
 }
-.hero-content { position: relative; z-index: 1; }
+.hero .page-shell {
+  position: relative;
+  z-index: 1;
+}
+.hero-content { position: relative; }
 .hero-headline {
   font-size: clamp(var(--size-500), 5.5vw, var(--size-800));
   font-weight: 700; line-height: 1.06; letter-spacing: -0.015em; margin-bottom: 1.2rem;
@@ -523,9 +603,9 @@ table.data-table { width: 100%; border-collapse: collapse; font-size: var(--size
 <!-- ══════════════════════════════════════════
      HERO — The work, upfront
      ══════════════════════════════════════════ -->
-<div class="page-shell">
-  <section class="hero">
-    <div class="hero-glow"></div>
+<section class="hero">
+  <div class="hero-glow" aria-hidden="true"></div>
+  <div class="page-shell">
     <div class="hero-content">
       <p class="eyebrow">Design System Leadership · Imperial Brands PLC</p>
       <h1 class="hero-headline">Breeze DS —<br><span class="gold">NGP Digital</span></h1>
@@ -539,8 +619,8 @@ table.data-table { width: 100%; border-collapse: collapse; font-size: var(--size
         <span class="hero-tag">Figma · Token Studio · Heroicons</span>
       </div>
     </div>
-  </section>
-</div>
+  </div>
+</section>
 
 
 <!-- ============ BEAT 1 · PROBLEM + CONSTRAINTS ============ -->
@@ -568,7 +648,7 @@ table.data-table { width: 100%; border-collapse: collapse; font-size: var(--size
 </section>
 
 <!-- ============ BEAT 2 · DESIGN TENSION ============ -->
-<section aria-labelledby="bz-tension-heading">
+<section class="cs-tension-sec" aria-labelledby="bz-tension-heading">
   <div class="page-shell">
     <div class="cs">
       <div class="cs-tension">
@@ -907,6 +987,9 @@ table.data-table { width: 100%; border-collapse: collapse; font-size: var(--size
   </section>
 </div>
 
+</div>
+
+<div class="section-band section-band--white">
 
 <!-- ══════════════════════════════════════════
      SECTION 04 — ROADMAP
@@ -1064,6 +1147,9 @@ table.data-table { width: 100%; border-collapse: collapse; font-size: var(--size
   </section>
 </div>
 
+</div>
+
+<div class="section-band section-band--page-bg">
 
 <!-- ══════════════════════════════════════════
      SECTION 05 — OUTCOMES
@@ -1130,6 +1216,9 @@ table.data-table { width: 100%; border-collapse: collapse; font-size: var(--size
   </section>
 </div>
 
+</div>
+
+<div class="section-band section-band--white">
 
 <!-- ══════════════════════════════════════════
      SECTION 06 — INDUSTRY CONTEXT

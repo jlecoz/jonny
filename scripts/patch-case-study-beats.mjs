@@ -11,32 +11,36 @@ const CS_LINK =
 const AT_PROBLEM = `
   <!-- ============ BEAT 1 · PROBLEM + CONSTRAINTS ============ -->
   <section class="problem-sec" aria-labelledby="at-problem-heading">
-    <div class="cs">
-      <div class="cs-problem">
-        <div>
-          <p class="cs-eyebrow">The problem</p>
-          <h2 id="at-problem-heading">Buyers were ready to transact online. The journey stopped at the forecourt.</h2>
-          <p>Auto Trader already owned the audience and the attention. The gap wasn't demand — it was a missing, trusted way to finish the deal online without asking buyers to "buy blind".</p>
+    <div class="dr-wrap">
+      <div class="cs">
+        <div class="cs-problem">
+          <div>
+            <p class="cs-eyebrow">The problem</p>
+            <h2 id="at-problem-heading">Buyers were ready to transact online. The journey stopped at the forecourt.</h2>
+            <p>Auto Trader already owned the audience and the attention. The gap wasn't demand — it was a missing, trusted way to finish the deal online without asking buyers to "buy blind".</p>
+          </div>
+          <aside class="cs-constraints" aria-label="Project constraints">
+            <h3>Constraints</h3>
+            <ul>
+              <li>Marketplace model — retailers, not Auto Trader, own the stock and the sale</li>
+              <li>Trust, not technology, was the real bottleneck</li>
+              <li>Mid-pandemic: behaviour shifting fast, evidence still forming</li>
+              <li>Forecourt had to stay the trust anchor, not be replaced</li>
+            </ul>
+          </aside>
         </div>
-        <aside class="cs-constraints" aria-label="Project constraints">
-          <h3>Constraints</h3>
-          <ul>
-            <li>Marketplace model — retailers, not Auto Trader, own the stock and the sale</li>
-            <li>Trust, not technology, was the real bottleneck</li>
-            <li>Mid-pandemic: behaviour shifting fast, evidence still forming</li>
-            <li>Forecourt had to stay the trust anchor, not be replaced</li>
-          </ul>
-        </aside>
       </div>
     </div>
   </section>
 
   <!-- ============ BEAT 2 · DESIGN TENSION ============ -->
-  <section aria-labelledby="at-tension-heading">
-    <div class="cs">
-      <div class="cs-tension">
-        <p class="cs-eyebrow" id="at-tension-heading">The design tension</p>
-        <p class="cs-vs">Bring the journey <em>online</em> — without taking it <em>off the forecourt.</em></p>
+  <section class="cs-tension-sec" aria-labelledby="at-tension-heading">
+    <div class="dr-wrap">
+      <div class="cs">
+        <div class="cs-tension">
+          <p class="cs-eyebrow" id="at-tension-heading">The design tension</p>
+          <p class="cs-vs">Bring the journey <em>online</em> — without taking it <em>off the forecourt.</em></p>
+        </div>
       </div>
     </div>
   </section>
@@ -108,7 +112,7 @@ const BREEZE_PROBLEM = `
 </section>
 
 <!-- ============ BEAT 2 · DESIGN TENSION ============ -->
-<section aria-labelledby="bz-tension-heading">
+<section class="cs-tension-sec" aria-labelledby="bz-tension-heading">
   <div class="page-shell">
     <div class="cs">
       <div class="cs-tension">
