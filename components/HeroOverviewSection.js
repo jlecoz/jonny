@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
 import { siteConfig } from "@/config/siteConfig";
 import HeroGoldScramble from "@/components/HeroGoldScramble";
 import ScrollReveal from "@/components/ScrollReveal";
@@ -152,9 +151,13 @@ export default function HeroOverviewSection({ meta, title }) {
         </ScrollReveal>
 
         <ScrollReveal className="cta-row" stagger>
-          <Link className="button button-gold reveal reveal-right" href="/contact">
-            Contact
-          </Link>
+          <a
+            className="button button-gold reveal reveal-right"
+            href="/JLC_CV-2026.pdf"
+            download="Jonathan-Le-Coz-CV-2026.pdf"
+          >
+            CV
+          </a>
           <a
             className="button button-secondary reveal reveal-left"
             href={siteConfig.social.linkedin}
