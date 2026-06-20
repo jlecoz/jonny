@@ -125,7 +125,9 @@ function RecommendationsSection() {
         <div className="head">
           <ScrollReveal>
             <p className="eyebrow">Recommendations</p>
-            <h2 className="section-headline">Vouched for, at every altitude.</h2>
+            <h2 className="section-headline">
+              Vouched for, <span className="gold">at every altitude.</span>
+            </h2>
           </ScrollReveal>
           <a
             className="count"
