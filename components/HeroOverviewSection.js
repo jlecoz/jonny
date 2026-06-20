@@ -67,7 +67,7 @@ export default function HeroOverviewSection({ meta, title }) {
           onPointerMove={supportsHover ? updateAvatarFromPointer : undefined}
           onPointerLeave={supportsHover ? () => setActiveAvatarRole(null) : undefined}
         >
-          <div className="hero-duality-inner">
+          <div className="hero-duality-inner" data-reveal>
             <div
               className="hero-role hero-role--designer"
               role="button"
@@ -142,12 +142,14 @@ export default function HeroOverviewSection({ meta, title }) {
           </div>
         </div>
 
-        <h1 className="hero-headline">
+        <h1 className="hero-headline" data-reveal>
           <HeroGoldScramble text={title} />
         </h1>
 
         <ScrollReveal>
-          <p className="eyebrow">{meta}</p>
+          <p className="eyebrow" data-reveal>
+            {meta}
+          </p>
         </ScrollReveal>
 
         <ScrollReveal className="cta-row" stagger>
@@ -155,6 +157,7 @@ export default function HeroOverviewSection({ meta, title }) {
             className="button button-gold reveal reveal-right"
             href="/JLC_CV-2026.pdf"
             download="Jonathan-Le-Coz-CV-2026.pdf"
+            data-reveal
           >
             CV
           </a>
@@ -163,6 +166,7 @@ export default function HeroOverviewSection({ meta, title }) {
             href={siteConfig.social.linkedin}
             target="_blank"
             rel="noopener noreferrer"
+            data-reveal
           >
             LinkedIn
           </a>

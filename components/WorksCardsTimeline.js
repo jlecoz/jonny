@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { attachScrollAndResize } from "@/lib/scrollRoot";
+import { syncWorksCardReveals } from "@/lib/homeScrollReveal";
 
 /**
  * Pins the Works cards while vertical scrolling drives the cards horizontally.
@@ -44,6 +45,7 @@ export default function WorksCardsTimeline({ children }) {
       raf = 0;
       if (reduceMotion.matches || window.innerWidth <= 720 || scrollDistance <= 1) {
         track.style.transform = "";
+        syncWorksCardReveals();
         return;
       }
 
@@ -55,11 +57,7 @@ export default function WorksCardsTimeline({ children }) {
       );
       const nextTranslateX = -scrollDistance * progress;
       track.style.transform = `translate3d(${nextTranslateX}px, 0, 0)`;
-
-      if (lastTranslateX !== null && Math.abs(nextTranslateX - lastTranslateX) > 8) {
-        window.dispatchEvent(new CustomEvent("works-cards-horizontal-scroll"));
-      }
-
+      syncWorksCardReveals();
       lastTranslateX = nextTranslateX;
     };
 

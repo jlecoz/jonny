@@ -6,6 +6,7 @@ import HowIThinkMoment from "@/components/HowIThinkMoment";
 import ContactCTA from "@/components/ContactCTA";
 import MainSectionParallax from "@/components/MainSectionParallax";
 import WorksCardsTimeline from "@/components/WorksCardsTimeline";
+import HomeScrollReveal from "@/components/HomeScrollReveal";
 import { worksProjects } from "@/config/worksProjects";
 
 import { cv, linkedInRecommendationsUrl } from "@/config/cvData";
@@ -18,13 +19,17 @@ function WorksSection() {
       <WorksCardsTimeline>
         <div className="section-services-inner">
           <ScrollReveal>
-            <ExperienceHeadlineDecrypt as="p" className="section-label" text="WORKS" decrypt />
-            <ExperienceHeadlineDecrypt before="A few curated collaborations across " gold="product and platform." />
+            <ExperienceHeadlineDecrypt as="p" className="section-label" text="WORKS" decrypt data-reveal />
+            <ExperienceHeadlineDecrypt
+              before="A few curated collaborations across "
+              gold="product and platform."
+              data-reveal
+            />
           </ScrollReveal>
-          <p className="section-intro">
+          <p className="section-intro" data-reveal>
             A snapshot of organisations and programmes where my design leadership shaped outcomes end to end.
           </p>
-          <p className="works-card-instruction">
+          <p className="works-card-instruction" data-reveal>
             <strong>Click on a card</strong> to learn more.
           </p>
 
@@ -34,7 +39,7 @@ function WorksSection() {
                 <WorkSplitCard
                   key={`${item.title}-${item.client ?? ""}`}
                   item={item}
-                  className="cv-work-card card__content reveal cv-work-card--split"
+                  className="cv-work-card card__content cv-work-card--split"
                 >
                   <div className="cv-work-card-copy">
                     <h3>{item.title}</h3>
@@ -93,8 +98,9 @@ function WorksSection() {
               ) : (
                 <article
                   key={`${item.title}-${item.client ?? ""}`}
-                  className="cv-work-card card__content reveal"
+                  className="cv-work-card card__content"
                 >
+                  <div className="cv-work-card-reveal" data-reveal>
                   <h3>{item.title}</h3>
                   {item.client ? <h4 className="cv-work-client">{item.client}</h4> : null}
                   <p>{item.blurb}</p>
@@ -107,6 +113,7 @@ function WorksSection() {
                     >
                       Client site →
                     </a>
+                  </div>
                   </div>
                 </article>
               ),
@@ -124,8 +131,10 @@ function RecommendationsSection() {
       <div className="section-services-inner">
         <div className="head">
           <ScrollReveal>
-            <p className="eyebrow">Recommendations</p>
-            <h2 className="section-headline">
+            <p className="eyebrow" data-reveal>
+              Recommendations
+            </p>
+            <h2 className="section-headline" data-reveal>
               Vouched for, <span className="gold">at every altitude.</span>
             </h2>
           </ScrollReveal>
@@ -134,6 +143,7 @@ function RecommendationsSection() {
             href={linkedInRecommendationsUrl}
             target="_blank"
             rel="noopener noreferrer"
+            data-reveal
           >
             20+ recommendations on LinkedIn →
           </a>
@@ -141,7 +151,7 @@ function RecommendationsSection() {
 
         <ScrollReveal stagger className="grid">
           {cv.recommendations.map((r) => (
-            <figure key={r.name} className="card reveal">
+            <figure key={r.name} className="card reveal" data-reveal>
               <blockquote>{r.lead}</blockquote>
               <p className="ctx">{r.context}</p>
               <figcaption className="by">
@@ -181,6 +191,7 @@ export default function HomePage() {
       <HowIThinkMoment />
       <RecommendationsSection />
       <ContactCTA />
+      <HomeScrollReveal />
     </>
   );
 }

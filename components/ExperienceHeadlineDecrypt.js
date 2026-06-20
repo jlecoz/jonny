@@ -26,6 +26,7 @@ export default function ExperienceHeadlineDecrypt({
   as: Tag = "h2",
   className = "section-headline",
   decrypt = false,
+  ...rest
 }) {
   const elRef = useRef(null);
   const reduceMotion = useReducedMotion();
@@ -88,14 +89,14 @@ export default function ExperienceHeadlineDecrypt({
 
   if (singleMode) {
     return (
-      <Tag ref={elRef} className={className} aria-label={full} style={{ position: "relative" }}>
+      <Tag ref={elRef} className={className} aria-label={full} style={{ position: "relative" }} {...rest}>
         {decryptedText}
       </Tag>
     );
   }
 
   return (
-    <Tag ref={elRef} className={className} aria-label={full} style={{ position: "relative" }}>
+    <Tag ref={elRef} className={className} aria-label={full} style={{ position: "relative" }} {...rest}>
       {beforeProp}
       <span className="gold">{goldProp}</span>
     </Tag>

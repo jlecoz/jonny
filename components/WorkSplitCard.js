@@ -3,7 +3,7 @@
 import { useCallback, useState } from "react";
 import FlippableWorkCover from "@/components/FlippableWorkCover";
 
-export default function WorkSplitCard({ item, className, children }) {
+export default function WorkSplitCard({ item, className, children, ...rest }) {
   const [flipped, setFlipped] = useState(false);
 
   const handlePointerEnter = useCallback(() => {
@@ -19,10 +19,13 @@ export default function WorkSplitCard({ item, className, children }) {
       className={className}
       onPointerEnter={handlePointerEnter}
       onPointerLeave={handlePointerLeave}
+      {...rest}
     >
-      <FlippableWorkCover item={item} flipped={flipped}>
-        {children}
-      </FlippableWorkCover>
+      <div className="cv-work-card-reveal" data-reveal>
+        <FlippableWorkCover item={item} flipped={flipped}>
+          {children}
+        </FlippableWorkCover>
+      </div>
     </article>
   );
 }

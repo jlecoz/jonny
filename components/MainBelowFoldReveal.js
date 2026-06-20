@@ -20,6 +20,7 @@ export default function MainBelowFoldReveal() {
 
   useEffect(() => {
     if (typeof window === "undefined") return undefined;
+    if (pathname === "/") return undefined;
 
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const scrollRoot = getScrollRoot();
