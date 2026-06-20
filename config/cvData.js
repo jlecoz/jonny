@@ -4,8 +4,9 @@ export const linkedInProfileUrl = "https://www.linkedin.com/in/jonathan-lecoz/";
 /** Earlier roles (e.g. IMS Health) — same profile */
 export const linkedInExperienceUrl = linkedInProfileUrl;
 
-/** Received recommendations — same profile */
-export const linkedInRecommendationsUrl = linkedInProfileUrl;
+/** Received recommendations — recommendations tab on profile */
+export const linkedInRecommendationsUrl =
+  "https://www.linkedin.com/in/jonathan-lecoz/details/recommendations/";
 
 export const cv = {
   name: "Jonathan Le Coz",
@@ -29,7 +30,7 @@ export const cv = {
       roles: [
         {
           title: "Director of Digital Experience",
-          periodStart: { month: 1, year: 2023 },
+          periodStart: { month: 1, year: 2022 },
           workMode: "Hybrid",
           bullets: [
             "Advocate for design thinking and design linking. I support Product Owners, Engineers and Designers throughout the NGP pillar to work smart and deliver value for our experience across multiple product lines.",
@@ -39,13 +40,6 @@ export const cv = {
             "Mentor the internal design team — hire, nurture, mentor and challenge a growing in-house team alongside external design partners.",
             "Oversee vision and governance of the design system, supporting day-to-day communication and contribution across the business.",
           ],
-        },
-        {
-          title: "Experience Design Lead",
-          periodStart: { month: 1, year: 2022 },
-          periodEnd: { month: 12, year: 2022 },
-          bullets: [],
-          skills: "Product Strategy, Web Design, and +8 skills",
         },
       ],
     },
@@ -173,36 +167,50 @@ export const cv = {
   recommendations: [
     {
       name: "Jiri Jerabek",
-      initials: "JJ",
-      title: "Product Design Director",
+      role: "Product Design Director, Intuit",
       portrait: "/img/recommendations/jiri-jerabek.webp",
-      quoteParagraphs: [
-        "The very rare breed of interaction designer who has the ability to dive straight into details, and at the same time keep high altitude of strategic thinking.",
-      ],
-      quote:
-        "The very rare breed of interaction designer who has the ability to dive straight into details, and at the same time keep high altitude of strategic thinking.",
+      lead:
+        "The very rare breed of interaction designer who can dive straight into details, and at the same time keep high altitude of strategic thinking.",
+      context:
+        "We both led product design in our countries — Jon in France, me in the UK — collaborating on Making Tax Digital and GDPR.",
+      linkedInUrl: "https://www.linkedin.com/in/jirijerabek/",
     },
     {
       name: "Erin Weigel",
-      initials: "EW",
-      title: "Strategic Advisor, ABsmartly & ConversieKracht",
+      role: 'Strategic Advisor & author, "Design for Impact" · ex-Booking.com',
       portrait: "/img/recommendations/erin-weigel.webp",
-      quoteParagraphs: [
-        "A designer who's gifted with seeing the bigger picture experience of the products he designs — and who advocates for making products inclusive for all users.",
-      ],
-      quote:
-        "A designer who's gifted with seeing the bigger picture experience of the products he designs — and who advocates for making products inclusive for all users.",
+      lead: "A designer gifted with seeing the bigger-picture experience of the products he designs.",
+      context: "I led design system and accessibility at Booking.com when our paths crossed.",
+      linkedInUrl: "https://www.linkedin.com/in/erindoesthings",
     },
     {
       name: "Christopher Coleon",
-      initials: "CC",
-      title: "Head of Product / Product Director",
+      role: "Head of Product, Intuit",
       portrait: "/img/recommendations/christopher-coleon.webp",
-      quoteParagraphs: [
-        "How can you make accounting compliance not only acceptable for SMB users, but a source of customer delight? These are only a few of the design challenges Jonathan has tackled.",
-      ],
-      quote:
-        "How can you make accounting compliance not only acceptable for SMB users, but a source of customer delight? These are only a few of the design challenges Jonathan has tackled.",
+      lead:
+        "How can you make accounting compliance not only acceptable for SMB users, but a source of customer delight?",
+      context:
+        "Head of Product at Intuit; worked with Jonathan since 2017, where he was our principal product designer.",
+      linkedInUrl: "https://www.linkedin.com/in/ccoleon/",
+    },
+    {
+      name: "Grégory Cousin",
+      role: "Senior Engineering Manager · engineering partner at Intuit",
+      portrait: "/img/recommendations/gregory-cousin.webp",
+      lead:
+        "The VAT Anti-Fraud experience we shipped on QuickBooks launched on time with amazing UX quality — never easy on a short deadline, but reality with Jon.",
+      context: "We delivered the Small Business VAT Anti-Fraud work together at Intuit.",
+      linkedInUrl: "https://www.linkedin.com/in/gr%C3%A9gory-cousin-8536b791",
+    },
+    {
+      name: "Karolin Mulhaupt",
+      role: "User Researcher (Content Designer at the time) · Intuit",
+      portrait: "/img/recommendations/karolin-mulhaupt.webp",
+      lead:
+        "Great at narrowing in on the main customer pain points and centering his designs around them — and rallying cross-functional teams around the work.",
+      context:
+        "We designed new QuickBooks features together; he led the brainstorming and advocated for the customer throughout.",
+      linkedInUrl: "https://www.linkedin.com/in/kmulhaupt",
     },
   ],
 };

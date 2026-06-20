@@ -6,58 +6,11 @@ import HowIThinkMoment from "@/components/HowIThinkMoment";
 import ContactCTA from "@/components/ContactCTA";
 import MainSectionParallax from "@/components/MainSectionParallax";
 import WorksCardsTimeline from "@/components/WorksCardsTimeline";
-import RecommendationsStackCards from "@/components/RecommendationsStackCards";
 import { worksProjects } from "@/config/worksProjects";
 
 import { cv, linkedInRecommendationsUrl } from "@/config/cvData";
 
 const works = worksProjects;
-
-function getRecommendationQuoteParagraphs(recommendation) {
-  if (recommendation.quoteParagraphs) return recommendation.quoteParagraphs;
-
-  const quote = recommendation.quote || "";
-
-  return quote
-    .replace(/\s+/g, " ")
-    .trim()
-    .split(/(?<=[.!?])\s+/)
-    .filter(Boolean);
-}
-
-function RecommendationQuote({ recommendation }) {
-  const paragraphs = getRecommendationQuoteParagraphs(recommendation);
-  const readMoreAfterParagraph = recommendation.readMoreAfterParagraph;
-
-  if (!readMoreAfterParagraph || readMoreAfterParagraph >= paragraphs.length) {
-    return (
-      <blockquote className="cv-rec-quote">
-        {paragraphs.map((paragraph) => (
-          <p key={paragraph}>{paragraph}</p>
-        ))}
-      </blockquote>
-    );
-  }
-
-  const visibleParagraphs = paragraphs.slice(0, readMoreAfterParagraph);
-  const hiddenParagraphs = paragraphs.slice(readMoreAfterParagraph);
-
-  return (
-    <blockquote className="cv-rec-quote">
-      {visibleParagraphs.map((paragraph) => (
-        <p key={paragraph}>{paragraph}</p>
-      ))}
-      <details className="cv-rec-read-more">
-        <summary>Read more</summary>
-        <div className="cv-rec-read-more-content">
-          {hiddenParagraphs.map((paragraph) => (
-            <p key={paragraph}>{paragraph}</p>
-          ))}
-        </div>
-      </details>
-    </blockquote>
-  );
-}
 
 function WorksSection() {
   return (
@@ -166,70 +119,49 @@ function WorksSection() {
 }
 
 function RecommendationsSection() {
-  const recCount = cv.recommendations.length;
-
   return (
-    <section className="section" id="recommendations">
+    <section className="section rec" id="recommendations">
       <div className="section-services-inner">
-        <div className="recommendations-title">
+        <div className="head">
           <ScrollReveal>
-            <ExperienceHeadlineDecrypt as="p" className="section-label" text="RECOMMENDATIONS" decrypt />
-            <h2 className="section-headline">
-              What colleagues say about <span className="gold">working together.</span>
-            </h2>
+            <p className="eyebrow">Recommendations</p>
+            <h2 className="section-headline">Vouched for, at every altitude.</h2>
           </ScrollReveal>
+          <a
+            className="count"
+            href={linkedInRecommendationsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            20+ recommendations on LinkedIn →
+          </a>
         </div>
 
-        <RecommendationsStackCards
-          cardCount={recCount}
-          footer={
-            <div className="cv-experience-more">
+        <ScrollReveal stagger className="grid">
+          {cv.recommendations.map((r) => (
+            <figure key={r.name} className="card reveal">
+              <blockquote>{r.lead}</blockquote>
+              <p className="ctx">{r.context}</p>
+              <figcaption className="by">
+                {r.portrait ? (
+                  <img src={r.portrait} alt={r.name} width={44} height={44} loading="lazy" decoding="async" />
+                ) : null}
+                <span className="who">
+                  <span className="name">{r.name}</span>
+                  <span className="role">{r.role}</span>
+                </span>
+              </figcaption>
               <a
-                className="button button-secondary"
-                href={linkedInRecommendationsUrl}
+                className="more"
+                href={r.linkedInUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="See more recommendations on LinkedIn"
               >
-                See more LinkedIn
+                Read full recommendation →
               </a>
-            </div>
-          }
-        >
-          {cv.recommendations.map((r, i) => (
-            <div
-              key={r.name}
-              className="rec-stack-card"
-              style={{ "--index": i + 1 }}
-            >
-              <div className="rec-stack-card__content cv-edu-row cv-edu-row--rec">
-                <div className="cv-rec-body">
-                  {r.portrait ? (
-                    <img
-                      className="cv-rec-avatar cv-rec-avatar--photo"
-                      src={r.portrait}
-                      alt={`${r.name} portrait`}
-                      width={56}
-                      height={56}
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  ) : (
-                    <span className="cv-rec-avatar" aria-hidden="true">
-                      {r.initials}
-                    </span>
-                  )}
-                  <div className="cv-rec-copy">
-                    <h3>{r.name}</h3>
-                    {r.title ? <p className="cv-edu-org">{r.title}</p> : null}
-                    <RecommendationQuote recommendation={r} />
-                  </div>
-                </div>
-              </div>
-              <div className="rec-stack-card__slack" aria-hidden="true" />
-            </div>
+            </figure>
           ))}
-        </RecommendationsStackCards>
+        </ScrollReveal>
       </div>
     </section>
   );

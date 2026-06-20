@@ -1569,6 +1569,155 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
   --rec-title-height: 0px;
 }
 
+/* Recommendations — two-tier card grid (.rec) */
+.rec {
+  --rec-bg: var(--color-bg, #f5f5f5);
+  --rec-ink: var(--color-fg, #0a0b0c);
+  --rec-teal: var(--color-deep-teal, #0d3d3a);
+  --rec-muted: #5b605f;
+  --rec-line: var(--color-border, #dcdcd7);
+  background: var(--rec-bg);
+}
+
+.rec .head {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.rec .eyebrow {
+  font-family: var(--font-label);
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--rec-teal);
+  margin-bottom: 14px;
+}
+
+.rec .head .section-headline {
+  margin-bottom: 0;
+}
+
+.rec .count {
+  font-family: var(--font-label);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1;
+  color: var(--rec-teal);
+  text-decoration: none;
+  white-space: nowrap;
+  border-bottom: 1px solid transparent;
+}
+
+.rec .count:hover {
+  border-color: var(--rec-teal);
+}
+
+.rec .grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 22px;
+}
+
+.rec .card {
+  background: #fff;
+  border: 1px solid var(--rec-line);
+  border-radius: 6px;
+  padding: 28px 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 0;
+}
+
+.rec blockquote {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 19px;
+  line-height: 1.4;
+  color: var(--rec-ink);
+  max-width: none;
+}
+
+.rec blockquote::before {
+  content: "\201C";
+  color: var(--rec-teal);
+  margin-right: 2px;
+}
+
+.rec blockquote::after {
+  content: "\201D";
+  color: var(--rec-teal);
+}
+
+.rec .ctx {
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--rec-muted);
+  margin: 0;
+  max-width: none;
+}
+
+.rec .by {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: auto;
+  padding-top: 18px;
+  border-top: 1px solid var(--rec-line);
+}
+
+.rec .by img {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.rec .by .who {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.35;
+}
+
+.rec .by .name {
+  font-family: var(--font-label);
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 1.2;
+  color: var(--rec-ink);
+}
+
+.rec .by .role {
+  font-size: 12.5px;
+  color: var(--rec-muted);
+  max-width: none;
+}
+
+.rec .more {
+  font-family: var(--font-label);
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 1;
+  color: var(--rec-teal);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: fit-content;
+}
+
+.rec .more:hover {
+  text-decoration: underline;
+}
+
 /* Keep the recommendations title visible while cards scroll. */
 #recommendations .recommendations-title {
   position: sticky;
@@ -2389,7 +2538,7 @@ body:has(.parallax-container).thinking-essay-open .parallax-container {
 
 .cv-work-card-cover-back .cv-work-card-description {
   color: var(--color-grey);
-  font-size: 24px;
+  font-size: 18px;
   line-height: 1.6;
 }
 
