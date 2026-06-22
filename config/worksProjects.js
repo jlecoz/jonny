@@ -81,8 +81,10 @@ export const worksProjects = [
     title: "Breeze Design Systems 2026",
     client: "Imperial Brands",
     blurb: "Multi-brand whitelabel systems and platforms for next-generation smoking products",
-    cardBackDescription:
-      "It started with three brands. It was built for the entire company. One whitelabel system designed and engineered to scale across Imperial's full portfolio — FMC, next-gen brands, even the B2B Trade App — and keep every one of them in sync without multiplying the costs.",
+    cardBackDescription: [
+      "It started with three brands. It was built for the entire company.",
+      "One whitelabel system designed and engineered to scale across Imperial's full portfolio — FMC, next-gen brands, even the B2B Trade App — and keep every one of them in sync without multiplying the costs.",
+    ],
     href: "https://www.imperialbrandsplc.com",
     coverImage: "/img/works-breeze-design-systems-2026.webp",
     coverImageWidth: 2048,
@@ -119,6 +121,78 @@ export const worksProjects = [
           body: [
             "Breeze gave teams a clearer way to track reuse, consistency, and delivery quality across brands and product surfaces.",
             "The system created a foundation for faster delivery, stronger file structure and visibility, and more consistent customer experiences across blu.com, pulze.com, and related Imperial Brands digital channels.",
+          ],
+        },
+      ],
+    },
+  },
+  {
+    slug: "booking-taxi-flow",
+    title: "Taxi Flow Q2 2019",
+    client: "Booking.com",
+    blurb: "Pre-book airport taxi flow — narrative-led service design workshop",
+    cardBackDescription: [
+      "We started from a story — and let it tell us which screens to build.",
+      "A one-day BookingGo workshop that converged on a single pre-book taxi flow — five stages, four vehicle tiers, and signed-in and guest Easy Checkout — handed to engineering for testing.",
+    ],
+    href: "https://www.booking.com",
+    coverImage: "/img/works-booking-taxi.png",
+    coverImageWidth: 1024,
+    coverImageHeight: 581,
+    coverAlt: "Booking.com Taxi — pre-book airport transfer",
+    documentationHref: "/booking-taxi-flow-case-study.html",
+    caseStudy: {
+      heroDek:
+        "A narrative-led service design workshop that turned isolated journey screens into one agreed pre-book taxi flow for BookingGo.",
+      sections: [
+        {
+          id: "overview",
+          label: "OVERVIEW",
+          body: [
+            "Facilitated a one-day team workshop for Booking.com BookingGo Taxi UX — writing a persona-driven narrative, pinning screens to each beat, and converging on the Q2 2019 pre-book flow.",
+          ],
+        },
+        {
+          id: "challenge",
+          label: "CHALLENGE",
+          title: "Screens without a story",
+          body: [
+            "Journey screens were on the wall but reviewed in isolation; sticky-note questions were piling up without a shared intent to design against.",
+          ],
+        },
+        {
+          id: "approach",
+          label: "THE APPROACH",
+          type: "process",
+          steps: [
+            { name: "Narrative", tint: "#1a7a73" },
+            { name: "Map", tint: "#24a89e" },
+            { name: "Rebuild", tint: "#4ac8e8" },
+            { name: "Converge", tint: "#7ddff2" },
+          ],
+        },
+        {
+          id: "discovery",
+          label: "DISCOVERY & INSIGHTS",
+          type: "quote",
+          quote:
+            "We didn't start from screens. We started from a story — and let it tell us which screens to build.",
+          attribution: "Workshop recap — Taxi Flow Q2 2019",
+        },
+        {
+          id: "ia",
+          label: "INFORMATION ARCHITECTURE",
+          body: [
+            "Five stages from search results through Easy Checkout (signed-in and guest paths) to confirmation — with vehicle tiers, flight tracking, and Genius pricing woven through.",
+          ],
+        },
+        {
+          id: "design-system",
+          label: "DESIGN SYSTEM & PROTOTYPING",
+          type: "palette",
+          palette: ["#003580", "#0071c2", "#febb02", "#ffffff", "#0a0b0c"],
+          body: [
+            "Built against Booking UI (BUI) patterns — paper, sticky notes, and Sketch — with a handoff flow PDF for engineering testing.",
           ],
         },
       ],

@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://use.typekit.net">
+<link rel="preconnect" href="https://p.typekit.net" crossorigin>
+<link rel="stylesheet" href="https://use.typekit.net/ejw0fwc.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<title>Taxi Flow Q2 2019 — Workshop Recap · Jonathan Le Coz</title>
+
+<style>
+/* ── DESIGN TOKENS — sourced from jonny.socialdynamix.co/works-case-study-tokens.css ── */
+:root {
+  color-scheme: light;
+
+  --color-bg: #F5F5F5;
+  --color-fg: #0A0B0C;
+  --color-accent: #4AC8E8;
+  --color-accent-hover: #24A89E;
+  --color-surface: #F2F8FA;
+  --color-surface-2: #D6E8EC;
+  --color-border: #E5E5E5;
+  --color-border-soft: color-mix(in srgb, var(--color-border), transparent 45%);
+  --color-grey: #0D3D3A;
+  --color-grey-mid: #1A7A73;
+  --color-navy: #0A0B0C;
+  --color-gold-light: #7DDFF2;
+  --color-core-teal: #1A7A73;
+  --color-deep-teal: #0D3D3A;
+  --color-bright-teal: #24A89E;
+  --color-cyan-strike: #4AC8E8;
+  --color-cyan-light: #7DDFF2;
+  --color-steel: #B8D4D8;
+  --color-fog: #D6E8EC;
+  --color-white: #F2F8FA;
+  --warn: #f0a35e;
+  --warn-deep: #b86a3a;
+
+  --font-display: "nexa", "termina", "neue-haas-grotesk-display", "Helvetica Neue", system-ui, sans-serif;
+  --font-heading: "nexa", "termina", "neue-haas-grotesk-text", "Helvetica Neue", system-ui, sans-serif;
+  --font-body: "nexa-text", "nexa", "neue-haas-grotesk-text", "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif;
+  --font-label: "nexa-text", "nexa", "neue-haas-grotesk-text", "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", "SF Mono", monospace;
+
+  --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --duration-fast: 400ms;
+  --duration-mid: 600ms;
+
+  --size-50: 4px;  --size-100: 8px;  --size-150: 12px; --size-200: 16px;
+  --size-300: 24px; --size-400: 32px; --size-500: 40px; --size-600: 48px;
+  --size-700: 56px; --size-800: 64px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+html, body { min-height: 100%; }
+
+body {
+  background: var(--color-bg);
+  color: var(--color-fg);
+  font-family: var(--font-body);
+  font-size: var(--size-200);
+  font-weight: 400;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2 { font-family: var(--font-display); }
+h3, h4, h5, h6 { font-family: var(--font-heading); }
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+p { max-width: 70ch; line-height: 1.7; }
+::selection { background: var(--color-accent); color: var(--color-fg); }
+
+/* ── HEADER ── */
+.site-header {
+  position: sticky; top: 0; z-index: 100;
+  display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+  padding: 1.1rem 2rem;
+  backdrop-filter: blur(20px) saturate(1.5);
+  -webkit-backdrop-filter: blur(20px) saturate(1.5);
+  background: color-mix(in srgb, var(--color-bg), transparent 8%);
+  border-bottom: 1px solid var(--color-border);
+  animation: header-in var(--duration-mid) var(--ease) both;
+}
+@keyframes header-in { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+.header-meta { font-family: var(--font-mono); font-size: 11px; color: var(--color-grey-mid); text-align: right; line-height: 1.8; letter-spacing: 0.04em; }
+.header-nav { display: flex; align-items: center; gap: 0.15rem; flex-wrap: wrap; }
+.header-nav a {
+  font-family: var(--font-label); font-size: var(--size-150); font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.15em;
+  color: var(--color-grey); padding: 0.4rem 0.6rem; border-radius: 0.35rem;
+  transition: color var(--duration-fast) var(--ease), background var(--duration-fast) var(--ease);
+}
+.header-nav a:hover { color: var(--color-accent-hover); background: var(--color-surface); }
+
+/* ── LAYOUT ── */
+.page-shell { max-width: 1120px; margin: 0 auto; padding: 0 1.5rem; }
+.section { padding: 4rem 0; border-top: 1px solid var(--color-border); }
+.section-band { width: 100vw; max-width: 100vw; margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); box-sizing: border-box; }
+.section-band--white { background: #ffffff; }
+.section-band--page-bg { background: var(--color-bg); }
+.section-band--bg { background: var(--color-deep-teal); color: var(--color-white); }
+.section-band--white > .page-shell:first-child > .section { border-top: none; }
+.section-band--page-bg > .page-shell:first-child > .section { border-top: none; }
+.section-band--bg > .page-shell:first-child > .section { border-top: none; border-bottom-color: color-mix(in srgb, var(--color-white), transparent 82%); }
+.section-band--bg .section-label { color: var(--color-cyan-strike); }
+.section-band--bg .section-headline { color: var(--color-white); }
+.section-band--bg .section-headline .gold { color: var(--color-cyan-light); }
+.section-band--bg .section-intro { color: var(--color-fog); }
+.section-band--bg .cs { color: var(--color-white); }
+.section-band--bg .cs-eyebrow { color: var(--color-cyan-strike); }
+.section-band--bg .icon-list li { color: var(--color-fog); }
+.section-band--bg .icon-list li strong { color: var(--color-white); }
+.section-band--bg .callout-panel {
+  background:
+    radial-gradient(600px 500px at 90% -10%, color-mix(in srgb, var(--color-cyan-strike), transparent 80%) 0%, transparent 60%),
+    radial-gradient(400px 400px at -5% 110%, color-mix(in srgb, var(--color-cyan-light), transparent 85%) 0%, transparent 55%),
+    var(--color-white);
+  border-color: color-mix(in srgb, var(--color-white), transparent 65%);
+}
+.section-band--bg .callout-kicker { color: var(--color-grey-mid); }
+.section-band--bg .callout-title { color: var(--color-fg); }
+.section-band--bg .callout-title .gold { color: var(--color-bright-teal); }
+.section-band--bg .callout-body { color: var(--color-fg); }
+
+/* ── TYPOGRAPHY UTILS ── */
+.section-label { font-family: var(--font-label); font-weight: 500; font-size: var(--size-150); text-transform: uppercase; letter-spacing: 0.2em; color: var(--color-grey-mid); margin-bottom: 0.6rem; }
+.eyebrow { font-family: var(--font-label); font-weight: 500; font-size: var(--size-200); letter-spacing: 0.02em; color: var(--color-bright-teal); margin-bottom: 0.4rem; }
+.section-headline { font-size: clamp(var(--size-400), 3.5vw, var(--size-600)); font-weight: 700; line-height: 1.1; letter-spacing: -0.01em; margin-bottom: 0.6rem; }
+.section-headline .gold, .hero-headline .gold { color: var(--color-accent); }
+.section-intro { font-size: var(--size-200); color: var(--color-grey); max-width: 60ch; line-height: 1.7; margin-bottom: 2rem; }
+.lead { max-width: 56ch; color: var(--color-grey); font-size: var(--size-200); line-height: 1.7; }
+.section-head { margin-bottom: 2rem; }
+
+/* ── HERO ── */
+.hero { position: relative; width: 100vw; max-width: 100vw; margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); padding: 5rem 0 4.5rem; overflow: hidden; border-bottom: 1px solid var(--color-border); box-sizing: border-box; }
+.hero-glow { position: absolute; top: -20%; right: 0; width: min(720px, 55vw); height: min(720px, 70vw); background: radial-gradient(circle, color-mix(in srgb, var(--color-accent), transparent 80%) 0%, transparent 65%); border-radius: 50%; pointer-events: none; filter: blur(90px); z-index: 0; transform: translateX(15%); }
+.hero .page-shell { position: relative; z-index: 1; }
+.hero-headline { font-size: clamp(var(--size-600), 5.5vw, var(--size-800)); font-weight: 700; line-height: 1.06; letter-spacing: -0.015em; margin-bottom: 1.2rem; }
+.hero-meta-row { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.8rem; }
+.hero-tag { font-family: var(--font-mono); font-size: 11px; padding: 4px 10px; border: 1px solid var(--color-border); border-radius: 0.3rem; color: var(--color-grey-mid); letter-spacing: 0.05em; background: var(--color-bg); }
+.hero-tag.accent { border-color: color-mix(in srgb, var(--color-accent), transparent 50%); color: var(--color-accent-hover); background: color-mix(in srgb, var(--color-accent), transparent 90%); }
+
+/* ── CS BLOCKS — sourced from works-case-study-cs.css ── */
+.cs { --cs-ink: var(--color-fg); --cs-teal: var(--color-deep-teal); --cs-muted: var(--color-grey-mid); --cs-line: var(--color-border); --cs-surface: var(--color-white); --cs-src: color-mix(in srgb, var(--color-fg), transparent 55%); color: var(--cs-ink); }
+.cs-eyebrow { font-family: var(--font-label); font-weight: 500; font-size: var(--size-150); line-height: 1; letter-spacing: 0.18em; text-transform: uppercase; color: var(--cs-teal); margin-bottom: 18px; max-width: none; }
+.cs-problem { display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; align-items: start; }
+.cs-problem h2 { font-family: var(--font-display); font-weight: 700; font-size: clamp(24px, 3vw, 34px); line-height: 1.1; margin: 0 0 14px; max-width: none; }
+.cs-problem p { font-size: 18px; color: var(--cs-ink); max-width: 52ch; }
+.cs-constraints { border: 1px solid var(--cs-line); border-radius: 4px; padding: 22px; background: var(--cs-surface); }
+.cs-constraints h3 { font-family: var(--font-label); font-weight: 500; font-size: 11px; line-height: 1; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cs-muted); margin: 0 0 14px; }
+.cs-constraints ul { list-style: none; margin: 0; padding: 0; }
+.cs-constraints li { padding: 10px 0; border-top: 1px solid var(--cs-line); font-size: 14.5px; color: var(--cs-ink); max-width: none; }
+.cs-constraints li:first-child { border-top: none; }
+.cs-tension { text-align: center; max-width: 30ch; margin: 0 auto; }
+.cs-tension .cs-vs { font-family: var(--font-display); font-weight: 700; font-size: clamp(22px, 3vw, 30px); line-height: 1.3; max-width: none; }
+.cs-tension .cs-vs em { font-style: normal; color: var(--cs-teal); }
+
+/* Full-bleed deep-teal band — problem beat */
+.problem-sec { width: 100vw; max-width: 100vw; margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); padding-top: 64px; padding-bottom: 64px; background: var(--color-deep-teal); box-sizing: border-box; color: var(--color-white); }
+.problem-sec .cs { --cs-ink: var(--color-white); --cs-teal: var(--color-cyan-light); --cs-muted: var(--color-steel); color: var(--color-white); }
+.problem-sec .cs .cs-eyebrow { color: var(--color-cyan-strike); }
+.problem-sec .cs .cs-problem h2, .problem-sec .cs .cs-problem p { color: var(--color-white); }
+.problem-sec .cs .cs-constraints { background: var(--color-white); border-color: color-mix(in srgb, var(--color-white), transparent 65%); }
+.problem-sec .cs .cs-constraints h3 { color: var(--color-grey-mid); }
+.problem-sec .cs .cs-constraints li { color: var(--color-fg); border-top-color: var(--color-border); }
+.problem-sec > .page-shell { position: relative; z-index: 1; }
+
+/* Full-bleed white band — design tension beat */
+.cs-tension-sec { width: 100vw; max-width: 100vw; margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); padding-top: 64px; padding-bottom: 64px; background: #ffffff; box-sizing: border-box; }
+.cs-tension-sec > .page-shell { position: relative; z-index: 1; }
+
+/* TL;DR */
+.tldr { border: 1px solid var(--color-border); border-left: 3px solid var(--color-accent); border-radius: 6px; background: var(--color-surface); padding: 26px 28px; margin: 28px 0; display: flex; flex-direction: column; gap: 14px; max-width: 760px; }
+.tldr .k { font-family: var(--font-label); font-weight: 500; font-size: 11px; line-height: 1; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-accent-hover); margin: 0; max-width: none; }
+.tldr .thesis { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-height: 1.3; color: var(--color-fg); margin: 0; max-width: none; }
+.tldr p:not(.k):not(.thesis):not(.result) { font-size: 15.5px; line-height: 1.6; color: var(--color-fg); margin: 0; max-width: 64ch; }
+.tldr .result { font-family: var(--font-label); font-weight: 500; font-size: 13px; line-height: 1.5; color: color-mix(in srgb, var(--color-fg), transparent 35%); padding-top: 12px; border-top: 1px solid var(--color-border); margin: 0; max-width: none; }
+.tldr .jump { font-family: var(--font-label); font-weight: 500; font-size: 13px; line-height: 1; color: var(--color-accent-hover); display: inline-flex; gap: 6px; align-items: center; width: fit-content; }
+.tldr .jump:hover { text-decoration: underline; }
+
+/* ── METRICS ── */
+.cs-metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1px; background: var(--color-border); border: 1px solid var(--color-border); border-radius: 4px; overflow: hidden; margin-bottom: 2.5rem; }
+.cs-metric { background: var(--color-white); padding: 26px 22px; }
+.cs-fig { font-family: var(--font-display); font-weight: 700; font-size: clamp(30px, 4vw, 42px); line-height: 1; color: var(--color-deep-teal); }
+.cs-lbl { font-size: 13.5px; color: var(--color-grey-mid); margin-top: 10px; line-height: 1.45; max-width: none; }
+.cs-src { font-family: var(--font-label); font-weight: 500; font-size: 10px; line-height: 1; letter-spacing: 0.06em; text-transform: uppercase; color: color-mix(in srgb, var(--color-fg), transparent 55%); margin-top: 12px; max-width: none; }
+
+/* ── STAT STRIP ── */
+.stat-strip { display: grid; gap: 1px; background: var(--color-border); border: 1px solid var(--color-border); border-radius: 0.6rem; overflow: hidden; margin-bottom: 2.5rem; }
+.stat-cell { background: var(--color-white); padding: var(--size-400) var(--size-200); text-align: center; transition: background var(--duration-fast) var(--ease); }
+.stat-cell:hover { background: var(--color-surface-2); }
+.stat-num { font-family: var(--font-display); font-weight: 700; color: var(--color-deep-teal); letter-spacing: -0.04em; line-height: 1; margin-bottom: 0.4rem; }
+.stat-label { font-family: var(--font-mono); font-size: 10px; color: var(--color-grey-mid); letter-spacing: 0.08em; text-transform: uppercase; line-height: 1.5; }
+
+/* ── CALLOUT PANEL ── */
+.callout-panel { padding: var(--size-400); background: radial-gradient(600px 500px at 90% -10%, color-mix(in srgb, var(--color-accent), transparent 84%) 0%, transparent 60%), radial-gradient(400px 400px at -5% 110%, color-mix(in srgb, var(--color-cyan-light), transparent 86%) 0%, transparent 55%), var(--color-surface); border: 1px solid var(--color-border); border-radius: 1rem; margin-bottom: 2.5rem; }
+.callout-kicker { font-family: var(--font-label); font-size: var(--size-150); letter-spacing: 0.24em; text-transform: uppercase; color: var(--color-grey-mid); margin-bottom: 0.6rem; max-width: none; }
+.callout-title { font-family: var(--font-display); font-size: clamp(var(--size-300), 2.5vw, var(--size-500)); line-height: 1.1; letter-spacing: -0.01em; margin: 0 0 0.8rem; font-weight: 700; }
+.callout-title .gold { color: var(--color-accent-hover); }
+.callout-body { color: var(--color-grey); font-size: var(--size-200); max-width: 72ch; }
+
+/* ── GRID CARDS ── */
+.card-grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.2rem; margin-bottom: 2.5rem; }
+.card-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-bottom: 2.5rem; }
+.card { background: var(--color-white); border: 1px solid var(--color-border); border-radius: 0.6rem; padding: var(--size-300); transition: border-color var(--duration-mid) var(--ease), transform var(--duration-mid) var(--ease); }
+.card:hover { border-color: var(--color-accent); transform: translateY(-3px); }
+.card.accent-top { border-top: 2px solid var(--color-accent); }
+.card-kicker { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-accent-hover); margin-bottom: var(--size-100); }
+.card-title { font-family: var(--font-heading); font-size: var(--size-200); font-weight: 700; margin-bottom: 4px; color: var(--color-fg); }
+.card-body-text { font-size: var(--size-150); color: var(--color-grey); line-height: 1.6; margin-bottom: var(--size-150); max-width: none; }
+.card-num { font-family: var(--font-display); font-size: var(--size-600); font-weight: 700; color: var(--color-accent); opacity: 0.22; margin-bottom: var(--size-150); line-height: 1; }
+
+/* ── TAG ROW ── */
+.tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: var(--size-100); }
+.tag { font-family: var(--font-mono); font-size: 10px; padding: 3px 8px; border: 1px solid var(--color-border); border-radius: 0.3rem; color: var(--color-grey-mid); letter-spacing: 0.05em; background: var(--color-bg); }
+.tag.accent { border-color: color-mix(in srgb, var(--color-accent), transparent 50%); color: var(--color-accent-hover); background: color-mix(in srgb, var(--color-accent), transparent 90%); }
+
+/* ── ICON LIST ── */
+.icon-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.icon-list li { font-size: var(--size-150); color: var(--color-grey); padding-left: 18px; position: relative; line-height: 1.55; }
+.icon-list li::before { content: '→'; position: absolute; left: 0; color: var(--color-accent); font-size: 11px; top: 1px; }
+.icon-list li strong { color: var(--color-fg); font-weight: 600; }
+
+/* ── DEF GRID ── */
+.def-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--color-border); border: 1px solid var(--color-border); border-radius: 0.6rem; overflow: hidden; margin-bottom: 2.5rem; }
+.def-cell { background: var(--color-white); padding: var(--size-300); transition: background var(--duration-fast) var(--ease); }
+.def-cell:hover { background: var(--color-surface-2); }
+.def-cell .layer-tag { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-accent-hover); margin-bottom: var(--size-100); }
+.def-cell h4 { font-size: var(--size-200); font-weight: 700; margin-bottom: var(--size-100); }
+.def-cell p { font-size: var(--size-150); color: var(--color-grey); line-height: 1.6; }
+
+/* ── TABLE ── */
+.table-wrap { border: 1px solid var(--color-border); border-radius: 0.6rem; overflow: hidden; margin-bottom: 2.5rem; }
+table.data-table { width: 100%; border-collapse: collapse; font-size: var(--size-150); }
+.data-table thead tr { background: color-mix(in srgb, var(--color-accent), transparent 88%); }
+.data-table thead th { padding: 12px 16px; text-align: left; font-family: var(--font-label); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-accent-hover); font-weight: 700; border-bottom: 1px solid var(--color-border); }
+.data-table tbody tr { border-bottom: 1px solid var(--color-border-soft); transition: background var(--duration-fast) var(--ease); }
+.data-table tbody tr:last-child { border-bottom: none; }
+.data-table tbody tr:hover { background: var(--color-surface); }
+.data-table tbody td { padding: 14px 16px; color: var(--color-grey); line-height: 1.55; vertical-align: top; }
+.data-table tbody td:first-child { color: var(--color-fg); font-weight: 600; white-space: nowrap; padding-right: var(--size-300); }
+.data-table td.mono { font-family: var(--font-mono); font-size: 11px; color: var(--color-accent-hover); white-space: nowrap; font-weight: 500; }
+
+/* ── FLOW / ROADMAP TRACK ── */
+.roadmap-track { display: grid; gap: 0; border: 1px solid var(--color-border); border-radius: 0.6rem; overflow: hidden; margin-bottom: 2.5rem; }
+.roadmap-phase { display: grid; grid-template-columns: 200px 1fr; border-bottom: 1px solid var(--color-border); transition: background var(--duration-fast) var(--ease); }
+.roadmap-phase:last-child { border-bottom: none; }
+.roadmap-phase:hover { background: var(--color-surface); }
+.roadmap-phase.active { background: color-mix(in srgb, var(--color-accent), transparent 90%); }
+.phase-label { padding: var(--size-300); border-right: 1px solid var(--color-border); display: flex; flex-direction: column; justify-content: center; gap: 4px; background: var(--color-white); }
+.phase-label .phase-num { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-accent-hover); }
+.phase-label .phase-period { font-family: var(--font-display); font-size: var(--size-200); font-weight: 700; color: var(--color-fg); line-height: 1.2; }
+.phase-label .phase-name { font-size: var(--size-150); color: var(--color-grey-mid); line-height: 1.3; }
+.phase-content { padding: var(--size-300); }
+.phase-content h4 { font-size: var(--size-150); font-weight: 700; color: var(--color-fg); margin-bottom: 8px; }
+.phase-content p { font-size: var(--size-150); color: var(--color-grey); line-height: 1.6; max-width: none; margin-bottom: 8px; }
+.phase-content p:last-child { margin-bottom: 0; }
+
+/* ── AUDIT ── */
+.audit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-bottom: 2.5rem; }
+.audit-card { background: var(--color-white); border: 1px solid var(--color-border); border-radius: 0.6rem; padding: var(--size-300); }
+.audit-card.warn { border-left: 3px solid var(--warn); }
+.audit-card.good { border-left: 3px solid var(--color-accent); }
+.audit-card h4 { font-size: var(--size-150); font-weight: 700; margin-bottom: var(--size-100); }
+.audit-card h4.warn { color: var(--warn-deep); }
+.audit-card h4.good { color: var(--color-accent-hover); }
+
+/* ── CONTEXT STRIP ── */
+.context-strip { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: var(--color-border); border: 1px solid var(--color-border); border-radius: 0.6rem; overflow: hidden; margin-bottom: 2.5rem; }
+.context-cell { background: var(--color-white); padding: var(--size-300); }
+.context-cell .ctx-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-accent-hover); margin-bottom: 6px; }
+.context-cell .ctx-value { font-size: var(--size-200); font-weight: 700; color: var(--color-fg); line-height: 1.2; margin-bottom: 4px; }
+.context-cell .ctx-detail { font-size: var(--size-150); color: var(--color-grey); line-height: 1.5; }
+
+/* ── QUOTE BLOCK ── */
+.quote-block { border-left: 3px solid var(--color-accent); padding: var(--size-300) var(--size-400); background: var(--color-surface); border-radius: 0 0.6rem 0.6rem 0; margin-bottom: 2.5rem; }
+.quote-block blockquote { font-size: clamp(var(--size-200), 2vw, var(--size-300)); font-weight: 600; line-height: 1.4; color: var(--color-fg); letter-spacing: -0.01em; font-style: italic; max-width: 80ch; }
+.quote-block cite { display: block; margin-top: var(--size-150); font-family: var(--font-mono); font-size: 11px; color: var(--color-grey-mid); letter-spacing: 0.06em; font-style: normal; }
+
+/* ── FIGURE / MEDIA ── */
+.figure { border: 1px solid var(--color-border); border-radius: 0.6rem; overflow: hidden; background: var(--color-white); margin-bottom: 1rem; }
+.figure img { width: 100%; height: auto; display: block; }
+.figure figcaption { font-family: var(--font-mono); font-size: 11px; color: var(--color-grey-mid); letter-spacing: 0.04em; padding: 10px 14px; border-top: 1px solid var(--color-border); background: var(--color-surface); }
+.figure-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 2.5rem; }
+.btn-link { font-family: var(--font-label); font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-accent-hover); border: 1px solid color-mix(in srgb, var(--color-accent), transparent 50%); background: color-mix(in srgb, var(--color-accent), transparent 92%); padding: 8px 14px; border-radius: 0.4rem; transition: background var(--duration-fast) var(--ease), border-color var(--duration-fast) var(--ease); }
+.btn-link:hover { background: color-mix(in srgb, var(--color-accent), transparent 82%); border-color: var(--color-accent); }
+.media-2up { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-bottom: 1rem; }
+
+/* ── PHOTO GALLERY ── */
+.gallery { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.2rem; margin-bottom: 2.5rem; }
+.shot { display: flex; flex-direction: column; }
+.shot-frame { position: relative; aspect-ratio: 4 / 3; border: 1px solid var(--color-border); border-radius: 0.6rem; overflow: hidden; background: var(--color-surface-2); }
+.shot-frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.shot figcaption { font-size: var(--size-150); color: var(--color-grey); line-height: 1.5; margin-top: 10px; }
+
+/* ── FOOTER ── */
+.site-footer { background: var(--color-bg); padding-top: 0; padding-bottom: 2rem; margin-top: 2rem; border-top: 1px solid var(--color-border); }
+.footer-inner { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 2rem; padding: 3rem 0 1.5rem; }
+.footer-brand strong { font-family: var(--font-body); display: block; letter-spacing: 0.15em; font-size: 0.85rem; margin-bottom: 0.3rem; text-transform: uppercase; font-weight: 700; }
+.footer-tagline { font-size: var(--size-150); color: var(--color-grey); font-style: italic; }
+.footer-col-title { font-family: var(--font-label); font-weight: 500; font-size: var(--size-150); text-transform: uppercase; letter-spacing: 0.2em; color: var(--color-accent-hover); margin-bottom: 0.5rem; }
+.footer-link { font-size: var(--size-150); color: var(--color-grey-mid); line-height: 1.7; }
+.footer-link a { color: var(--color-accent-hover); }
+.footer-copy { font-family: var(--font-label); font-size: var(--size-150); text-transform: uppercase; letter-spacing: 0.2em; color: var(--color-grey-mid); opacity: 0.6; margin-top: 2rem; text-align: center; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 880px) {
+  .cs-problem { grid-template-columns: 1fr; }
+  .gallery { grid-template-columns: 1fr; }
+  .media-2up { grid-template-columns: 1fr; }
+}
+@media (max-width: 768px) {
+  .def-grid, .card-grid-3 { grid-template-columns: 1fr; }
+  .card-grid-2, .audit-grid { grid-template-columns: 1fr; }
+  .stat-strip { grid-template-columns: 1fr 1fr; }
+  .context-strip { grid-template-columns: 1fr 1fr; }
+  .roadmap-phase { grid-template-columns: 1fr; }
+  .footer-inner { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) { .site-header { animation: none; } }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div style="display:flex;align-items:center;gap:1.5rem;">
+    <nav class="header-nav">
+      <a href="#brief">Brief</a>
+      <a href="#workshop">Workshop</a>
+      <a href="#narrative">Narrative</a>
+      <a href="#flow">Flow</a>
+      <a href="#outcomes">Outcomes</a>
+      <a href="#open">Open Questions</a>
+    </nav>
+  </div>
+  <div class="header-meta">Workshop Recap · Booking.com / BookingGo Taxi<br>Pre-Book Taxi Flow · Q2 2019</div>
+</header>
+
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow" aria-hidden="true"></div>
+  <div class="page-shell">
+    <div class="hero-content">
+      <p class="eyebrow">Service Design Workshop · Booking.com BookingGo</p>
+      <h1 class="hero-headline">Taxi Flow —<br><span class="gold">Q2 2019</span></h1>
+      <p class="lead">A one-day team workshop that took a written user narrative, built it out into screens on the wall, reviewed them together, and converged on the pre-book taxi flow that went into implementation for testing.</p>
+      <div class="cs"><aside class="tldr" aria-label="Recap summary">
+        <p class="k">In short</p>
+        <p class="thesis">We didn't start from screens. We started from a story — and let it tell us which screens to build.</p>
+        <p>The team had journey screens up on the wall but were reviewing them in isolation, and the questions were piling up on sticky notes. So we wrote one narrative — a Genius traveller pre-booking a Schiphol-to-hotel transfer — pinned the screens to each beat of that story, and critiqued the gaps as a team.</p>
+        <p class="result">Outcome: a single, agreed pre-book Taxi Flow (Q2 2019) — 5 stages, 4 vehicle tiers, and a guest + signed-in Easy Checkout — handed to engineering for testing.</p>
+        <a class="jump" href="#flow">Jump to the flow ↓</a>
+      </aside></div>
+      <div class="hero-meta-row">
+        <span class="hero-tag accent">Taxi UX</span>
+        <span class="hero-tag accent">Narrative-led design</span>
+        <span class="hero-tag">Booking.com · BookingGo</span>
+        <span class="hero-tag">Pre-book airport taxi</span>
+        <span class="hero-tag">Workshop · 2019</span>
+        <span class="hero-tag">Paper · Sticky notes · Sketch</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- BEAT 1 · PROBLEM (full-bleed deep-teal) -->
+<section class="problem-sec" aria-labelledby="tx-problem-heading">
+  <div class="page-shell">
+    <div class="cs">
+      <div class="cs-problem">
+        <div>
+          <p class="cs-eyebrow">The problem</p>
+          <h2 id="tx-problem-heading">Screens on the wall, no shared story to anchor them.</h2>
+          <p>Two journey strands were pinned up for review — the "Getting around Amsterdam" hub and the native-app on-demand trip flow. The team was critiquing them screen by screen, and the open questions were multiplying on sticky notes faster than they resolved: approximate pricing, near-identical CTA copy, where map links lead, how Taxi and Rental Cars share a conversion path. Useful questions — but with no end-to-end narrative, every screen was judged on its own instead of against a real traveller's intent.</p>
+        </div>
+        <aside class="cs-constraints" aria-label="Workshop constraints">
+          <h3>Constraints</h3>
+          <ul>
+            <li>Pre-book, airport-transfer focus — fixed price, booked before travel</li>
+            <li>Genius discount and entry from an existing accommodation booking</li>
+            <li>One coherent flow had to come out, ready to hand to engineering</li>
+            <li>Decisions made live, as a team, in a single day</li>
+            <li>Reconcile both guest and signed-in users in one checkout</li>
+          </ul>
+        </aside>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BEAT 2 · TENSION (full-bleed white) -->
+<section class="cs-tension-sec" aria-labelledby="tx-tension-heading">
+  <div class="page-shell">
+    <div class="cs">
+      <div class="cs-tension">
+        <p class="cs-eyebrow" id="tx-tension-heading">The design tension</p>
+        <p class="cs-vs">Build the <em>happy path</em> — without losing the <em>questions the wall surfaced.</em></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- SECTION 01 — THE BRIEF -->
+<div class="page-shell" id="brief">
+  <section class="section">
+    <div class="section-head">
+      <p class="section-label">01 — The Brief</p>
+      <h2 class="section-headline">Subject, Scope &amp; <span class="gold">Team</span></h2>
+    </div>
+
+    <div class="context-strip" style="margin-bottom:2rem;">
+      <div class="context-cell"><div class="ctx-label">Subject</div><div class="ctx-value">Consumer pre-book taxi</div><div class="ctx-detail">Airport transfer: search → checkout → confirmation</div></div>
+      <div class="context-cell"><div class="ctx-label">Format</div><div class="ctx-value">1-day journey workshop</div><div class="ctx-detail">Review · narrate · build to the story · critique · converge</div></div>
+      <div class="context-cell"><div class="ctx-label">Team</div><div class="ctx-value">Taxi UX · Product · Eng</div><div class="ctx-detail">Cross-functional review, decisions made live in the room</div></div>
+      <div class="context-cell"><div class="ctx-label">Output</div><div class="ctx-value">Taxi Flow — Q2 2019</div><div class="ctx-detail">The flow that went into implementation for testing</div></div>
+    </div>
+
+    <div class="callout-panel">
+      <p class="callout-kicker">Problem Statement</p>
+      <h3 class="callout-title">Reviewing screens without a <span class="gold">narrative</span></h3>
+      <p class="callout-body">The wall held two journey strands and a growing layer of unanswered questions. There was no single user story tying the pre-book taxi experience together, so the team had no shared yardstick: was a screen good because it looked finished, or because it moved a real traveller toward booking? The workshop existed to replace screen-by-screen opinion with one narrative everyone could test the flow against.</p>
+    </div>
+
+    <div class="audit-grid">
+      <div class="audit-card warn">
+        <h4 class="warn">⚠ What the wall surfaced</h4>
+        <ul class="icon-list" style="margin-top:8px;">
+          <li>"Approx pricing for Taxi?" — no price signal on the hub</li>
+          <li>"CTAs have similar copy" — choices read the same</li>
+          <li>"What's the difference between show on map &amp; open route in maps?"</li>
+          <li>"How will this work with Taxi and RC conversion path?"</li>
+          <li>"No CTA to find out more" on the service explainer</li>
+          <li>"Is this useful?" against copy duplicated from elsewhere</li>
+        </ul>
+      </div>
+      <div class="audit-card good">
+        <h4 class="good">→ What we decided to build to</h4>
+        <ul class="icon-list" style="margin-top:8px;">
+          <li><strong>One narrative</strong> — a Genius traveller, Schiphol → hotel</li>
+          <li><strong>Visible pricing per tier</strong> — price on every vehicle card</li>
+          <li><strong>An "Explore our services" panel</strong> — answer trust questions in place</li>
+          <li><strong>A real 3-step Easy Checkout</strong> — guest and signed-in</li>
+          <li><strong>Flight tracking + driver note</strong> captured in the flow</li>
+          <li><strong>A confirmation</strong> with reference and send-to-phone</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="quote-block">
+      <blockquote>"Approx pricing for Taxi?" · "CTAs have similar copy" · "How will this work with Taxi and RC conversion path?"</blockquote>
+      <cite>Verbatim from the journey-review wall · sticky notes</cite>
+    </div>
+  </section>
+</div>
+
+
+<div class="section-band section-band--white">
+<!-- SECTION 02 — THE WORKSHOP DAY -->
+<div class="page-shell" id="workshop">
+  <section class="section">
+    <div class="section-head">
+      <p class="section-label">02 — The Workshop Day</p>
+      <h2 class="section-headline">Review, Narrate, Build &amp; <span class="gold">Converge</span></h2>
+      <p class="section-intro">The day ran as one continuous loop: get the current screens visible, write the story they should serve, rebuild the screens against that story, then critique together until a single flow stood up.</p>
+    </div>
+
+    <!-- Photos from the room -->
+    <div class="gallery">
+      <figure class="shot">
+        <div class="shot-frame">
+          <img src="/booking-taxi-flow/assets/workshop-1.jpg" alt="Journey-review wall with Booking.com screens covered in sticky-note questions">
+        </div>
+        <figcaption>The journey-review wall — current screens covered in sticky-note questions.</figcaption>
+      </figure>
+      <figure class="shot">
+        <div class="shot-frame">
+          <img src="/booking-taxi-flow/assets/workshop-2.jpg" alt="Designer photographing the native-app trip flow built out on the wall">
+        </div>
+        <figcaption>Building the flow out — screens to the wall, reviewed against the story.</figcaption>
+      </figure>
+      <figure class="shot">
+        <div class="shot-frame">
+          <img src="/booking-taxi-flow/assets/workshop-3.jpg" alt="The workshop team">
+        </div>
+        <figcaption>The team behind the Q2 2019 flow.</figcaption>
+      </figure>
+    </div>
+
+    <div class="stat-strip" style="grid-template-columns:repeat(4,1fr); margin-bottom:2rem;">
+      <div class="stat-cell"><div class="stat-num" style="font-size:var(--size-500);">2</div><div class="stat-label">Journey strands<br>reviewed</div></div>
+      <div class="stat-cell"><div class="stat-num" style="font-size:var(--size-500);">1</div><div class="stat-label">Narrative<br>written</div></div>
+      <div class="stat-cell"><div class="stat-num" style="font-size:var(--size-500);">5</div><div class="stat-label">Flow stages<br>agreed</div></div>
+      <div class="stat-cell"><div class="stat-num" style="font-size:var(--size-500);">1</div><div class="stat-label">Flow to<br>implementation</div></div>
+    </div>
+
+    <div class="roadmap-track">
+      <div class="roadmap-phase">
+        <div class="phase-label"><span class="phase-num">Part 1</span><span class="phase-period">Review</span><span class="phase-name">Current journey screens</span></div>
+        <div class="phase-content"><h4>Get everything on the wall</h4><p>The team pinned up the existing journeys — the "Getting around Amsterdam" hub and the native-app on-demand trip flow — and walked them as a group, capturing every question on sticky notes rather than resolving them in place.</p><div class="tag-row"><span class="tag accent">Hub page</span><span class="tag">App trip flow</span><span class="tag">Sticky-note questions</span></div></div>
+      </div>
+      <div class="roadmap-phase">
+        <div class="phase-label"><span class="phase-num">Part 2</span><span class="phase-period">Narrate</span><span class="phase-name">Write the user story</span></div>
+        <div class="phase-content"><h4>One traveller, one intent</h4><p>We wrote a single narrative scenario — a Genius frequent traveller pre-booking a return Schiphol-to-hotel transfer before flying — to act as the shared yardstick for every screen decision.</p><div class="tag-row"><span class="tag accent">Narrative scenario</span><span class="tag">Persona: Joe</span><span class="tag">Happy path</span></div></div>
+      </div>
+      <div class="roadmap-phase">
+        <div class="phase-label"><span class="phase-num">Part 3</span><span class="phase-period">Build</span><span class="phase-name">Screens to the story</span></div>
+        <div class="phase-content"><h4>Rebuild against the beats</h4><p>Each beat of the narrative got a screen: search results, an explainer panel, checkout, confirmation. Where the story needed something the wall didn't have — visible pricing, a guest path — we built it.</p><div class="tag-row"><span class="tag accent">Beat → screen</span><span class="tag">Visible pricing</span><span class="tag">Guest checkout</span></div></div>
+      </div>
+      <div class="roadmap-phase">
+        <div class="phase-label"><span class="phase-num">Part 4</span><span class="phase-period">Critique</span><span class="phase-name">Review as a team</span></div>
+        <div class="phase-content"><h4>Test the screens against the story</h4><p>The team reviewed the rebuilt screens together, judging each against the narrative instead of in isolation — resolving the wall's open questions or parking them explicitly for the next iteration.</p><div class="tag-row"><span class="tag accent">Team critique</span><span class="tag">Resolve or park</span></div></div>
+      </div>
+      <div class="roadmap-phase active">
+        <div class="phase-label"><span class="phase-num">Part 5</span><span class="phase-period">Converge</span><span class="phase-name">Taxi Flow Q2 2019</span></div>
+        <div class="phase-content"><h4>One flow, ready to test</h4><p>The day closed on a single agreed pre-book Taxi Flow — search results, explore-our-services, Easy Checkout (signed in &amp; logged out), and confirmation — handed to engineering to build for testing.</p><div class="tag-row"><span class="tag accent">Agreed flow</span><span class="tag">To implementation</span><span class="tag">For testing</span></div></div>
+      </div>
+    </div>
+  </section>
+</div>
+</div>
+
+
+<div class="section-band section-band--bg">
+<!-- SECTION 03 — THE NARRATIVE -->
+<div class="page-shell" id="narrative">
+  <section class="section">
+    <div class="section-head">
+      <p class="section-label">03 — The Narrative</p>
+      <h2 class="section-headline">The Story We <span class="gold">Built To</span></h2>
+      <p class="section-intro">A persona-driven scenario — the single source of intent the whole flow was reviewed against. Each step below became a screen in the Q2 2019 build.</p>
+    </div>
+
+    <div class="callout-panel">
+      <p class="callout-kicker">Persona &amp; Trigger</p>
+      <h3 class="callout-title">Joe Smith — Genius frequent traveller, <span class="gold">flying into Amsterdam</span></h3>
+      <p class="callout-body">Joe already holds a hotel booking and wants his airport transfer locked in before he flies: a known price, no arrivals-hall queue, no cash. He reaches the taxi flow from the "Getting around Amsterdam" hub by choosing the bookable taxi option — and the flow picks up at search results, pre-populated from his trip.</p>
+    </div>
+
+    <div class="card-grid-3">
+      <div class="card accent-top"><div class="card-num">01</div><div class="card-kicker">Search results</div><h4 class="card-title">Compare the tiers</h4><p class="card-body-text">Results are scoped to Schiphol Airport (AMS), Fri 28 Jun 2019, 4 passengers, with the Genius 10% discount applied. Four vehicle tiers stack up, each with a one-way price and a "Choose taxi" button. Joe expands the Standard tier and sees Meet &amp; Greet included and free cancellation up to 1 hr before pickup.</p></div>
+      <div class="card accent-top"><div class="card-num">02</div><div class="card-kicker">Explore our services</div><h4 class="card-title">Answer the trust question</h4><p class="card-body-text">Unsure what he's buying, Joe opens the "Explore how our service works" panel: how it works (book → driver meets you → no queues/cash/fees), what's included (one set price, flight tracking, tried-and-trusted drivers), and an FAQ — how do I pay, what if my flight's delayed, who do I contact. He switches to a return trip and trades up to Luxury.</p></div>
+      <div class="card accent-top"><div class="card-num">03</div><div class="card-kicker">Easy Checkout · step 2 of 3</div><h4 class="card-title">Add the details</h4><p class="card-body-text">Recognised as Joe Smith, Frequent Traveller, his trip is recapped (Schiphol → NH Grand Hotel Krasnapolsky, ~27 min / ~18 km, total £192.10 with Genius). He adds a flight number — with "search by departure airport" if unknown — so the driver can track delays, and a note for the driver. A guest sees the same form with a "sign in and save time" prompt.</p></div>
+      <div class="card accent-top"><div class="card-num">04</div><div class="card-kicker">Easy Checkout · step 3 of 3</div><h4 class="card-title">Pay</h4><p class="card-body-text">Joe picks a payment method — credit/debit card or PayPal. As a returning user he selects his saved Visa; a guest enters card details instead. Below the button: "By clicking Complete booking you are accepting our Terms and Conditions." He taps Book now.</p></div>
+      <div class="card accent-top"><div class="card-num">05</div><div class="card-kicker">Confirmation</div><h4 class="card-title">Confirmed before he flies</h4><p class="card-body-text">"Thanks Joe! Your taxi is confirmed." Booking reference 1073837221, full trip recap, Genius applied. He taps "Send confirmation to phone" so it's ready when he lands, with "Print trip details" as a fallback.</p></div>
+      <div class="card"><div class="card-kicker">Postcondition</div><h4 class="card-title">What Joe walks away with</h4><p class="card-body-text">A confirmed, pre-paid, flight-tracked return transfer with a fixed price, a free-cancellation window and a reference — sorted before he leaves home. Booking.com attaches ground-transport revenue to the trip and captures a guest who could later sign in.</p></div>
+    </div>
+
+    <div class="cs">
+      <p class="cs-eyebrow">Alternate branches carried into the flow</p>
+      <ul class="icon-list">
+        <li><strong>Auth state</strong> — signed-in vs guest checkout, with a mid-flow sign-in prompt</li>
+        <li><strong>Trip type</strong> — one-way vs return</li>
+        <li><strong>Vehicle</strong> — Standard, Large carrier, Luxury, Minibus</li>
+        <li><strong>Unknown flight number</strong> — search by departure airport</li>
+        <li><strong>Payment</strong> — saved card vs new card vs PayPal</li>
+        <li><strong>Cancellation</strong> — free up to 1 hr before pickup</li>
+      </ul>
+    </div>
+  </section>
+</div>
+</div>
+
+
+<div class="section-band section-band--white">
+<!-- SECTION 04 — THE FLOW -->
+<div class="page-shell" id="flow">
+  <section class="section">
+    <div class="section-head">
+      <p class="section-label">04 — The Flow</p>
+      <h2 class="section-headline">Taxi Flow — <span class="gold">Q2 2019</span></h2>
+      <p class="section-intro">The flow that came out of the day and went into implementation for testing: five stages, with checkout split across a signed-in and a logged-out path. Rendered below from the handoff file.</p>
+    </div>
+
+    <figure class="figure">
+      <img src="/booking-taxi-flow/assets/taxiflow_full.png" alt="Taxi Flow Q2 2019 — full screen flow from search results to confirmation">
+      <figcaption>Taxi Flow · Q2 2019 — Search Results → Explore our services → Easy Checkout (Signed In) → Easy Checkout (Logged Out) → Confirmation</figcaption>
+    </figure>
+    <div class="figure-actions">
+      <a class="btn-link" href="/booking-taxi-flow/assets/BookingTaxiFlow2019.pdf" target="_blank" rel="noopener">Open full-resolution flow (PDF) ↗</a>
+    </div>
+
+    <div class="media-2up">
+      <figure class="figure"><img src="/booking-taxi-flow/assets/taxiflow_L.png" alt="Taxi Flow detail — search results and explore-our-services"><figcaption>Detail · Search results &amp; Explore our services</figcaption></figure>
+      <figure class="figure"><img src="/booking-taxi-flow/assets/taxiflow_R.png" alt="Taxi Flow detail — Easy Checkout and confirmation"><figcaption>Detail · Easy Checkout (signed in &amp; guest) &amp; Confirmation</figcaption></figure>
+    </div>
+
+    <div class="section-head" style="margin:2.5rem 0 1rem;">
+      <h3 style="font-size:var(--size-300);font-weight:700;">Vehicle tiers on search results</h3>
+    </div>
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Tier</th><th>Best for</th><th>Capacity</th><th>One-way (Genius)</th></tr></thead>
+        <tbody>
+          <tr><td>Standard-size taxi</td><td>Solo travellers, couples and small families</td><td>Up to 4 passengers · 2 medium suitcases</td><td class="mono">£45.25</td></tr>
+          <tr><td>Large-size carrier</td><td>More people and luggage</td><td>Up to 6 passengers · 6 suitcases</td><td class="mono">£60.55</td></tr>
+          <tr><td>Luxury taxi</td><td>More room to arrive in</td><td>Up to 4 passengers · 3 suitcases</td><td class="mono">£72.25</td></tr>
+          <tr><td>Minibus</td><td>Travelling in a group</td><td>Up to 16 passengers · 16 suitcases</td><td class="mono">£124.32</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="def-grid">
+      <div class="def-cell"><div class="layer-tag">Stage 2</div><h4>Explore our services</h4><p>Inline panel opened from a link above results. How our service works (book → meet driver → take taxi), what's included (one set price, flight tracking, tried &amp; trusted), and FAQs answering payment, delays and support.</p></div>
+      <div class="def-cell"><div class="layer-tag">Stage 3 · branch</div><h4>Signed in vs logged out</h4><p>Signed-in users get pre-filled passenger details; guests see a "sign in and save time" prompt and fill details manually. Both capture flight number (search by departure airport) and a note for the driver, e.g. a child seat.</p></div>
+      <div class="def-cell"><div class="layer-tag">Stage 3 · payment</div><h4>One clear price, then pay</h4><p>Step 3 of 3: credit/debit card or PayPal, saved card or new card, with Terms &amp; Conditions acceptance on the Complete booking action. Return Luxury total £192.10 with Genius 10% applied.</p></div>
+    </div>
+
+    <div class="callout-panel" style="margin-bottom:0;">
+      <p class="callout-kicker">Reference journey</p>
+      <h3 class="callout-title">Schiphol Airport (AMS) → <span class="gold">NH Grand Hotel Krasnapolsky</span></h3>
+      <p class="callout-body">Return trip · ~27 minutes · ~18 km · Luxury taxi · up to 4 passengers, 3 suitcases · total £192.10 with Genius 10% applied · confirmation reference 1073837221 · send-to-phone and print available on confirmation.</p>
+    </div>
+  </section>
+</div>
+</div>
+
+
+<div class="section-band section-band--page-bg">
+<!-- SECTION 05 — OUTCOMES -->
+<div class="page-shell" id="outcomes">
+  <section class="section">
+    <div class="section-head">
+      <p class="section-label">05 — Outcomes</p>
+      <h2 class="section-headline">What the Day <span class="gold">Produced</span></h2>
+      <p class="section-intro">A narrative-led method turned a wall of isolated screens and open questions into one testable flow the whole team had reviewed and agreed.</p>
+    </div>
+
+    <div class="cs" style="margin-bottom:2.5rem;">
+      <p class="cs-eyebrow" id="tx-metrics">By the numbers</p>
+      <div class="cs-metrics" role="list" aria-labelledby="tx-metrics">
+        <div class="cs-metric" role="listitem"><div class="cs-fig">5</div><div class="cs-lbl">Stages in the agreed pre-book flow</div><div class="cs-src">Taxi Flow · Q2 2019</div></div>
+        <div class="cs-metric" role="listitem"><div class="cs-fig">4</div><div class="cs-lbl">Vehicle tiers, each with visible pricing</div><div class="cs-src">Search results</div></div>
+        <div class="cs-metric" role="listitem"><div class="cs-fig">2</div><div class="cs-lbl">Checkout paths reconciled — signed in &amp; guest</div><div class="cs-src">Easy Checkout</div></div>
+        <div class="cs-metric" role="listitem"><div class="cs-fig">1</div><div class="cs-lbl">Shared narrative the flow was reviewed against</div><div class="cs-src">Workshop method</div></div>
+      </div>
+    </div>
+
+    <div class="card-grid-3">
+      <div class="card accent-top"><div class="card-num">01</div><h4 style="font-size:var(--size-200);font-weight:700;margin-bottom:8px;">Guest checkout added</h4><p class="card-body-text">The narrative exposed travellers who aren't signed in. The flow gained a logged-out Easy Checkout with a mid-flow "sign in and save time" prompt — capturing the booking without forcing an account.</p></div>
+      <div class="card accent-top"><div class="card-num">02</div><h4 style="font-size:var(--size-200);font-weight:700;margin-bottom:8px;">Trust answered in place</h4><p class="card-body-text">Instead of a separate "how it works" detour, an inline Explore-our-services panel answers payment, delay and support questions exactly where doubt arises — directly addressing the wall's "no CTA to find out more".</p></div>
+      <div class="card accent-top"><div class="card-num">03</div><h4 style="font-size:var(--size-200);font-weight:700;margin-bottom:8px;">Operational detail captured</h4><p class="card-body-text">Flight number (with airport search) and a free-text driver note — for things like a child seat — were built into checkout, turning supplier-raised needs into fields the traveller fills once.</p></div>
+    </div>
+
+    <div class="callout-panel" style="margin-bottom:0;">
+      <p class="callout-kicker">Why the method worked</p>
+      <h3 class="callout-title">A story gives a team one thing to <span class="gold">agree on</span></h3>
+      <p class="callout-body">Reviewing screens in isolation produces opinions; reviewing them against a shared narrative produces decisions. By writing the traveller's story first and building each screen to a beat of it, the team had a single yardstick — and the day ended with one flow everyone had signed off, not a longer list of questions.</p>
+    </div>
+  </section>
+</div>
+</div>
+
+
+<div class="section-band section-band--white">
+<!-- SECTION 06 — OPEN QUESTIONS -->
+<div class="page-shell" id="open">
+  <section class="section">
+    <div class="section-head">
+      <p class="section-label">06 — Open Questions</p>
+      <h2 class="section-headline">Parked for the <span class="gold">Next Iteration</span></h2>
+      <p class="section-intro">Not every sticky note was resolved on the day. These were captured explicitly so the testable flow could ship without losing them.</p>
+    </div>
+
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Question from the wall</th><th>Why it matters</th><th>Where it lands next</th></tr></thead>
+        <tbody>
+          <tr><td>Approx pricing on the hub</td><td>Travellers can't compare taxi against other modes without a price signal earlier</td><td>Hub page — indicative "from" pricing</td></tr>
+          <tr><td>CTA copy is too similar</td><td>"Choose" actions read alike, so the difference between options isn't obvious</td><td>Copy pass on results &amp; hub CTAs</td></tr>
+          <tr><td>Taxi ↔ Rental Cars conversion path</td><td>Two products competing for the same intent need a deliberate hand-off, not collision</td><td>Cross-product flow definition</td></tr>
+          <tr><td>"Show on map" vs "open route in maps"</td><td>Two map affordances with unclear, overlapping meaning</td><td>Consolidate map interaction</td></tr>
+          <tr><td>Duplicated "Good to know" copy</td><td>Content repeated from elsewhere may not earn its place on the screen</td><td>Content audit per screen</td></tr>
+          <tr><td>Confirmation still showing old dates</td><td>Mock carried Feb dates against a Jun search — a build-data fix before test</td><td>Implementation QA</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="quote-block" style="margin-bottom:0;">
+      <blockquote>The flow that shipped to test wasn't the end of the conversation — it was the version that earned enough team agreement to learn from real users.</blockquote>
+      <cite>Workshop recap · Taxi UX</cite>
+    </div>
+  </section>
+</div>
+</div>
+
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="page-shell">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <strong>Jonathan Le Coz</strong>
+        <p class="footer-tagline">Experiential Designer</p>
+        <p class="footer-link" style="margin-top:0.5rem;font-size:12px;"><a href="https://jonny.socialdynamix.co">jonny.socialdynamix.co</a></p>
+      </div>
+      <div>
+        <div class="footer-col-title">Recap</div>
+        <p class="footer-link" style="font-size:12px;line-height:1.7;">Booking.com / BookingGo · Taxi UX<br>Pre-book Taxi Flow · Q2 2019<br>Narrative-led journey workshop</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Method</div>
+        <p class="footer-link" style="font-size:12px;line-height:1.7;">Review · Narrate · Build · Critique<br>Paper · Sticky notes · Sketch<br>Output to implementation for testing</p>
+      </div>
+    </div>
+    <p class="footer-copy">© 2026 Jonathan Le Coz · All rights reserved</p>
+  </div>
+</footer>
+
+</body>
+</html>

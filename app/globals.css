@@ -2283,6 +2283,10 @@ html.home-reveal-ready #works .cv-work-grid [data-reveal][data-revealed] {
   #works #cards.cards-scroll-driver .card__content.cv-work-card--split {
     min-height: 0;
   }
+
+  .cv-work-card-copy > .cv-work-card-description:nth-of-type(2) {
+    display: none;
+  }
 }
 
 .cv-work-card h3 {
