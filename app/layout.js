@@ -5,11 +5,12 @@ import MainBelowFoldReveal from "@/components/MainBelowFoldReveal";
 import { siteConfig } from "@/config/siteConfig";
 import { worksCaseStudyThemeVars } from "@/config/worksCaseStudyTokens";
 
-const defaultDescription =
-  "Experiential Designer with 20+ years across creative arts, brand design and web technology.";
+/* CONFIRM — canonical title for recruiters / ATS */
+const defaultTitle = siteConfig.brand.canonicalTitle;
+const defaultDescription = siteConfig.seo.description;
 
 const title = {
-  default: "Jonathan Le Coz — Experiential Designer",
+  default: defaultTitle,
   template: "%s | Jonathan Le Coz",
 };
 
@@ -18,6 +19,7 @@ export async function generateMetadata() {
     metadataBase: new URL(siteConfig.siteUrl),
     title,
     description: defaultDescription,
+    keywords: siteConfig.seo.keywords,
     robots: { index: true, follow: true },
     alternates: { canonical: "/" },
     openGraph: {
@@ -106,7 +108,8 @@ function Footer() {
           <div className="footer-brand">
             <img src="/img/digital_ronin.svg" alt="Jonathan Le Coz" className="footer-logo" />
             <strong>{siteConfig.brand.logoText}</strong>
-            <p className="footer-tagline">{siteConfig.brand.tagline}</p>
+            <p className="footer-tagline">{siteConfig.brand.canonicalTitle}</p>
+            <p className="footer-subdescriptor">{siteConfig.brand.subDescriptor}</p>
             {siteConfig.contact?.location || siteConfig.contactEmail || siteConfig.contact?.phoneLabel ? (
               <p className="footer-contact">
                 {siteConfig.contact?.location ? (
@@ -143,7 +146,7 @@ function Footer() {
       </div>
 
       <p className="footer-copy">
-        JONATHAN LE COZ &bull; Experiential Designer
+        {/* CONFIRM */} JONATHAN LE COZ &bull; Design Director
       </p>
     </footer>
   );

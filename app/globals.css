@@ -83,6 +83,57 @@ img {
   margin: 0.4rem 0 1.4rem;
 }
 
+.hero-lead {
+  max-width: min(36ch, 100%);
+  margin-inline: 0;
+}
+
+.hero-level-label {
+  margin: 0 0 0.65rem;
+  font-family: var(--font-label);
+  font-size: clamp(var(--size-150), 2vw, var(--size-250));
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-deep-teal);
+  max-width: none;
+}
+
+.hero-subdescriptor {
+  max-width: 42ch;
+  margin: -0.6rem auto 1.6rem;
+  font-family: var(--font-label);
+  font-size: clamp(var(--size-150), 2.2vw, var(--size-250));
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: 0.01em;
+  color: var(--color-grey);
+}
+
+.hero-tagline-legacy {
+  margin: 0.35rem auto 0.85rem;
+  font-family: var(--font-label);
+  font-size: var(--size-150);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-grey-mid);
+  max-width: none;
+}
+
+.hero-availability {
+  max-width: 46ch;
+  margin: 0.85rem 0 1.35rem;
+  font-size: var(--size-200);
+  line-height: 1.55;
+  color: var(--color-grey);
+}
+
+.contact-availability {
+  margin-top: 0.35rem;
+  margin-bottom: 1.25rem;
+}
+
 /* Heading 1 — Section titles (40–60px) */
 .section-headline {
   font-size: clamp(var(--size-400), 4.5vw, var(--size-700));
@@ -652,6 +703,27 @@ html.home-reveal-ready #works .cv-work-grid [data-reveal][data-revealed] {
   backface-visibility: hidden;
 }
 
+.hero-bg-static,
+.contact-cta-bg-static {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background:
+    radial-gradient(circle at 50% 34%, rgba(255, 255, 255, 0.94) 0 18%, transparent 38%),
+    linear-gradient(180deg, var(--color-off-white, #f5f5f5) 0%, var(--color-white, #f2f8fa) 82%);
+}
+
+.contact-cta-bg-static {
+  background:
+    radial-gradient(
+      circle at 50% 40%,
+      color-mix(in srgb, var(--color-core-teal), transparent 88%) 0%,
+      transparent 55%
+    ),
+    linear-gradient(180deg, var(--color-bg) 0%, var(--color-surface) 100%);
+}
+
 .hero.hero-cv > .hero-content {
   grid-area: 1 / 1;
   align-self: center;
@@ -662,8 +734,141 @@ html.home-reveal-ready #works .cv-work-grid [data-reveal][data-revealed] {
 }
 
 .hero-cv .hero-content {
-  padding: clamp(5rem, 9vw, 7.5rem) 1.5rem 3.5rem;
-  text-align: center;
+  padding: clamp(4rem, 7vw, 6rem) clamp(1.25rem, 4vw, 2.5rem) 3rem;
+  text-align: left;
+  width: min(100%, 1180px);
+  margin-inline: auto;
+}
+
+/* ── Home hero: type-led duality stage (#overview only) ── */
+#overview.hero-duality-stage .hero-type-stage {
+  position: relative;
+  min-height: clamp(240px, 38vw, 480px);
+  margin: 0 0 clamp(0.75rem, 2.5vw, 1.5rem);
+  padding: clamp(0.5rem, 2vw, 1.5rem) 0;
+  cursor: default;
+}
+
+#overview.hero-duality-stage .hero-type-stage.is-interactive {
+  cursor: crosshair;
+}
+
+#overview .hero-portrait-reveal {
+  --duality-blend: 0;
+  position: absolute;
+  right: clamp(-2%, 2vw, 6%);
+  top: 52%;
+  transform: translateY(-50%);
+  width: clamp(180px, 32vw, 400px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+  border: 3px solid var(--color-off-white);
+  box-shadow: 0 24px 64px color-mix(in srgb, var(--color-fg), transparent 82%);
+  background: var(--color-surface);
+}
+
+#overview .hero-portrait-reveal-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  transition: opacity 0.28s var(--ease);
+}
+
+#overview .hero-portrait-reveal-img--designer {
+  opacity: calc(1 - var(--duality-blend));
+}
+
+#overview .hero-portrait-reveal-img--coder {
+  opacity: var(--duality-blend);
+}
+
+#overview .hero-portrait-static {
+  display: flex;
+  gap: clamp(0.75rem, 3vw, 1.25rem);
+  justify-content: flex-start;
+  margin-bottom: 1rem;
+}
+
+#overview .hero-portrait-static img {
+  width: clamp(88px, 22vw, 140px);
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid var(--color-off-white);
+  box-shadow: 0 12px 36px color-mix(in srgb, var(--color-fg), transparent 86%);
+  background: var(--color-surface);
+}
+
+#overview .hero-display {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  max-width: none;
+  pointer-events: none;
+}
+
+#overview .hero-display-line {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 0.9;
+  letter-spacing: -0.045em;
+  color: var(--color-fg);
+  max-width: none;
+}
+
+#overview .hero-display-line--design {
+  font-size: clamp(3.25rem, 13.5vw, 9.25rem);
+  margin-left: -0.03em;
+  width: fit-content;
+}
+
+#overview .hero-display-line--build {
+  font-size: clamp(2.75rem, 11vw, 7.5rem);
+  margin-top: 0.06em;
+  margin-left: clamp(1.5rem, 16vw, 11rem);
+  width: fit-content;
+  color: var(--color-deep-teal);
+}
+
+#overview .hero-support-line {
+  position: relative;
+  z-index: 2;
+  font-size: clamp(var(--size-200), 2.15vw, var(--size-400));
+  line-height: 1.5;
+  font-weight: 400;
+  color: var(--color-fg);
+  max-width: min(40ch, 100%);
+  margin: 0 0 1rem;
+}
+
+#overview .hero-code-token {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  font-weight: 400;
+  color: var(--color-deep-teal);
+  background: color-mix(in srgb, var(--color-surface), var(--color-fg) 5%);
+  border: 1px solid color-mix(in srgb, var(--color-deep-teal), transparent 58%);
+  border-radius: 0.3rem;
+  padding: 0.1em 0.4em;
+  white-space: nowrap;
+}
+
+#overview .hero-level-label {
+  position: relative;
+  z-index: 2;
+}
+
+#overview .hero-availability,
+#overview .cta-row {
+  position: relative;
+  z-index: 2;
 }
 
 .hero-duality {
@@ -671,7 +876,8 @@ html.home-reveal-ready #works .cv-work-grid [data-reveal][data-revealed] {
   max-width: 100vw;
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
-  margin-bottom: 2rem;
+  margin-top: 0.25rem;
+  margin-bottom: 1.25rem;
 }
 
 .hero-duality-inner {
@@ -735,6 +941,18 @@ html.home-reveal-ready #works .cv-work-grid [data-reveal][data-revealed] {
 .hero-duality.is-avatar-coder .hero-role--coder {
   color: var(--color-accent);
   transform: translate3d(0.35rem, 0, 0);
+}
+
+#overview .hero-role--designer:hover,
+#overview .hero-duality.is-avatar-designer .hero-role--designer {
+  color: var(--color-core-teal);
+  transform: translate3d(-0.2rem, 0, 0);
+}
+
+#overview .hero-role--coder:hover,
+#overview .hero-duality.is-avatar-coder .hero-role--coder {
+  color: var(--color-core-teal);
+  transform: translate3d(0.2rem, 0, 0);
 }
 
 /* Centered headshot — square source, circular display */
@@ -836,6 +1054,10 @@ html.home-reveal-ready #works .cv-work-grid [data-reveal][data-revealed] {
 
 .hero-cv .cta-row {
   justify-content: center;
+}
+
+#overview .hero-cv .cta-row {
+  justify-content: flex-start;
 }
 
 /* CV hero: keep section, scrim, iframe, and content block purely square (no card-like radius) */
@@ -993,17 +1215,20 @@ html.home-reveal-ready #works .cv-work-grid [data-reveal][data-revealed] {
     );
 }
 
-/* CV hero (#overview): dark scrim over iframe — default .hero-bg-dim uses light wash */
+/* CV hero (#overview): light wash over iframe — ink text on #f5f5f5 */
 .hero-cv .hero-bg-dim {
   background:
-    radial-gradient(circle at 50% 36%, rgba(255, 255, 255, 0.14) 0 18%, transparent 40%),
     linear-gradient(
-      115deg,
-      color-mix(in srgb, var(--color-fg), transparent 8%) 0%,
-      color-mix(in srgb, var(--color-fg), transparent 38%) 52%,
-      color-mix(in srgb, var(--color-fg), transparent 18%) 100%
+      to bottom,
+      color-mix(in srgb, var(--color-bg), transparent 8%) 0%,
+      color-mix(in srgb, var(--color-bg), transparent 22%) 55%,
+      color-mix(in srgb, var(--color-bg), transparent 10%) 100%
     );
-  backdrop-filter: saturate(0.72) blur(1px);
+}
+
+.hero-cv .hero-bg-iframe {
+  opacity: 0.42;
+  filter: saturate(0.85) contrast(1.02) brightness(1.08);
 }
 
 .hero-glow {
@@ -1058,6 +1283,58 @@ html.home-reveal-ready #works .cv-work-grid [data-reveal][data-revealed] {
   color: var(--color-core-teal, #1a7a73);
 }
 
+#overview .hero-headline,
+#overview .hero-lead,
+#overview .hero-display-line,
+#overview .hero-support-line {
+  color: var(--color-fg);
+}
+
+#overview .hero-display-line--build {
+  color: var(--color-deep-teal);
+}
+
+#overview .hero-availability {
+  color: var(--color-deep-teal);
+}
+
+#overview .button-gold {
+  background: var(--color-core-teal);
+  color: var(--color-off-white);
+}
+
+#overview .button-gold:hover {
+  background: var(--color-bright-teal);
+  box-shadow: 0 10px 30px color-mix(in srgb, var(--color-core-teal), transparent 85%);
+}
+
+#overview .button-secondary {
+  background: var(--color-surface);
+  border-color: var(--color-border);
+  color: var(--color-fg);
+  box-shadow: none;
+  text-shadow: none;
+}
+
+#overview .button-secondary:hover {
+  background: var(--color-surface-2);
+  border-color: var(--color-deep-teal);
+  color: var(--color-deep-teal);
+}
+
+#overview .button-secondary:focus-visible {
+  outline: 3px solid var(--color-core-teal);
+  outline-offset: 3px;
+}
+
+#works .cv-work-card-external {
+  color: var(--color-deep-teal);
+}
+
+#works .cv-work-card-external:hover {
+  color: var(--color-core-teal);
+}
+
 .hero-cv .hero-headline {
   margin-bottom: 0.35rem;
 }
@@ -1081,20 +1358,21 @@ html.home-reveal-ready #works .cv-work-grid [data-reveal][data-revealed] {
 }
 
 .hero-cv .button-secondary {
-  background: color-mix(in srgb, var(--color-void, #0a0b0c), transparent 8%);
-  border-color: color-mix(in srgb, var(--color-white, #f2f8fa), transparent 68%);
-  color: var(--color-white, #f2f8fa);
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.22);
+  background: var(--color-surface);
+  border-color: var(--color-border);
+  color: var(--color-fg);
+  box-shadow: none;
+  text-shadow: none;
 }
 
 .hero-cv .button-secondary:hover {
-  background: color-mix(in srgb, var(--color-core-teal, #1a7a73), black 18%);
-  border-color: var(--color-white, #f2f8fa);
-  color: var(--color-white, #f2f8fa);
+  background: var(--color-surface-2);
+  border-color: var(--color-deep-teal);
+  color: var(--color-deep-teal);
 }
 
 .hero-cv .button-secondary:focus-visible {
-  outline: 3px solid var(--color-cyan-light, #7ddff2);
+  outline: 3px solid var(--color-core-teal);
   outline-offset: 3px;
 }
 
@@ -1562,7 +1840,7 @@ html.home-reveal-ready #works .cv-work-grid [data-reveal][data-revealed] {
 }
 
 #works .section-headline .gold {
-  color: var(--color-gold-light);
+  color: var(--color-bright-teal);
 }
 
 #works .section-intro {
@@ -3910,7 +4188,7 @@ html.home-reveal-ready #works .cv-work-grid [data-reveal][data-revealed] {
   box-sizing: border-box;
   text-align: center;
   padding-bottom: 6rem;
-  background: #1a2224;
+  background: var(--color-deep-teal);
 }
 
 .contact-cta-bg-embed {
@@ -3955,7 +4233,7 @@ html.home-reveal-ready #works .cv-work-grid [data-reveal][data-revealed] {
   }
 
   .section-contact-cta {
-    background: #2a3133;
+    background: color-mix(in srgb, var(--color-deep-teal), var(--color-fg) 18%);
   }
 }
 
@@ -3963,22 +4241,22 @@ html.home-reveal-ready #works .cv-work-grid [data-reveal][data-revealed] {
   max-width: 22ch;
   margin-left: auto;
   margin-right: auto;
-  color: var(--color-white);
+  color: var(--color-off-white);
 }
 
 .section-contact-cta .section-headline .gold {
-  color: var(--color-accent);
+  color: var(--color-bright-teal);
 }
 
 /* Animated color shimmer across the full headline (background-clip text) */
 .section-contact-cta .contact-cta-headline-shimmer {
   background-image: linear-gradient(
     105deg,
-    var(--color-white) 0%,
-    var(--color-white) 36%,
-    color-mix(in srgb, var(--color-accent), white 42%) 50%,
-    var(--color-white) 64%,
-    var(--color-white) 100%
+    var(--color-off-white) 0%,
+    var(--color-off-white) 36%,
+    color-mix(in srgb, var(--color-bright-teal), var(--color-off-white) 42%) 50%,
+    var(--color-off-white) 64%,
+    var(--color-off-white) 100%
   );
   background-size: 220% 100%;
   background-position: 100% 50%;
@@ -4008,17 +4286,34 @@ html.home-reveal-ready #works .cv-work-grid [data-reveal][data-revealed] {
     background: none;
     -webkit-background-clip: unset;
     background-clip: unset;
-    color: var(--color-white);
+    color: var(--color-off-white);
   }
 
   .section-contact-cta .contact-cta-headline-shimmer .gold {
-    color: var(--color-accent);
+    color: var(--color-bright-teal);
   }
 }
 
-.section-contact-cta .section-intro {
+.section-contact-cta .section-intro,
+.section-contact-cta .hero-availability,
+.section-contact-cta .contact-availability {
   margin: 0 auto 3rem;
-  color: color-mix(in srgb, var(--color-white), transparent 22%);
+  color: var(--color-off-white);
+}
+
+.section-contact-cta .contact-availability {
+  margin-top: -1.75rem;
+  margin-bottom: 2rem;
+}
+
+.section-contact-cta .button-gold {
+  background: var(--color-core-teal);
+  color: var(--color-off-white);
+}
+
+.section-contact-cta .button-gold:hover {
+  background: var(--color-bright-teal);
+  box-shadow: 0 10px 30px color-mix(in srgb, var(--color-core-teal), transparent 85%);
 }
 
 .contact-paths {
@@ -4103,6 +4398,14 @@ html.home-reveal-ready #works .cv-work-grid [data-reveal][data-revealed] {
   color: var(--color-grey);
   font-style: italic;
   font-weight: 400;
+}
+
+.footer-subdescriptor {
+  margin-top: 0.35rem;
+  font-size: var(--size-125, 0.8125rem);
+  line-height: 1.5;
+  color: var(--color-grey-mid);
+  max-width: 28ch;
 }
 
 .footer-contact {
@@ -4266,7 +4569,48 @@ html.home-reveal-ready #works .cv-work-grid [data-reveal][data-revealed] {
   }
 
   .hero-cv .hero-content {
-    padding: 32px 1.5rem;
+    padding: clamp(5rem, 12vw, 6.5rem) 1.25rem 2.5rem;
+  }
+
+  #overview.hero-duality-stage .hero-type-stage {
+    min-height: auto;
+    padding-top: 0;
+  }
+
+  #overview .hero-display-line--design {
+    font-size: clamp(2.5rem, 12vw, 3.75rem);
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  #overview .hero-display-line--build {
+    font-size: clamp(2.15rem, 10vw, 3.25rem);
+    margin-left: 0;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  #overview .hero-display {
+    text-align: center;
+  }
+
+  #overview .hero-portrait-static {
+    justify-content: center;
+  }
+
+  #overview .hero-support-line,
+  #overview .hero-availability {
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  #overview .hero-level-label {
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  #overview .hero-cv .cta-row {
+    justify-content: center;
   }
 
   .hero-duality {
@@ -4711,7 +5055,7 @@ html.home-reveal-ready #works .cv-work-grid [data-reveal][data-revealed] {
   background:
     radial-gradient(
       720px 420px at 14% 18%,
-      color-mix(in srgb, var(--color-cyan-light, #7ddff2), transparent 58%),
+      color-mix(in srgb, var(--color-core-teal), transparent 58%),
       transparent 70%
     ),
     radial-gradient(

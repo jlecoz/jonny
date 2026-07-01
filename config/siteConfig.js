@@ -10,7 +10,34 @@ export const siteConfig = {
   adobeFontsKitIds: ["ejw0fwc"],
   brand: {
     logoText: "JONATHAN LE COZ",
+    /* CONFIRM — canonical searchable title (<title>, og:*, twitter:*, footer) */
+    canonicalTitle: "Jonathan Le Coz — Design Director",
+    /* CONFIRM — hero level label (directly above lead line) */
+    roleTitle: "Design Director",
+    /* CONFIRM — sub-descriptor (footer; not shown in hero) */
+    subDescriptor:
+      "Design systems · experience · front-end-literate leadership",
+    /* Demoted — optional decorative tagline only; never primary identity */
     tagline: "Experiential Designer",
+  },
+  /* CONFIRM — geography / availability (hero + home contact section) */
+  availability:
+    "Returning to continental Europe — open to Design Director / Head of Design roles across Belgium & the Netherlands.",
+  seo: {
+    /* CONFIRM — meta description; leads with recruiter-searchable leadership terms */
+    description:
+      "Design Director & Head of Design — design systems, design leadership, and front-end-literate product direction. Open to roles across Benelux (Belgium & Netherlands). 20+ years across brand, product and web technology.",
+    keywords: [
+      "Design Director",
+      "Head of Design",
+      "design systems",
+      "design leadership",
+      "Benelux",
+      "Belgium",
+      "Netherlands",
+      "product design leadership",
+      "Jonathan Le Coz",
+    ],
   },
   contact: {},
   theme: {

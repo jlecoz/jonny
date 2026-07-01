@@ -11,7 +11,7 @@ import { worksProjects } from "@/config/worksProjects";
 
 import { cv, linkedInRecommendationsUrl } from "@/config/cvData";
 
-const works = worksProjects;
+const works = worksProjects.filter((item) => item.published !== false);
 
 function WorksSection() {
   return (
@@ -183,10 +183,7 @@ export default function HomePage() {
   return (
     <>
       <MainSectionParallax />
-      <HeroOverviewSection
-        meta={cv.meta}
-        title={cv.title}
-      />
+      <HeroOverviewSection />
       <WorksSection />
       <HowIThinkMoment />
       <RecommendationsSection />

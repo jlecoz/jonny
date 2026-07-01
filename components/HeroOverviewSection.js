@@ -2,38 +2,152 @@
 
 import { useEffect, useRef, useState } from "react";
 import { siteConfig } from "@/config/siteConfig";
-import HeroGoldScramble from "@/components/HeroGoldScramble";
-import ScrollReveal from "@/components/ScrollReveal";
+import { cv } from "@/config/cvData";
 import { useScrollParallax } from "@/lib/useScrollParallax";
 
-export default function HeroOverviewSection({ meta, title }) {
-  const sectionRef = useRef(null);
-  const [activeAvatarRole, setActiveAvatarRole] = useState(null);
-  const [supportsHover, setSupportsHover] = useState(true);
+const HERO_DISPLAY_HOOK = "I design. And I build.";
+const HERO_CODE_TOKEN = "the front-end";
+
+function useHeroInteractionMode() {
+  const [staticMode, setStaticMode] = useState(true);
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
-    const mq = window.matchMedia("(hover: hover) and (pointer: fine)");
-    const update = () => setSupportsHover(Boolean(mq.matches));
-    update();
-    mq.addEventListener("change", update);
-    return () => mq.removeEventListener("change", update);
+    if (typeof window === "undefined") return undefined;
+
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const smallViewport = window.matchMedia("(max-width: 767px)");
+
+    const sync = () => {
+      setStaticMode(reducedMotion.matches || smallViewport.matches);
+    };
+
+    sync();
+    reducedMotion.addEventListener("change", sync);
+    smallViewport.addEventListener("change", sync);
+
+    return () => {
+      reducedMotion.removeEventListener("change", sync);
+      smallViewport.removeEventListener("change", sync);
+    };
   }, []);
 
-  useEffect(() => {
-    // On touch/mobile (no hover), default to showing the designer side and keep it stable.
-    if (!supportsHover && activeAvatarRole == null) {
-      setActiveAvatarRole("designer");
-    }
-  }, [supportsHover, activeAvatarRole]);
+  return staticMode;
+}
 
-  const showDesignerAvatar = () => setActiveAvatarRole("designer");
-  const showCoderAvatar = () => setActiveAvatarRole("coder");
-  const updateAvatarFromPointer = (event) => {
-    const rect = event.currentTarget.getBoundingClientRect();
-    const nextRole = event.clientX < rect.left + rect.width / 2 ? "designer" : "coder";
-    setActiveAvatarRole((currentRole) => (currentRole === nextRole ? currentRole : nextRole));
-  };
+function useDeferredAnimationEmbed() {
+  const hostRef = useRef(null);
+  const [shouldMount, setShouldMount] = useState(false);
+  const [useStaticFallback, setUseStaticFallback] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return undefined;
+
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const smallViewport = window.matchMedia("(max-width: 767px)");
+
+    const syncFallback = () => {
+      setUseStaticFallback(reducedMotion.matches || smallViewport.matches);
+    };
+
+    syncFallback();
+    reducedMotion.addEventListener("change", syncFallback);
+    smallViewport.addEventListener("change", syncFallback);
+
+    if (reducedMotion.matches || smallViewport.matches) {
+      return () => {
+        reducedMotion.removeEventListener("change", syncFallback);
+        smallViewport.removeEventListener("change", syncFallback);
+      };
+    }
+
+    const host = hostRef.current;
+    if (!host) {
+      return () => {
+        reducedMotion.removeEventListener("change", syncFallback);
+        smallViewport.removeEventListener("change", syncFallback);
+      };
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShouldMount(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "120px" }
+    );
+
+    observer.observe(host);
+
+    return () => {
+      observer.disconnect();
+      reducedMotion.removeEventListener("change", syncFallback);
+      smallViewport.removeEventListener("change", syncFallback);
+    };
+  }, []);
+
+  return { hostRef, shouldMount, useStaticFallback };
+}
+
+function useDualityBlend(stageRef, staticMode) {
+  const [blend, setBlend] = useState(0);
+
+  useEffect(() => {
+    if (staticMode) {
+      setBlend(0);
+      return undefined;
+    }
+
+    const stage = stageRef.current;
+    if (!stage) return undefined;
+
+    const onPointerMove = (event) => {
+      const rect = stage.getBoundingClientRect();
+      const ratio = (event.clientX - rect.left) / rect.width;
+      setBlend(Math.min(1, Math.max(0, ratio)));
+    };
+
+    const onPointerLeave = () => setBlend(0);
+
+    stage.addEventListener("pointermove", onPointerMove);
+    stage.addEventListener("pointerleave", onPointerLeave);
+
+    return () => {
+      stage.removeEventListener("pointermove", onPointerMove);
+      stage.removeEventListener("pointerleave", onPointerLeave);
+    };
+  }, [stageRef, staticMode]);
+
+  return blend;
+}
+
+function HeroSupportLine({ text }) {
+  const tokenIndex = text.indexOf(HERO_CODE_TOKEN);
+  if (tokenIndex === -1) {
+    return <p className="hero-support-line">{text}</p>;
+  }
+
+  const before = text.slice(0, tokenIndex);
+  const after = text.slice(tokenIndex + HERO_CODE_TOKEN.length);
+
+  return (
+    <p className="hero-support-line">
+      {before}
+      <code className="hero-code-token">{HERO_CODE_TOKEN}</code>
+      {after}
+    </p>
+  );
+}
+
+export default function HeroOverviewSection() {
+  const sectionRef = useRef(null);
+  const typeStageRef = useRef(null);
+  const staticMode = useHeroInteractionMode();
+  const dualityBlend = useDualityBlend(typeStageRef, staticMode);
+  const { hostRef, shouldMount, useStaticFallback } = useDeferredAnimationEmbed();
+
+  const heroSupport = cv.heroLead.slice(HERO_DISPLAY_HOOK.length).trim();
 
   useScrollParallax(
     () => {
@@ -43,135 +157,109 @@ export default function HeroOverviewSection({ meta, title }) {
         root,
         bg: root.querySelector(".hero-bg-embed"),
         fg: root.querySelector(".hero-content"),
-        pinnedFg: root.querySelector(".hero-cv-avatar"),
       };
     },
     { bgRate: 0.22, fgRate: -0.075, bgScale: 1.08, maxTravel: 200 }
   );
 
   return (
-    <section ref={sectionRef} className="hero hero-cv" id="overview">
-      <div className="hero-bg-embed" aria-hidden="true">
-        <iframe
-          className="hero-bg-iframe"
-          src="/animations/digital_ronin_bg_4k.html"
-          title=""
-          loading="eager"
-        />
+    <section ref={sectionRef} className="hero hero-cv hero-duality-stage" id="overview">
+      <div ref={hostRef} className="hero-bg-embed" aria-hidden="true">
+        {useStaticFallback ? (
+          <div className="hero-bg-static" />
+        ) : shouldMount ? (
+          <iframe
+            className="hero-bg-iframe"
+            src="/animations/digital_ronin_bg_4k.html"
+            title=""
+            loading="lazy"
+          />
+        ) : null}
         <div className="hero-bg-dim" />
       </div>
+
       <div className="hero-content">
+        <p className="hero-level-label">{siteConfig.brand.roleTitle}</p>
+
         <div
-          className={`hero-duality${activeAvatarRole ? ` is-avatar-${activeAvatarRole}` : ""}`}
-          aria-label="Designer and coder overview"
-          onPointerMove={supportsHover ? updateAvatarFromPointer : undefined}
-          onPointerLeave={supportsHover ? () => setActiveAvatarRole(null) : undefined}
+          ref={typeStageRef}
+          className={`hero-type-stage${staticMode ? " is-static" : " is-interactive"}`}
+          aria-label="Designer and builder duality — move pointer across to cross-fade portraits"
         >
-          <div className="hero-duality-inner" data-reveal>
+          {!staticMode ? (
             <div
-              className="hero-role hero-role--designer"
-              role="button"
-              tabIndex={0}
-              onClick={showDesignerAvatar}
-              onKeyDown={(event) => {
-                if (event.key === "Enter" || event.key === " ") {
-                  event.preventDefault();
-                  showDesignerAvatar();
-                }
-              }}
-              onPointerEnter={showDesignerAvatar}
+              className="hero-portrait-reveal"
+              style={{ "--duality-blend": dualityBlend }}
+              aria-hidden="true"
             >
-              <p className="hero-role-title">designer</p>
-              <p className="hero-role-copy">
-                Product designer specialising in UX strategy, design systems and customer-centred product direction.
-              </p>
+              <img
+                className="hero-portrait-reveal-img hero-portrait-reveal-img--designer"
+                src="/img/designer-portrait-illustration.webp"
+                alt=""
+                width={420}
+                height={420}
+                loading="eager"
+                decoding="async"
+              />
+              <img
+                className="hero-portrait-reveal-img hero-portrait-reveal-img--coder"
+                src="/img/developer-portrait-illustration.webp"
+                alt=""
+                width={420}
+                height={420}
+                loading="lazy"
+                decoding="async"
+              />
             </div>
+          ) : (
+            <div className="hero-portrait-static" aria-hidden="true">
+              <img
+                src="/img/designer-portrait-illustration.webp"
+                alt=""
+                width={160}
+                height={160}
+                loading="eager"
+                decoding="async"
+              />
+              <img
+                src="/img/developer-portrait-illustration.webp"
+                alt=""
+                width={160}
+                height={160}
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+          )}
 
-            <div className="hero-cv-avatar">
-              <div className="hero-avatar-flip" aria-label="Jonathan portrait illustration flip">
-                <img
-                  className="hero-cv-avatar-img hero-avatar-flip-face hero-avatar-flip-face--photo"
-                  src="/img/hero-jonathan-portrait.webp"
-                  alt="Jonathan Le Coz, Experiential Designer"
-                  width={330}
-                  height={330}
-                  loading="eager"
-                  decoding="async"
-                />
-                <img
-                  className="hero-avatar-illustration hero-avatar-illustration--designer hero-avatar-flip-face hero-avatar-flip-face--illustration"
-                  src="/img/designer-portrait-illustration.webp"
-                  alt=""
-                  aria-hidden="true"
-                  width={330}
-                  height={330}
-                  loading="eager"
-                  decoding="async"
-                />
-                <img
-                  className="hero-avatar-illustration hero-avatar-illustration--coder hero-avatar-flip-face hero-avatar-flip-face--illustration"
-                  src="/img/developer-portrait-illustration.webp"
-                  alt=""
-                  aria-hidden="true"
-                  width={330}
-                  height={330}
-                  loading="eager"
-                  decoding="async"
-                />
-              </div>
-            </div>
-
-            <div
-              className="hero-role hero-role--coder"
-              role="button"
-              tabIndex={0}
-              onClick={showCoderAvatar}
-              onKeyDown={(event) => {
-                if (event.key === "Enter" || event.key === " ") {
-                  event.preventDefault();
-                  showCoderAvatar();
-                }
-              }}
-              onPointerEnter={showCoderAvatar}
-            >
-              <p className="hero-role-title">&lt;coder&gt;</p>
-              <p className="hero-role-copy">
-                Front-end minded design leader who prototypes, builds and partners closely with engineering teams.
-              </p>
-            </div>
-          </div>
+          <h1 className="hero-display">
+            <span className="hero-display-line hero-display-line--design">I design.</span>
+            <span className="hero-display-line hero-display-line--build">And I build.</span>
+            <span className="sr-only"> {heroSupport}</span>
+          </h1>
         </div>
 
-        <h1 className="hero-headline" data-reveal>
-          <HeroGoldScramble text={title} />
-        </h1>
+        <HeroSupportLine text={heroSupport} />
 
-        <ScrollReveal>
-          <p className="eyebrow" data-reveal>
-            {meta}
-          </p>
-        </ScrollReveal>
+        <p className="hero-availability">{siteConfig.availability}</p>
 
-        <ScrollReveal className="cta-row" stagger>
+        <div className="cta-row">
           <a
-            className="button button-gold reveal reveal-right"
+            className="button button-gold"
             href="/JLC_CV-2026.pdf"
             download="Jonathan-Le-Coz-CV-2026.pdf"
-            data-reveal
           >
             CV
           </a>
           <a
-            className="button button-secondary reveal reveal-left"
+            className="button button-secondary"
             href={siteConfig.social.linkedin}
             target="_blank"
             rel="noopener noreferrer"
-            data-reveal
           >
             LinkedIn
           </a>
-        </ScrollReveal>
-
+        </div>
       </div>
     </section>
   );

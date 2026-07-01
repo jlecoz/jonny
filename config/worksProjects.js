@@ -200,6 +200,7 @@ export const worksProjects = [
   },
   {
     slug: "loyalty-program",
+    published: false,
     title: "Loyalty Program",
     client: "Imperial Brands",
     blurb: "Consumer loyalty scheme with points and rewards for purchases on blu.com",
@@ -269,6 +270,7 @@ export const worksProjects = [
   },
   {
     slug: "hospitality-app",
+    published: false,
     title: "Hospitality App",
     client: "Ser.vi",
     blurb: "Consumer restaurant menu self-service to in-kitchen printing for staff",

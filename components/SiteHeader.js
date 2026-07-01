@@ -9,7 +9,7 @@ export default function SiteHeader() {
 
   return (
     <header className="site-header">
-      <Link href="/" className="logo-link" aria-label="Home">
+      <Link href="/" className="logo-link" aria-label={`${siteConfig.brand.canonicalTitle}, home`}>
         <img src="/img/digital_ronin.svg" alt="" className="logo-mark" aria-hidden="true" />
         <div className="logo-text">
           <strong className="logo-text-shimmer">{siteConfig.brand.logoText}</strong>

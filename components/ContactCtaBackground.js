@@ -1,11 +1,61 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useScrollParallax } from "@/lib/useScrollParallax";
 
-/** Full-bleed canvas animation behind contact CTA (iframe loads public animation). */
+/** Full-bleed canvas animation behind contact CTA — deferred so it never blocks first paint. */
 export default function ContactCtaBackground() {
   const embedRef = useRef(null);
+  const [shouldMount, setShouldMount] = useState(false);
+  const [useStaticFallback, setUseStaticFallback] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return undefined;
+
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const smallViewport = window.matchMedia("(max-width: 767px)");
+
+    const syncFallback = () => {
+      setUseStaticFallback(reducedMotion.matches || smallViewport.matches);
+    };
+
+    syncFallback();
+    reducedMotion.addEventListener("change", syncFallback);
+    smallViewport.addEventListener("change", syncFallback);
+
+    if (reducedMotion.matches || smallViewport.matches) {
+      return () => {
+        reducedMotion.removeEventListener("change", syncFallback);
+        smallViewport.removeEventListener("change", syncFallback);
+      };
+    }
+
+    const embed = embedRef.current;
+    if (!embed) {
+      return () => {
+        reducedMotion.removeEventListener("change", syncFallback);
+        smallViewport.removeEventListener("change", syncFallback);
+      };
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShouldMount(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "160px" }
+    );
+
+    observer.observe(embed);
+
+    return () => {
+      observer.disconnect();
+      reducedMotion.removeEventListener("change", syncFallback);
+      smallViewport.removeEventListener("change", syncFallback);
+    };
+  }, []);
 
   useScrollParallax(
     () => {
@@ -20,12 +70,16 @@ export default function ContactCtaBackground() {
 
   return (
     <div ref={embedRef} className="contact-cta-bg-embed" aria-hidden="true">
-      <iframe
-        className="contact-cta-bg-iframe"
-        src="/animations/fiber_optic_deepsea_slow.html"
-        title=""
-        loading="lazy"
-      />
+      {useStaticFallback ? (
+        <div className="contact-cta-bg-static" />
+      ) : shouldMount ? (
+        <iframe
+          className="contact-cta-bg-iframe"
+          src="/animations/fiber_optic_deepsea_slow.html"
+          title=""
+          loading="lazy"
+        />
+      ) : null}
       <div className="contact-cta-bg-dim" />
     </div>
   );

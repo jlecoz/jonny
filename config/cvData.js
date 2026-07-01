@@ -10,7 +10,12 @@ export const linkedInRecommendationsUrl =
 
 export const cv = {
   name: "Jonathan Le Coz",
-  title: "Experiential Design",
+  /* CONFIRM — hero lead line (verbatim) */
+  heroLead:
+    "I design. And I build. Twenty years of both. And I still write the front-end.",
+  /* CONFIRM — removed from hero UI: scrambled "Experiential Designer" headline.
+     Restore decorativeTagline + HeroGoldScramble only if Star wants it back. */
+  decorativeTagline: "Experiential Designer",
   meta: "20+ years of creative arts, brand design and web technology",
   email: "jonathan.lecoz@gmail.com",
   languages: [
