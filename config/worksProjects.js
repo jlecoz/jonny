@@ -139,6 +139,8 @@ export const worksProjects = [
     coverImage: "/img/works-booking-taxi.png",
     coverImageWidth: 1024,
     coverImageHeight: 581,
+    coverImageClassName: "cv-work-card-cover-img--contain",
+    coverBackgroundColor: "#003580",
     coverAlt: "Booking.com Taxi — pre-book airport transfer",
     documentationHref: "/booking-taxi-flow-case-study.html",
     caseStudy: {
