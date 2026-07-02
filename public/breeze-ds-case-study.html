@@ -37,41 +37,44 @@ p { max-width: 70ch; line-height: 1.7; }
 ::selection { background: var(--color-accent); color: var(--color-bg); }
 
 /* ── HEADER ── */
-.site-header {
-  position: sticky; top: 0; z-index: 100;
-  display: flex; justify-content: space-between; align-items: center; gap: 1rem;
-  padding: 1.1rem 2rem;
+.dr-site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.1rem clamp(20px, 6vw, 96px);
   backdrop-filter: blur(20px) saturate(1.5);
   -webkit-backdrop-filter: blur(20px) saturate(1.5);
   background: color-mix(in srgb, var(--color-bg), transparent 8%);
   border-bottom: 1px solid var(--color-border);
-  animation: header-in var(--duration-mid) var(--ease) both;
 }
-@keyframes header-in {
-  from { opacity:0; transform:translateY(12px); }
-  to   { opacity:1; transform:translateY(0); }
+.dr-site-back {
+  font-family: var(--font-label);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-grey);
+  text-decoration: none;
+  padding: 0.45rem 0.7rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.35rem;
+  transition: color var(--duration-fast) var(--ease), border-color var(--duration-fast) var(--ease), background var(--duration-fast) var(--ease);
 }
-.logo-text strong {
-  font-family: var(--font-display);
-  letter-spacing: 0.18em; font-size: clamp(12px, 0.9rem + 0.4vw, 16px);
-  font-weight: 700; text-transform: uppercase;
-}
-.header-meta {
-  font-family: var(--font-mono); font-size: 11px;
-  color: var(--color-grey-mid); text-align: right; line-height: 1.8; letter-spacing: 0.04em;
-}
-.header-nav {
-  display: flex; align-items: center; gap: 0.15rem;
-}
-.header-nav a {
-  font-family: var(--font-label); font-size: var(--size-150); font-weight: 500;
-  text-transform: uppercase; letter-spacing: 0.15em;
-  color: var(--color-grey); padding: 0.4rem 0.6rem; border-radius: 0.35rem;
-  transition: color var(--duration-fast) var(--ease), background var(--duration-fast) var(--ease);
-}
-.header-nav a:hover {
+.dr-site-back:hover {
   color: var(--color-fg);
   background: color-mix(in srgb, var(--color-surface), transparent 40%);
+  border-color: var(--color-accent);
+}
+.dr-site-meta {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-grey-mid);
 }
 
 /* ── LAYOUT ── */
@@ -536,9 +539,6 @@ table.data-table { width: 100%; border-collapse: collapse; font-size: var(--size
   .roadmap-phase { grid-template-columns: 1fr; }
   .footer-inner { grid-template-columns: 1fr; }
 }
-@media (prefers-reduced-motion: reduce) { .site-header { animation: none; } }
-
-/* ── Brand logos in cards ── */
 .brand-logo-wrap {
   display: flex;
   align-items: center;
@@ -584,19 +584,9 @@ table.data-table { width: 100%; border-collapse: collapse; font-size: var(--size
 </head>
 <body>
 
-<!-- HEADER -->
-<header class="site-header">
-  <div style="display:flex;align-items:center;gap:1.5rem;">
-    <nav class="header-nav">
-      <a href="#brief">Brief</a>
-      <a href="#system">System</a>
-      <a href="#process">Process</a>
-      <a href="#roadmap">Roadmap</a>
-      <a href="#outcomes">Outcomes</a>
-      <a href="#context">Context</a>
-    </nav>
-  </div>
-  <div class="header-meta">Case Study · Imperial Brands NGP<br>Breeze DS · Director of Digital Experience</div>
+<header class="dr-site-header">
+  <a class="dr-site-back" href="/#works">← Works</a>
+  <span class="dr-site-meta">Case study · Imperial Brands NGP</span>
 </header>
 
 
@@ -607,23 +597,42 @@ table.data-table { width: 100%; border-collapse: collapse; font-size: var(--size
   <div class="hero-glow" aria-hidden="true"></div>
   <div class="page-shell">
     <div class="hero-content">
-      <p class="eyebrow">Design System Leadership · Imperial Brands PLC</p>
-      <h1 class="hero-headline">Breeze DS —<br><span class="gold">NGP Digital</span></h1>
-      <p class="lead">Architecting and delivering a true multi-brand whitelabel design system for Imperial Brands' Next Generation Products digital pillar — serving three consumer product lines from a single, token-driven component library across global markets.</p>
-      <div class="cs"><aside class="tldr" aria-label="Case study summary">
-        <p class="k">In short</p>
-        <p class="thesis">Breeze isn’t a component library. It’s the capability that
-           keeps four brands coherent without a bottleneck.</p>
-        <p>NGP Digital was shipping blu, Pulze, Trade App and Zone from siloed
-           codebases — every market launch a rebuild. I identified the need, built the
-           business case, hired the specialist capability that didn’t exist, and
-           architected a token-driven House-of-Brands system where a full rebrand
-           propagates through token updates alone — no component touched.</p>
-        <p class="result">Result: 3 brands from 1 library · 0 overrides at brand
-           switch · ~40% faster dev, 80% lower cost per brand (projected · launches
-           Q1 2026).</p>
-        <a class="jump" href="#outcomes">Jump to outcomes ↓</a>
-      </aside></div>
+      <!-- CONFIRM — eyebrow -->
+      <p class="eyebrow">Case study · Imperial Brands NGP · Director of Digital Experience</p>
+      <!-- CONFIRM — knockout headline -->
+      <h1 class="hero-headline">One system that re-skins an entire brand — without touching a single component.</h1>
+      <!-- CONFIRM — subline -->
+      <p class="lead">A token-driven, white-label design system built to scale across Imperial's portfolio — and the in-house team I hired to run it.</p>
+
+      <div class="cs" style="margin: 2rem 0;">
+        <p class="cs-eyebrow" id="bz-hero-metrics">Results</p>
+        <div class="cs-metrics" role="list" aria-labelledby="bz-hero-metrics">
+          <div class="cs-metric" role="listitem">
+            <div class="cs-fig">3→1</div>
+            <div class="cs-lbl">Consumer brands from one master library (NGP · blu · Pulze)</div>
+            <div class="cs-src">System architecture · PoC validation</div>
+          </div>
+          <div class="cs-metric" role="listitem">
+            <div class="cs-fig">0</div>
+            <div class="cs-lbl">Custom overrides at brand switch</div>
+            <div class="cs-src">Validated · button PoC</div>
+          </div>
+          <div class="cs-metric" role="listitem">
+            <div class="cs-fig">~40%</div>
+            <div class="cs-lbl">Faster dev velocity</div>
+            <div class="cs-src">Industry benchmark · projected</div>
+          </div>
+          <div class="cs-metric" role="listitem">
+            <div class="cs-fig">~80%</div>
+            <div class="cs-lbl">Lower cost per new brand</div>
+            <div class="cs-src">Whitelabel comparables · projected</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CONFIRM — what shipped -->
+      <p class="lead" style="max-width: 64ch; margin-bottom: 0;">A House-of-Brands, six-layer token architecture where a full rebrand propagates through token updates alone. I identified the need, built the business case, hired the capability that didn't exist, and own its governance. Launches Q1 2026 — adoption figures are projected from comparable systems.</p>
+
       <div class="hero-meta-row">
         <span class="hero-tag accent">Director of Digital Experience</span>
         <span class="hero-tag accent">Design System Architecture</span>
@@ -1182,23 +1191,23 @@ table.data-table { width: 100%; border-collapse: collapse; font-size: var(--size
       <div class="cs-metrics" role="list" aria-labelledby="bz-outcomes-metrics">
         <div class="cs-metric" role="listitem">
           <div class="cs-fig">3→1</div>
-          <div class="cs-lbl">Consumer brands served from one master library (NGP · blu · Pulze)</div>
+          <div class="cs-lbl">Consumer brands from one master library (NGP · blu · Pulze)</div>
           <div class="cs-src">System architecture · PoC validation</div>
         </div>
         <div class="cs-metric" role="listitem">
           <div class="cs-fig">0</div>
-          <div class="cs-lbl">Custom overrides required at brand switch (button PoC gate)</div>
-          <div class="cs-src">Token Studio · Q1 2025 PoC</div>
+          <div class="cs-lbl">Custom overrides at brand switch</div>
+          <div class="cs-src">Validated · button PoC</div>
         </div>
         <div class="cs-metric" role="listitem">
-          <div class="cs-fig">40%</div>
-          <div class="cs-lbl">Faster dev velocity from a unified component library (projected)</div>
-          <div class="cs-src">Industry benchmark · cited in case study</div>
+          <div class="cs-fig">~40%</div>
+          <div class="cs-lbl">Faster dev velocity</div>
+          <div class="cs-src">Industry benchmark · projected</div>
         </div>
         <div class="cs-metric" role="listitem">
-          <div class="cs-fig">80%</div>
-          <div class="cs-lbl">Cost reduction per new brand instantiation (projected)</div>
-          <div class="cs-src">Industry benchmark · whitelabel DS comparables</div>
+          <div class="cs-fig">~80%</div>
+          <div class="cs-lbl">Lower cost per new brand</div>
+          <div class="cs-src">Whitelabel comparables · projected</div>
         </div>
       </div>
     </div>

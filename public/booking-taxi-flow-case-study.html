@@ -77,26 +77,45 @@ p { max-width: 70ch; line-height: 1.7; }
 ::selection { background: var(--color-accent); color: var(--color-fg); }
 
 /* ── HEADER ── */
-.site-header {
-  position: sticky; top: 0; z-index: 100;
-  display: flex; justify-content: space-between; align-items: center; gap: 1rem;
-  padding: 1.1rem 2rem;
+.dr-site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.1rem clamp(20px, 6vw, 96px);
   backdrop-filter: blur(20px) saturate(1.5);
   -webkit-backdrop-filter: blur(20px) saturate(1.5);
   background: color-mix(in srgb, var(--color-bg), transparent 8%);
   border-bottom: 1px solid var(--color-border);
-  animation: header-in var(--duration-mid) var(--ease) both;
 }
-@keyframes header-in { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
-.header-meta { font-family: var(--font-mono); font-size: 11px; color: var(--color-grey-mid); text-align: right; line-height: 1.8; letter-spacing: 0.04em; }
-.header-nav { display: flex; align-items: center; gap: 0.15rem; flex-wrap: wrap; }
-.header-nav a {
-  font-family: var(--font-label); font-size: var(--size-150); font-weight: 500;
-  text-transform: uppercase; letter-spacing: 0.15em;
-  color: var(--color-grey); padding: 0.4rem 0.6rem; border-radius: 0.35rem;
-  transition: color var(--duration-fast) var(--ease), background var(--duration-fast) var(--ease);
+.dr-site-back {
+  font-family: var(--font-label);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-grey);
+  text-decoration: none;
+  padding: 0.45rem 0.7rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.35rem;
+  transition: color var(--duration-fast) var(--ease), border-color var(--duration-fast) var(--ease), background var(--duration-fast) var(--ease);
 }
-.header-nav a:hover { color: var(--color-accent-hover); background: var(--color-surface); }
+.dr-site-back:hover {
+  color: var(--color-fg);
+  background: color-mix(in srgb, var(--color-surface), transparent 40%);
+  border-color: var(--color-accent);
+}
+.dr-site-meta {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-grey-mid);
+}
 
 /* ── LAYOUT ── */
 .page-shell { max-width: 1120px; margin: 0 auto; padding: 0 1.5rem; }
@@ -190,6 +209,7 @@ p { max-width: 70ch; line-height: 1.7; }
 .cs-fig { font-family: var(--font-display); font-weight: 700; font-size: clamp(30px, 4vw, 42px); line-height: 1; color: var(--color-deep-teal); }
 .cs-lbl { font-size: 13.5px; color: var(--color-grey-mid); margin-top: 10px; line-height: 1.45; max-width: none; }
 .cs-src { font-family: var(--font-label); font-weight: 500; font-size: 10px; line-height: 1; letter-spacing: 0.06em; text-transform: uppercase; color: color-mix(in srgb, var(--color-fg), transparent 55%); margin-top: 12px; max-width: none; }
+.cs-metric--todo .cs-fig { font-size: clamp(18px, 2.5vw, 22px); letter-spacing: 0.04em; color: var(--color-deep-teal); }
 
 /* ── STAT STRIP ── */
 .stat-strip { display: grid; gap: 1px; background: var(--color-border); border: 1px solid var(--color-border); border-radius: 0.6rem; overflow: hidden; margin-bottom: 2.5rem; }
@@ -323,24 +343,13 @@ table.data-table { width: 100%; border-collapse: collapse; font-size: var(--size
   .roadmap-phase { grid-template-columns: 1fr; }
   .footer-inner { grid-template-columns: 1fr; }
 }
-@media (prefers-reduced-motion: reduce) { .site-header { animation: none; } }
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
-<header class="site-header">
-  <div style="display:flex;align-items:center;gap:1.5rem;">
-    <nav class="header-nav">
-      <a href="#brief">Brief</a>
-      <a href="#workshop">Workshop</a>
-      <a href="#narrative">Narrative</a>
-      <a href="#flow">Flow</a>
-      <a href="#outcomes">Outcomes</a>
-      <a href="#open">Open Questions</a>
-    </nav>
-  </div>
-  <div class="header-meta">Workshop Recap · Booking.com / BookingGo Taxi<br>Pre-Book Taxi Flow · Q2 2019</div>
+<header class="dr-site-header">
+  <a class="dr-site-back" href="/#works">← Works</a>
+  <span class="dr-site-meta">Case study · Booking.com</span>
 </header>
 
 
@@ -349,16 +358,42 @@ table.data-table { width: 100%; border-collapse: collapse; font-size: var(--size
   <div class="hero-glow" aria-hidden="true"></div>
   <div class="page-shell">
     <div class="hero-content">
-      <p class="eyebrow">Service Design Workshop · Booking.com BookingGo</p>
-      <h1 class="hero-headline">Taxi Flow —<br><span class="gold">Q2 2019</span></h1>
-      <p class="lead">A one-day team workshop that took a written user narrative, built it out into screens on the wall, reviewed them together, and converged on the pre-book taxi flow that went into implementation for testing.</p>
-      <div class="cs"><aside class="tldr" aria-label="Recap summary">
-        <p class="k">In short</p>
-        <p class="thesis">We didn't start from screens. We started from a story — and let it tell us which screens to build.</p>
-        <p>The team had journey screens up on the wall but were reviewing them in isolation, and the questions were piling up on sticky notes. So we wrote one narrative — a Genius traveller pre-booking a Schiphol-to-hotel transfer — pinned the screens to each beat of that story, and critiqued the gaps as a team.</p>
-        <p class="result">Outcome: a single, agreed pre-book Taxi Flow (Q2 2019) — 5 stages, 4 vehicle tiers, and a guest + signed-in Easy Checkout — handed to engineering for testing.</p>
-        <a class="jump" href="#flow">Jump to the flow ↓</a>
-      </aside></div>
+      <!-- CONFIRM — eyebrow -->
+      <p class="eyebrow">Case study · Booking.com · Experience Design Lead</p>
+      <!-- CONFIRM — knockout headline -->
+      <h1 class="hero-headline">A complex pre-book flow, converged in a single day — and handed to engineering ready to test.</h1>
+      <!-- CONFIRM — subline -->
+      <p class="lead">We started from the customer's story and let it tell us which screens to build.</p>
+
+      <div class="cs" style="margin: 2rem 0;">
+        <p class="cs-eyebrow" id="tx-hero-metrics">Results</p>
+        <div class="cs-metrics" role="list" aria-labelledby="tx-hero-metrics">
+          <div class="cs-metric" role="listitem">
+            <div class="cs-fig">1 day</div>
+            <div class="cs-lbl">BookingGo workshop → a single converged direction</div>
+            <div class="cs-src">Workshop method</div>
+          </div>
+          <div class="cs-metric" role="listitem">
+            <div class="cs-fig">5</div>
+            <div class="cs-lbl">Stages in the pre-book airport-transfer flow</div>
+            <div class="cs-src">Taxi Flow · Q2 2019</div>
+          </div>
+          <div class="cs-metric" role="listitem">
+            <div class="cs-fig">4</div>
+            <div class="cs-lbl">Vehicle options</div>
+            <div class="cs-src">Search results</div>
+          </div>
+          <div class="cs-metric cs-metric--todo" role="listitem">
+            <div class="cs-fig">Guest + signed-in</div>
+            <div class="cs-lbl">Easy Checkout, handed to engineering for testing</div>
+            <div class="cs-src">Easy Checkout</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CONFIRM — what shipped -->
+      <p class="lead" style="max-width: 64ch; margin-bottom: 0;">One pre-book taxi flow for airport transfers — five stages, four vehicle tiers, guest and signed-in Easy Checkout — converged in a one-day workshop and handed to engineering for testing.</p>
+
       <div class="hero-meta-row">
         <span class="hero-tag accent">Taxi UX</span>
         <span class="hero-tag accent">Narrative-led design</span>
@@ -638,10 +673,10 @@ table.data-table { width: 100%; border-collapse: collapse; font-size: var(--size
     <div class="cs" style="margin-bottom:2.5rem;">
       <p class="cs-eyebrow" id="tx-metrics">By the numbers</p>
       <div class="cs-metrics" role="list" aria-labelledby="tx-metrics">
-        <div class="cs-metric" role="listitem"><div class="cs-fig">5</div><div class="cs-lbl">Stages in the agreed pre-book flow</div><div class="cs-src">Taxi Flow · Q2 2019</div></div>
-        <div class="cs-metric" role="listitem"><div class="cs-fig">4</div><div class="cs-lbl">Vehicle tiers, each with visible pricing</div><div class="cs-src">Search results</div></div>
-        <div class="cs-metric" role="listitem"><div class="cs-fig">2</div><div class="cs-lbl">Checkout paths reconciled — signed in &amp; guest</div><div class="cs-src">Easy Checkout</div></div>
-        <div class="cs-metric" role="listitem"><div class="cs-fig">1</div><div class="cs-lbl">Shared narrative the flow was reviewed against</div><div class="cs-src">Workshop method</div></div>
+        <div class="cs-metric" role="listitem"><div class="cs-fig">1 day</div><div class="cs-lbl">BookingGo workshop → a single converged direction</div><div class="cs-src">Workshop method</div></div>
+        <div class="cs-metric" role="listitem"><div class="cs-fig">5</div><div class="cs-lbl">Stages in the pre-book airport-transfer flow</div><div class="cs-src">Taxi Flow · Q2 2019</div></div>
+        <div class="cs-metric" role="listitem"><div class="cs-fig">4</div><div class="cs-lbl">Vehicle options</div><div class="cs-src">Search results</div></div>
+        <div class="cs-metric cs-metric--todo" role="listitem"><div class="cs-fig">Guest + signed-in</div><div class="cs-lbl">Easy Checkout, handed to engineering for testing</div><div class="cs-src">Easy Checkout</div></div>
       </div>
     </div>
 
